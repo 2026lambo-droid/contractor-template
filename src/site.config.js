@@ -15,9 +15,9 @@ export const siteConfig = {
   },
   addressLine: '123 Builder Lane, Springfield, IL 62701',
   social: {
-    facebook: 'https://facebook.com',
-    instagram: 'https://instagram.com',
-    tiktok: 'https://tiktok.com',
+    facebook: 'https://facebook.com/',
+    instagram: 'https://instagram.com/',
+    tiktok: 'https://tiktok.com/@',
   },
   businessHours: 'Mon–Fri 8am–6pm, Sat 9am–2pm',
   yearEstablished: 2010,

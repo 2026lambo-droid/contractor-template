@@ -287,3 +287,46 @@ button {
   text-align: center;
   color: var(--color-text);
 }
+
+/* Social icons — shared for header & footer; inline SVG only */
+.social-icons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text);
+  opacity: 0.9;
+  transition: opacity var(--transition);
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  border-radius: var(--radius-sm);
+}
+
+.social-icon:hover {
+  opacity: 1;
+}
+
+.social-icon:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.social-icon--disabled {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
+
+.social-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}

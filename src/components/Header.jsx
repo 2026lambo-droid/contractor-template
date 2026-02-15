@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { siteConfig } from '../site.config.js'
+import { SocialIcons } from './SocialIcons.jsx'
 import '../styles/header.css'
 
 const navLinks = [
@@ -42,13 +43,16 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <a
-          href={siteConfig?.phoneHref ?? 'tel:'}
-          className="header-cta"
-          aria-label="Call us"
-        >
-          Call {siteConfig?.phone ?? ''}
-        </a>
+        <div className="header-social-cta">
+          <SocialIcons social={siteConfig?.social} className="header-social" />
+          <a
+            href={siteConfig?.phoneHref ?? 'tel:'}
+            className="header-cta"
+            aria-label="Call us"
+          >
+            Call {siteConfig?.phone ?? ''}
+          </a>
+        </div>
         <button
           type="button"
           className="nav-toggle"
@@ -76,6 +80,10 @@ export function Header() {
           <a href={siteConfig?.phoneHref ?? 'tel:'} className="nav-mobile-cta" onClick={closeMenu}>
             Call {siteConfig?.phone ?? ''}
           </a>
+          <div className="nav-mobile-social">
+            <span className="nav-mobile-social-label">Follow us</span>
+            <SocialIcons social={siteConfig?.social} className="nav-mobile-social-icons" />
+          </div>
         </nav>
       </div>
     </header>

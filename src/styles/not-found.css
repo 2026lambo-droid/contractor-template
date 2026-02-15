@@ -1,0 +1,18 @@
+.not-found {
+  padding: var(--space-96) 0;
+  text-align: center;
+}
+
+.not-found h1 {
+  font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-16);
+  color: var(--color-text);
+}
+
+.not-found p {
+  margin-bottom: var(--space-32);
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+}

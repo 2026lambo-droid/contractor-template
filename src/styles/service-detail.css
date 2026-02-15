@@ -1,0 +1,35 @@
+.service-detail-short {
+  font-size: var(--text-lg);
+  opacity: 0.9;
+}
+
+.service-detail-content {
+  padding: var(--space-96) 0;
+}
+
+.service-detail-content .container {
+  max-width: 1120px;
+}
+
+.service-detail-body {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.service-detail-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: var(--space-24);
+  opacity: 0.9;
+}
+
+.service-detail-body p {
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-32);
+  color: var(--color-text-muted);
+}
+
+.service-detail-body .btn {
+  margin-top: var(--space-16);
+}

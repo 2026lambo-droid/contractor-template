@@ -1,0 +1,132 @@
+.site-footer {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border-light);
+  padding: var(--space-64) var(--space-24) var(--space-40);
+  margin-top: auto;
+}
+
+.footer-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-48);
+  align-items: start;
+  text-align: left;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.footer-logo {
+  font-weight: 700;
+  font-size: 1.125rem;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+}
+
+.footer-brand p {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed);
+  max-width: 260px;
+}
+
+.footer-brand a {
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.footer-brand a:hover {
+  text-decoration: underline;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.footer-links a {
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.footer-links a:hover {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.footer-links a:focus-visible,
+.footer-social a:focus-visible,
+.footer-brand a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-16);
+  margin-top: var(--space-16);
+}
+
+.footer-social a {
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.footer-social a:hover {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.footer-legal {
+  font-size: var(--text-label);
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed);
+  text-align: right;
+}
+
+.footer-legal p {
+  margin-bottom: var(--space-4);
+}
+
+.copyright {
+  margin-top: var(--space-16);
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-40);
+    text-align: center;
+  }
+
+  .footer-brand {
+    align-items: center;
+  }
+
+  .footer-brand p {
+    max-width: none;
+  }
+
+  .footer-links {
+    align-items: center;
+  }
+
+  .footer-social {
+    justify-content: center;
+  }
+
+  .footer-legal {
+    text-align: center;
+  }
+}

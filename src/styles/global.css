@@ -1,0 +1,289 @@
+/* ============================================
+   DESIGN SYSTEM — Agency-grade tokens
+   Tweak for branding: --color-primary, --radius-*, --shadow-*
+   ============================================ */
+:root {
+  /* Font */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Colors — primary is main brand (buttons, links); tweak for rebrand */
+  --color-bg: #fafafa;
+  --color-surface: #ffffff;
+  --color-surface-elevated: #f4f4f4;
+  --color-text: #0a0a0a;
+  --color-text-muted: #737373;
+  --color-border: #e5e5e5;
+  --color-border-light: #ebebeb;
+  --color-primary: #0a0a0a;
+  --color-primary-hover: #262626;
+  --color-primary-active: #404040;
+
+  /* Spacing scale (8px rhythm, 8–96) */
+  --space-4: 0.25rem;
+  --space-8: 0.5rem;
+  --space-10: 0.625rem;
+  --space-12: 0.75rem;
+  --space-16: 1rem;
+  --space-20: 1.25rem;
+  --space-24: 1.5rem;
+  --space-32: 2rem;
+  --space-40: 2.5rem;
+  --space-48: 3rem;
+  --space-56: 3.5rem;
+  --space-64: 4rem;
+  --space-80: 5rem;
+  --space-96: 6rem;
+
+  /* Radii — soft modern rounding; increase for softer look */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-2xl: 24px;
+  --radius-pill: 9999px;
+
+  /* Shadows — subtle premium depth; increase for stronger depth */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.06);
+
+  /* Typography scale — H1/H2/H3/body/label */
+  --text-label: 0.75rem;
+  --text-body: 1rem;
+  --text-body-sm: 0.875rem;
+  --text-h3: 1.125rem;
+  --text-h2: 1.5rem;
+  --text-h1: 2.25rem;
+  --text-hero: clamp(2.5rem, 5.5vw, 3.75rem);
+  /* Aliases for compatibility */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+
+  --tracking-tight: -0.025em;
+  --tracking-tighter: -0.04em;
+
+  --transition: 0.2s ease;
+  --transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Resets */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+  background: var(--color-bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  vertical-align: middle;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Buttons and button-like links: no underline on hover, pointer cursor */
+a.btn:hover,
+button:hover {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Layout */
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 var(--space-24);
+}
+
+/* Section spacing + alternating background */
+.section {
+  padding: var(--space-96) 0;
+}
+
+.section--alt {
+  background: var(--color-surface);
+}
+
+.section--tight {
+  padding: var(--space-64) 0;
+}
+
+/* Page hero (inner pages) */
+.page-hero {
+  background: var(--color-primary);
+  color: #fff;
+  padding: var(--space-64) 0;
+}
+
+.page-hero--small {
+  padding: var(--space-48) 0;
+}
+
+.page-hero h1 {
+  font-size: clamp(var(--text-h2), 4vw, var(--text-h1));
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  margin-bottom: var(--space-8);
+}
+
+.page-hero p {
+  opacity: 0.9;
+  font-size: var(--text-body);
+  font-weight: 500;
+}
+
+.back-link {
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: var(--space-16);
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+}
+
+.back-link:hover {
+  text-decoration: none;
+  color: #fff;
+}
+
+.back-link:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+}
+
+/* Buttons — pill, primary + ghost */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12) var(--space-24);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: background var(--transition), color var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+  text-decoration: none;
+}
+
+.btn-primary:active {
+  background: var(--color-primary-active);
+  transform: scale(0.98);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+}
+
+.btn-ghost:active {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.btn-ghost-dark {
+  background: transparent;
+  color: var(--color-text);
+  border: 1.5px solid var(--color-border);
+}
+
+.btn-ghost-dark:hover {
+  background: var(--color-surface-elevated);
+  border-color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.btn-ghost-dark:active {
+  background: var(--color-border-light);
+}
+
+/* Section title */
+.section-title {
+  font-size: clamp(var(--text-h2), 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  margin-bottom: var(--space-48);
+  text-align: center;
+  color: var(--color-text);
+}

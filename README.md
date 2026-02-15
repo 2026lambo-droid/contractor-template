@@ -1,16 +1,37 @@
-# React + Vite
+# Contractor Template
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A premium, agency-style contractor website template built with **React**, **Vite**, and **React Router**. Use this repo as a master template for client contractor/construction sites.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Pages:** Home, Services (index + detail by slug), About, Gallery, Reviews, Service Areas, Contact, 404
+- **UI:** Glass header, hero with background image + trust chips + Quick Info card, service cards with hover states, sticky mobile call button
+- **Config:** Single `src/site.config.js` for rebranding (company name, phone, address, hero image, etc.)
+- **SEO:** Per-page title + meta description, LocalBusiness JSON-LD schema
+- **Plain CSS:** Design tokens (colors, spacing, radii, shadows, typography), no Tailwind
 
-## React Compiler
+## Quick start
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+npm run dev
+```
 
-## Expanding the ESLint configuration
+Build for production:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm run build
+```
+
+## Using as a template
+
+1. **From GitHub:** Use **Use this template** → **Create a new repository**, or clone and push to your own repo.
+2. **Rebrand:** Edit `src/site.config.js` (company name, phone, email, address, hero image URL, social links, etc.).
+3. **Content:** Update `src/data/` (services, reviews, service areas, gallery) and replace gallery images as needed.
+
+## Tech stack
+
+- React 18
+- Vite 7
+- React Router DOM
+- Plain CSS (no Tailwind or UI libraries)

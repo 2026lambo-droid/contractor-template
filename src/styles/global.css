@@ -109,6 +109,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+#social-top-bar {
+  width: 100%;
+  display: block;
+}
+
 #root {
   display: flex;
   flex-direction: column;

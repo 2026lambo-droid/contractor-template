@@ -14,7 +14,7 @@ export function SEO({ title, description }) {
       meta.name = 'description'
       document.head.appendChild(meta)
     }
-    if (description) meta.setAttribute('content', description)
+    meta.setAttribute('content', description ?? '')
   }, [title, description])
   return null
 }

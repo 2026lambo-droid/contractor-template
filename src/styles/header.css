@@ -10,6 +10,51 @@
   transition: background var(--transition-smooth), border-color var(--transition);
 }
 
+/* Social bar — first inside header, design tokens + icons */
+.header-social-bar {
+  flex-shrink: 0;
+  background: var(--color-primary);
+  color: #fff;
+  padding: var(--space-8) var(--space-24);
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-16);
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+}
+
+.header-social-bar-label {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+}
+
+.header-social-bar .header-social-bar-icons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+.header-social-bar .social-icon {
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  min-height: 22px;
+}
+
+.header-social-bar .social-icon:hover {
+  opacity: 0.85;
+}
+
+.header-social-bar .social-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
 .header-inner {
   max-width: 1120px;
   margin: 0 auto;
@@ -68,17 +113,6 @@
   display: flex;
   align-items: center;
   gap: var(--space-16);
-}
-
-.header-social-cta .header-social,
-.header-social-cta .social-icons {
-  display: flex;
-  align-items: center;
-  gap: var(--space-12);
-}
-
-.header-social-cta .social-icon {
-  color: var(--color-text);
 }
 
 .header-cta {
@@ -247,10 +281,6 @@
 
 @media (max-width: 768px) {
   .nav-desktop {
-    display: none;
-  }
-
-  .header-social-cta .header-social {
     display: none;
   }
 

@@ -44,7 +44,6 @@ export function Header() {
           ))}
         </nav>
         <div className="header-social-cta">
-          <SocialIcons social={siteConfig?.social} className="header-social" />
           <a
             href={siteConfig?.phoneHref ?? 'tel:'}
             className="header-cta"

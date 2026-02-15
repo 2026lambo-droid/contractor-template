@@ -22,14 +22,20 @@ export function Footer() {
             <Link to="/service-areas">Service Areas</Link>
             <Link to="/contact">Contact</Link>
           </nav>
-          {siteConfig.social?.facebook || siteConfig.social?.instagram ? (
-            <div className="footer-social">
-              {siteConfig.social.facebook && (
-                <a href={siteConfig.social.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>
-              )}
-              {siteConfig.social.instagram && (
-                <a href={siteConfig.social.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
-              )}
+          {(siteConfig.social?.facebook || siteConfig.social?.instagram || siteConfig.social?.tiktok) ? (
+            <div className="footer-social-wrap">
+              <span className="footer-social-label">Follow us</span>
+              <div className="footer-social">
+                {siteConfig.social?.facebook && (
+                  <a href={siteConfig.social.facebook} target="_blank" rel="noopener noreferrer" className="footer-social-btn">Facebook</a>
+                )}
+                {siteConfig.social?.instagram && (
+                  <a href={siteConfig.social.instagram} target="_blank" rel="noopener noreferrer" className="footer-social-btn">Instagram</a>
+                )}
+                {siteConfig.social?.tiktok && (
+                  <a href={siteConfig.social.tiktok} target="_blank" rel="noopener noreferrer" className="footer-social-btn">TikTok</a>
+                )}
+              </div>
             </div>
           ) : null}
         </div>

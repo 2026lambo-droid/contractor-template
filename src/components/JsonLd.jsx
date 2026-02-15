@@ -12,7 +12,7 @@ export function JsonLd() {
     description: siteConfig.tagline || '',
     ...(siteConfig.phone && { telephone: siteConfig.phone }),
     ...(siteConfig.email && { email: siteConfig.email }),
-    ...(address.street || address.city && {
+    ...((address.street || address.city) && {
       address: {
         '@type': 'PostalAddress',
         ...(address.street && { streetAddress: address.street }),

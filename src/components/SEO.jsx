@@ -6,7 +6,7 @@ import { siteConfig } from '../site.config.js'
  */
 export function SEO({ title, description }) {
   useEffect(() => {
-    const siteName = siteConfig.companyName
+    const siteName = siteConfig?.companyName ?? 'Contractor'
     document.title = title ? `${title} | ${siteName}` : siteName
     let meta = document.querySelector('meta[name="description"]')
     if (!meta) {

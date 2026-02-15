@@ -17,6 +17,7 @@ export const siteConfig = {
   social: {
     facebook: 'https://facebook.com',
     instagram: 'https://instagram.com',
+    tiktok: 'https://tiktok.com',
   },
   businessHours: 'Mon–Fri 8am–6pm, Sat 9am–2pm',
   yearEstablished: 2010,

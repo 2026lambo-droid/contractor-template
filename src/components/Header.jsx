@@ -29,7 +29,7 @@ export function Header() {
     <header className="site-header">
       <div className="header-inner">
         <Link to="/" className="logo" onClick={closeMenu}>
-          {siteConfig.companyName}
+          {siteConfig?.companyName ?? 'Contractor'}
         </Link>
         <nav className="nav-desktop">
           {navLinks.map(({ to, label }) => (
@@ -43,11 +43,11 @@ export function Header() {
           ))}
         </nav>
         <a
-          href={siteConfig.phoneHref}
+          href={siteConfig?.phoneHref ?? 'tel:'}
           className="header-cta"
           aria-label="Call us"
         >
-          Call {siteConfig.phone}
+          Call {siteConfig?.phone ?? ''}
         </a>
         <button
           type="button"
@@ -73,8 +73,8 @@ export function Header() {
               {label}
             </Link>
           ))}
-          <a href={siteConfig.phoneHref} className="nav-mobile-cta" onClick={closeMenu}>
-            Call {siteConfig.phone}
+          <a href={siteConfig?.phoneHref ?? 'tel:'} className="nav-mobile-cta" onClick={closeMenu}>
+            Call {siteConfig?.phone ?? ''}
           </a>
         </nav>
       </div>

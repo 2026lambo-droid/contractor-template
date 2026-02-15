@@ -4,12 +4,12 @@ import '../styles/mobile-cta.css'
 export function MobileCallButton() {
   return (
     <a
-      href={siteConfig.phoneHref}
+      href={siteConfig?.phoneHref ?? 'tel:'}
       className="mobile-call-button"
       aria-label="Call us"
     >
       <span className="mobile-call-icon" aria-hidden>📞</span>
-      <span className="mobile-call-text">Call {siteConfig.phone}</span>
+      <span className="mobile-call-text">Call {siteConfig?.phone ?? ''}</span>
     </a>
   )
 }

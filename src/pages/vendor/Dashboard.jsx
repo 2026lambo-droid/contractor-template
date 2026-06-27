@@ -5,16 +5,21 @@ import { AppHeader, IconBtn } from '../../components/common/AppHeader'
 import { StatsCard } from '../../components/vendor/StatsCard'
 import { VendorOrderItem } from '../../components/vendor/OrderItem'
 import { useAuth } from '../../contexts/AuthContext'
+import { useToast } from '../../contexts/ToastContext'
 import { MOCK_VENDORS, MOCK_ORDERS } from '../../utils/mockData'
 import { ORDER_STATUS } from '../../utils/constants'
 import { formatPrice, formatRelativeTime } from '../../utils/formatters'
+import { getVendorOrders, updateOrderStatus, subscribeToOrders } from '../../services/orderBus'
 
 export function VendorDashboard() {
   const { user } = useAuth()
+  const { toast } = useToast()
   const navigate = useNavigate()
   const vendor = MOCK_VENDORS.find(v => v.id === user?.vendorId) || MOCK_VENDORS[0]
 
-  const [orders, setOrders] = useState([
+  const liveOrders = getVendorOrders(vendor?.id)
+
+  const [orders, setOrders] = useState([...liveOrders,
     {
       id: 'vord-001',
       customerId: 'cust-1',
@@ -55,15 +60,30 @@ export function VendorDashboard() {
   const todayRevenue = todayOrders.filter(o => o.status === 'delivered').reduce((s, o) => s + o.total, 0)
   const pendingCount = orders.filter(o => o.status === 'pending').length
 
+  // Subscribe to new orders placed by customers in real-time
+  useEffect(() => {
+    const unsub = subscribeToOrders(vendor?.id, (newOrder) => {
+      setOrders(prev => {
+        if (prev.find(o => o.id === newOrder.id)) return prev
+        return [{ ...newOrder, createdAt: new Date(newOrder.createdAt) }, ...prev]
+      })
+      toast(`New order from ${newOrder.customerName} — $${newOrder.total?.toFixed(2)}! 🔔`, 'success')
+    })
+    return unsub
+  }, [vendor?.id])
+
   const advanceStatus = (order) => {
     const progression = { pending: 'confirmed', confirmed: 'preparing', preparing: 'ready', ready: 'picked_up' }
     const next = progression[order.status]
-    if (next) setOrders(prev => prev.map(o => o.id === order.id ? { ...o, status: next } : o))
+    if (next) {
+      setOrders(prev => prev.map(o => o.id === order.id ? { ...o, status: next } : o))
+      updateOrderStatus(order.id, vendor?.id, next)
+    }
   }
 
   return (
     <div className="page animate-fadeIn">
-      <AppHeader actions={<IconBtn icon={Bell} badge={pendingCount} onClick={() => {}} />} />
+      <AppHeader actions={<IconBtn icon={Bell} badge={pendingCount} onClick={() => navigate('/notifications')} />} />
 
       {/* Vendor header */}
       <div style={{ padding: '0 16px 16px' }}>

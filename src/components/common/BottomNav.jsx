@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Home, Search, ShoppingCart, Clock, User, LayoutDashboard, Package, TrendingUp, Truck, Map, History } from 'lucide-react'
+import { Home, Search, ShoppingCart, Clock, User, LayoutDashboard, Package, TrendingUp, Settings, Truck, Map, History } from 'lucide-react'
 import { useAuth } from '../../contexts/AuthContext'
 import { useCart } from '../../contexts/CartContext'
 import { USER_ROLES } from '../../utils/constants'
@@ -17,13 +17,14 @@ const VENDOR_TABS = [
   { path: '/vendor/orders', icon: Package, label: 'Orders' },
   { path: '/vendor/products', icon: Search, label: 'Products' },
   { path: '/vendor/earnings', icon: TrendingUp, label: 'Earnings' },
+  { path: '/vendor/settings', icon: Settings, label: 'Settings' },
 ]
 
 const DRIVER_TABS = [
   { path: '/driver/dashboard', icon: Truck, label: 'Deliveries' },
   { path: '/driver/active', icon: Map, label: 'Active' },
   { path: '/driver/history', icon: History, label: 'History' },
-  { path: '/profile', icon: User, label: 'Profile' },
+  { path: '/driver/profile', icon: User, label: 'Profile' },
 ]
 
 export function BottomNav() {
@@ -51,7 +52,7 @@ export function BottomNav() {
       zIndex: 50,
     }}>
       {tabs.map(tab => {
-        const active = location.pathname.startsWith(tab.path)
+        const active = location.pathname === tab.path || (tab.path !== '/' && location.pathname.startsWith(tab.path))
         const count = tab.badge ? itemCount : 0
         return (
           <button key={tab.path} onClick={() => navigate(tab.path)} style={{
@@ -60,13 +61,13 @@ export function BottomNav() {
             color: active ? 'var(--primary)' : 'var(--text-muted)',
             fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em',
             cursor: 'pointer', transition: 'color 0.15s', position: 'relative',
-            paddingTop: 8,
+            paddingTop: 8, WebkitTapHighlightColor: 'transparent',
           }}>
             <div style={{ position: 'relative' }}>
-              <tab.icon size={22} strokeWidth={active ? 2.5 : 1.8} />
+              <tab.icon size={tabs.length === 5 ? 20 : 22} strokeWidth={active ? 2.5 : 1.8} />
               {count > 0 && <span className="badge" style={{ position: 'absolute', top: -6, right: -8, fontSize: 9 }}>{count}</span>}
             </div>
-            <span>{tab.label}</span>
+            <span style={{ fontSize: tabs.length === 5 ? 9 : 10 }}>{tab.label}</span>
             {active && (
               <div style={{
                 position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)',

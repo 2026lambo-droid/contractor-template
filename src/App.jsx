@@ -24,11 +24,16 @@ import { VendorDashboard } from './pages/vendor/Dashboard'
 import { VendorProducts } from './pages/vendor/Products'
 import { VendorOrders } from './pages/vendor/Orders'
 import { VendorEarnings } from './pages/vendor/Earnings'
+import { VendorSettings } from './pages/vendor/Settings'
 
 // Driver
 import { DriverDashboard } from './pages/driver/Dashboard'
 import { ActiveDelivery } from './pages/driver/ActiveDelivery'
 import { DriverHistory } from './pages/driver/History'
+import { DriverProfile } from './pages/driver/DriverProfile'
+
+// Shared
+import { Notifications } from './pages/Notifications'
 
 import './styles/global.css'
 
@@ -53,6 +58,9 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/" element={<Navigate to="/login" replace />} />
 
+              {/* Shared */}
+              <Route path="/notifications" element={<AppLayout><Notifications /></AppLayout>} />
+
               {/* Customer routes */}
               <Route path="/home" element={<AppLayout><CustomerHome /></AppLayout>} />
               <Route path="/vendors" element={<AppLayout><VendorList /></AppLayout>} />
@@ -68,11 +76,13 @@ function App() {
               <Route path="/vendor/products" element={<AppLayout role="vendor"><VendorProducts /></AppLayout>} />
               <Route path="/vendor/orders" element={<AppLayout role="vendor"><VendorOrders /></AppLayout>} />
               <Route path="/vendor/earnings" element={<AppLayout role="vendor"><VendorEarnings /></AppLayout>} />
+              <Route path="/vendor/settings" element={<AppLayout role="vendor"><VendorSettings /></AppLayout>} />
 
               {/* Driver routes */}
               <Route path="/driver/dashboard" element={<AppLayout role="driver"><DriverDashboard /></AppLayout>} />
               <Route path="/driver/active" element={<AppLayout role="driver"><ActiveDelivery /></AppLayout>} />
               <Route path="/driver/history" element={<AppLayout role="driver"><DriverHistory /></AppLayout>} />
+              <Route path="/driver/profile" element={<AppLayout role="driver"><DriverProfile /></AppLayout>} />
 
               {/* Catch-all */}
               <Route path="*" element={<Navigate to="/login" replace />} />

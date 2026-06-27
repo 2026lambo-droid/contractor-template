@@ -1,0 +1,102 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─── Helper functions ──────────────────────────────────────────────
+    function isAuth() { return request.auth != null; }
+    function uid() { return request.auth.uid; }
+    function role() { return get(/databases/$(database)/documents/users/$(uid())).data.role; }
+    function isCustomer() { return role() == 'customer'; }
+    function isVendor() { return role() == 'vendor'; }
+    function isDriver() { return role() == 'driver'; }
+    function isAdmin() { return role() == 'admin'; }
+
+    // ─── Users ────────────────────────────────────────────────────────
+    match /users/{userId} {
+      allow read: if isAuth() && (uid() == userId || isAdmin());
+      allow create: if isAuth() && uid() == userId;
+      allow update: if isAuth() && uid() == userId;
+      // Only admins can delete users
+      allow delete: if isAdmin();
+    }
+
+    // ─── Vendors ──────────────────────────────────────────────────────
+    match /vendors/{vendorId} {
+      // Anyone can read vendor public info
+      allow read: if true;
+      // Only the owner vendor or admin can write
+      allow create: if isAuth() && isVendor();
+      allow update: if isAuth() && (
+        get(/databases/$(database)/documents/vendors/$(vendorId)).data.ownerId == uid()
+        || isAdmin()
+      );
+      allow delete: if isAdmin();
+
+      // Products subcollection
+      match /products/{productId} {
+        allow read: if true;
+        allow write: if isAuth() && (
+          get(/databases/$(database)/documents/vendors/$(vendorId)).data.ownerId == uid()
+          || isAdmin()
+        );
+      }
+    }
+
+    // ─── Orders ───────────────────────────────────────────────────────
+    match /orders/{orderId} {
+      // Customers see their own orders
+      // Vendors see orders for their store
+      // Drivers see orders assigned to them
+      allow read: if isAuth() && (
+        resource.data.customerId == uid()
+        || resource.data.driverId == uid()
+        || (isVendor() && resource.data.vendorId ==
+            get(/databases/$(database)/documents/users/$(uid())).data.vendorId)
+        || isAdmin()
+      );
+
+      // Only authenticated customers can create orders
+      allow create: if isAuth() && isCustomer()
+        && request.resource.data.customerId == uid()
+        && request.resource.data.status == 'pending'
+        && request.resource.data.total > 0;
+
+      // Status updates by vendor or driver; cancellations by customer
+      allow update: if isAuth() && (
+        // Customer can cancel or update address before confirmation
+        (resource.data.customerId == uid() && request.resource.data.status == 'cancelled')
+        // Vendor can advance order status
+        || (isVendor() && resource.data.vendorId ==
+            get(/databases/$(database)/documents/users/$(uid())).data.vendorId)
+        // Driver can update pickup/delivery status
+        || (isDriver() && resource.data.driverId == uid())
+        || isAdmin()
+      );
+
+      allow delete: if isAdmin();
+    }
+
+    // ─── Reviews ──────────────────────────────────────────────────────
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isAuth() && isCustomer()
+        && request.resource.data.customerId == uid();
+      allow update: if isAuth() && resource.data.customerId == uid();
+      allow delete: if isAuth() && (resource.data.customerId == uid() || isAdmin());
+    }
+
+    // ─── Drivers ──────────────────────────────────────────────────────
+    match /driverLocations/{driverId} {
+      allow read: if isAuth();
+      allow write: if isAuth() && uid() == driverId && isDriver();
+    }
+
+    // ─── Notifications ────────────────────────────────────────────────
+    match /notifications/{notificationId} {
+      allow read: if isAuth() && resource.data.userId == uid();
+      allow create: if false; // Only Cloud Functions create notifications
+      allow update: if isAuth() && resource.data.userId == uid(); // Mark read
+      allow delete: if isAuth() && resource.data.userId == uid();
+    }
+  }
+}

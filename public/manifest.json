@@ -1,0 +1,110 @@
+{
+  "name": "CarneMX — Local Meat Marketplace",
+  "short_name": "CarneMX",
+  "description": "Fresh carne asada and grilled meats delivered from local carnicerías to your door.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F0A08",
+  "theme_color": "#E85D04",
+  "orientation": "portrait-primary",
+  "categories": ["food", "shopping", "lifestyle"],
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "icons/icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/customer-home.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "label": "Browse local vendors"
+    },
+    {
+      "src": "screenshots/vendor-detail.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "label": "Order fresh meats"
+    },
+    {
+      "src": "screenshots/order-tracking.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "label": "Real-time order tracking"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Browse Vendors",
+      "short_name": "Browse",
+      "description": "Find local carnicerías near you",
+      "url": "/vendors",
+      "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "My Orders",
+      "short_name": "Orders",
+      "description": "View and track your orders",
+      "url": "/orders",
+      "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96" }]
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.carnemx.app",
+      "id": "com.carnemx.app"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/app/carnemx/id0000000000"
+    }
+  ]
+}

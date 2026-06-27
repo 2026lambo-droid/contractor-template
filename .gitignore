@@ -1,3 +1,14 @@
+# Environment variables (never commit real keys)
+.env
+.env.local
+.env.production
+
+# Firebase / Functions build
+functions/lib/
+functions/node_modules/
+.firebase/
+.firebaserc
+
 # Logs
 logs
 *.log

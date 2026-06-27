@@ -22,7 +22,7 @@ export function CustomerHome() {
   return (
     <div className="page animate-fadeIn">
       <AppHeader actions={
-        <IconBtn icon={Bell} onClick={() => {}} badge={2} />
+        <IconBtn icon={Bell} onClick={() => navigate('/notifications')} badge={2} />
       } />
 
       {/* Greeting + location */}

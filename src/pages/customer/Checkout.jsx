@@ -7,6 +7,8 @@ import { useAuth } from '../../contexts/AuthContext'
 import { useToast } from '../../contexts/ToastContext'
 import { formatPrice, calcServiceFee, calcTotal } from '../../utils/formatters'
 import { DELIVERY_FEE } from '../../utils/constants'
+import { publishOrder } from '../../services/orderBus'
+import { MOCK_VENDORS } from '../../utils/mockData'
 
 const SAVED_CARDS = [
   { id: 'c1', brand: 'Visa', last4: '4242', exp: '12/27' },
@@ -47,8 +49,11 @@ export function Checkout() {
         paymentMethod: 'card',
         paymentLast4: SAVED_CARDS.find(c => c.id === selectedCard)?.last4,
       }
+      const vendor = MOCK_VENDORS.find(v => v.id === vendorId)
+      const vendorOrder = { ...order, vendorId, vendorName: vendor?.name, customerName: user.name }
       const existing = JSON.parse(localStorage.getItem('carnemx_orders') || '[]')
       localStorage.setItem('carnemx_orders', JSON.stringify([order, ...existing]))
+      publishOrder(vendorOrder)
       clearCart()
       toast('Order placed! 🎉', 'success')
       navigate(`/orders/${orderId}`, { replace: true })

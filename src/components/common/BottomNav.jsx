@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Home, Search, ShoppingCart, Clock, User, LayoutDashboard, Package, TrendingUp, Settings, Truck, Map, History } from 'lucide-react'
+import { Home, Search, ShoppingCart, Clock, User, LayoutDashboard, Package, TrendingUp, Settings, Truck, Map, History, ShieldCheck, Store, Users } from 'lucide-react'
 import { useAuth } from '../../contexts/AuthContext'
 import { useCart } from '../../contexts/CartContext'
 import { USER_ROLES } from '../../utils/constants'
@@ -27,6 +27,13 @@ const DRIVER_TABS = [
   { path: '/driver/profile', icon: User, label: 'Profile' },
 ]
 
+const ADMIN_TABS = [
+  { path: '/admin', icon: ShieldCheck, label: 'Platform' },
+  { path: '/admin/vendors', icon: Store, label: 'Vendors' },
+  { path: '/admin/drivers', icon: Truck, label: 'Drivers' },
+  { path: '/admin/orders', icon: Package, label: 'Orders' },
+]
+
 export function BottomNav() {
   const { user } = useAuth()
   const { itemCount } = useCart()
@@ -37,6 +44,7 @@ export function BottomNav() {
 
   const tabs = user.role === USER_ROLES.VENDOR ? VENDOR_TABS
     : user.role === USER_ROLES.DRIVER ? DRIVER_TABS
+    : user.role === 'admin' ? ADMIN_TABS
     : CUSTOMER_TABS
 
   return (

@@ -1,9 +1,12 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Clock, ChevronRight, Package } from 'lucide-react'
+import { Clock, ChevronRight, Package, RefreshCw, Star } from 'lucide-react'
 import { AppHeader } from '../../components/common/AppHeader'
-import { MOCK_ORDERS } from '../../utils/mockData'
+import { ReviewModal } from '../../components/customer/ReviewModal'
+import { MOCK_ORDERS, MOCK_PRODUCTS } from '../../utils/mockData'
 import { useAuth } from '../../contexts/AuthContext'
+import { useCart } from '../../contexts/CartContext'
+import { useToast } from '../../contexts/ToastContext'
 import { ORDER_STATUS_LABELS } from '../../utils/constants'
 import { formatPrice, formatDate } from '../../utils/formatters'
 
@@ -19,8 +22,32 @@ const STATUS_COLOR = {
 
 export function OrderHistory() {
   const { user } = useAuth()
+  const { addItem, clearCart } = useCart()
+  const { toast } = useToast()
   const navigate = useNavigate()
   const [tab, setTab] = useState('active')
+  const [reviewOrder, setReviewOrder] = useState(null)
+
+  const reviewed = JSON.parse(localStorage.getItem('carnemx_reviews') || '[]').map(r => r.orderId)
+
+  const orderAgain = (order) => {
+    clearCart()
+    const products = MOCK_PRODUCTS[order.vendorId] || []
+    let added = 0
+    order.items?.forEach(item => {
+      const p = products.find(p => p.id === item.productId)
+      if (p && p.inStock) {
+        addItem(p, item.quantity, { marinade: item.marinade, cut: item.cut })
+        added++
+      }
+    })
+    if (added > 0) {
+      toast(`${added} item${added > 1 ? 's' : ''} added to cart`, 'success')
+      navigate('/cart')
+    } else {
+      toast('Items from this order are no longer available', 'error')
+    }
+  }
 
   const stored = JSON.parse(localStorage.getItem('carnemx_orders') || '[]').map(o => ({ ...o, createdAt: new Date(o.createdAt) }))
   const all = [...stored, ...MOCK_ORDERS].filter((o, i, arr) => arr.findIndex(x => x.id === o.id) === i)
@@ -81,9 +108,36 @@ export function OrderHistory() {
                   🔴 Track your order →
                 </div>
               )}
+              {tab === 'past' && (
+                <div style={{ padding: '8px 14px 12px', borderTop: '1px solid var(--border)', display: 'flex', gap: 8 }}>
+                  <button
+                    className="btn btn-secondary btn-sm"
+                    style={{ flex: 1, fontSize: 12 }}
+                    onClick={e => { e.stopPropagation(); orderAgain(order) }}
+                  >
+                    <RefreshCw size={12} /> Order Again
+                  </button>
+                  {order.status === 'delivered' && !reviewed.includes(order.id) && (
+                    <button
+                      className="btn btn-primary btn-sm"
+                      style={{ flex: 1, fontSize: 12 }}
+                      onClick={e => { e.stopPropagation(); setReviewOrder(order) }}
+                    >
+                      <Star size={12} /> Review
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           ))}
         </div>
+      )}
+      {reviewOrder && (
+        <ReviewModal
+          order={reviewOrder}
+          onClose={() => setReviewOrder(null)}
+          onSubmit={() => toast('Thanks for your review! ⭐', 'success')}
+        />
       )}
     </div>
   )

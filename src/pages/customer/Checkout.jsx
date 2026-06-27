@@ -26,10 +26,38 @@ export function Checkout() {
   const [tip, setTip] = useState(0)
   const [note, setNote] = useState('')
   const [loading, setLoading] = useState(false)
+  const [promoCode, setPromoCode] = useState('')
+  const [promoApplied, setPromoApplied] = useState(null)
+
+  const PROMO_CODES = {
+    WELCOME10: { type: 'percent', value: 0.10, label: '10% off your order' },
+    FIRSTORDER: { type: 'delivery', value: 4.99, label: 'Free delivery' },
+    CARNITAS5: { type: 'flat', value: 5, label: '$5 off your order' },
+  }
+
+  const applyPromo = () => {
+    const code = promoCode.trim().toUpperCase()
+    if (PROMO_CODES[code]) {
+      setPromoApplied({ code, ...PROMO_CODES[code] })
+      toast(`Promo applied: ${PROMO_CODES[code].label}`, 'success')
+    } else {
+      toast('Invalid promo code', 'error')
+    }
+  }
+
+  const promoDiscount = () => {
+    if (!promoApplied) return 0
+    if (promoApplied.type === 'percent') return subtotal * promoApplied.value
+    if (promoApplied.type === 'flat') return promoApplied.value
+    if (promoApplied.type === 'delivery') return DELIVERY_FEE
+    return 0
+  }
 
   const tips = [0, 2, 4, 5]
   const serviceFee = calcServiceFee(subtotal)
-  const total = calcTotal(subtotal) + tip
+  const discount = promoDiscount()
+  const effectiveDelivery = promoApplied?.type === 'delivery' ? 0 : DELIVERY_FEE
+  const total = subtotal + serviceFee + effectiveDelivery + tip - (promoApplied?.type !== 'delivery' ? discount : 0)
 
   const handleOrder = async () => {
     if (!address.trim()) { toast('Please enter a delivery address', 'error'); return }
@@ -42,7 +70,7 @@ export function Checkout() {
         customerId: user.id,
         vendorId,
         items: items.map(i => ({ productId: i.product.id, name: i.product.name, pricePerLb: i.product.pricePerLb, quantity: i.quantity, ...i.customizations })),
-        subtotal, serviceFee, deliveryFee: DELIVERY_FEE, tip, total,
+        subtotal, serviceFee, deliveryFee: effectiveDelivery, tip, discount, promoCode: promoApplied?.code, total,
         address, note,
         status: 'pending',
         createdAt: new Date(),
@@ -147,6 +175,26 @@ export function Checkout() {
         />
       </div>
 
+      {/* Promo code */}
+      <div style={{ padding: '0 16px 16px' }}>
+        <h3 style={{ fontSize: 15, fontWeight: 700, marginBottom: 10 }}>Promo Code</h3>
+        {promoApplied ? (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 14px', background: 'rgba(34,197,94,0.08)', border: '1.5px solid rgba(34,197,94,0.3)', borderRadius: 'var(--radius-sm)' }}>
+            <span style={{ fontSize: 16 }}>🎉</span>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--success)' }}>{promoApplied.code}</div>
+              <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{promoApplied.label}</div>
+            </div>
+            <button onClick={() => setPromoApplied(null)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: 18 }}>×</button>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', gap: 8 }}>
+            <input className="input" placeholder="Enter code (try WELCOME10)" value={promoCode} onChange={e => setPromoCode(e.target.value.toUpperCase())} style={{ flex: 1, textTransform: 'uppercase' }} />
+            <button className="btn btn-secondary" onClick={applyPromo} disabled={!promoCode.trim()} style={{ flexShrink: 0 }}>Apply</button>
+          </div>
+        )}
+      </div>
+
       {/* Order summary */}
       <div style={{ margin: '0 16px 20px', padding: 16, background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 'var(--radius)' }}>
         <div className="row-between" style={{ marginBottom: 8 }}>
@@ -159,12 +207,19 @@ export function Checkout() {
         </div>
         <div className="row-between" style={{ marginBottom: 8 }}>
           <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>Delivery</span>
-          <span style={{ fontSize: 14 }}>{formatPrice(DELIVERY_FEE)}</span>
+          <span style={{ fontSize: 14, textDecoration: promoApplied?.type === 'delivery' ? 'line-through' : 'none', color: promoApplied?.type === 'delivery' ? 'var(--text-muted)' : 'inherit' }}>{formatPrice(DELIVERY_FEE)}</span>
+          {promoApplied?.type === 'delivery' && <span style={{ fontSize: 14, color: 'var(--success)', marginLeft: 6 }}>FREE</span>}
         </div>
         {tip > 0 && (
           <div className="row-between" style={{ marginBottom: 8 }}>
             <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>Driver tip</span>
             <span style={{ fontSize: 14 }}>{formatPrice(tip)}</span>
+          </div>
+        )}
+        {discount > 0 && promoApplied?.type !== 'delivery' && (
+          <div className="row-between" style={{ marginBottom: 8 }}>
+            <span style={{ fontSize: 14, color: 'var(--success)' }}>Promo discount</span>
+            <span style={{ fontSize: 14, color: 'var(--success)' }}>−{formatPrice(discount)}</span>
           </div>
         )}
         <div className="divider" style={{ margin: '10px 0' }} />

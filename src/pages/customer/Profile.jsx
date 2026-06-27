@@ -1,13 +1,17 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { User, MapPin, Phone, LogOut, ChevronRight, Bell, Shield, HelpCircle } from 'lucide-react'
+import { User, MapPin, Phone, LogOut, ChevronRight, Bell, Shield, HelpCircle, Heart, Globe } from 'lucide-react'
 import { AppHeader } from '../../components/common/AppHeader'
 import { useAuth } from '../../contexts/AuthContext'
 import { useToast } from '../../contexts/ToastContext'
+import { useLang } from '../../contexts/LanguageContext'
+import { useFavorites } from '../../contexts/FavoritesContext'
 
 export function Profile() {
   const { user, logout, updateUser } = useAuth()
   const { toast } = useToast()
+  const { lang, toggle: toggleLang } = useLang()
+  const { favorites } = useFavorites()
   const navigate = useNavigate()
   const [editing, setEditing] = useState(false)
   const [name, setName] = useState(user?.name || '')
@@ -26,6 +30,7 @@ export function Profile() {
   }
 
   const menuItems = [
+    { icon: Heart, label: `Favorites (${favorites.length})`, action: () => navigate('/favorites') },
     { icon: Bell, label: 'Notifications', action: () => toast('Push notifications coming soon', 'info') },
     { icon: Shield, label: 'Privacy & Security', action: () => toast('Coming soon', 'info') },
     { icon: HelpCircle, label: 'Help & Support', action: () => toast('Coming soon', 'info') },
@@ -99,6 +104,20 @@ export function Profile() {
                 <ChevronRight size={16} color="var(--text-muted)" />
               </div>
             ))}
+          </div>
+
+          {/* Language toggle */}
+          <div style={{ margin: '0 16px 16px', padding: '14px', background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <Globe size={18} color="var(--text-muted)" />
+              <div>
+                <div style={{ fontSize: 15, fontWeight: 500 }}>Language</div>
+                <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{lang === 'en' ? 'English' : 'Español'}</div>
+              </div>
+            </div>
+            <button onClick={toggleLang} style={{ padding: '6px 14px', borderRadius: 'var(--radius-sm)', background: 'rgba(232,93,4,0.12)', border: '1.5px solid var(--primary)', color: 'var(--primary-light)', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
+              {lang === 'en' ? 'ES' : 'EN'}
+            </button>
           </div>
 
           {/* Logout */}

@@ -18,7 +18,10 @@ export function Login() {
     { label: '🛒 Customer Demo', email: 'customer@demo.com', password: 'demo123' },
     { label: '🏪 Vendor Demo', email: 'vendor@demo.com', password: 'demo123' },
     { label: '🚗 Driver Demo', email: 'driver@demo.com', password: 'demo123' },
+    { label: '🛡️ Admin Demo', email: 'admin@demo.com', password: 'demo123' },
   ]
+
+  const roleHome = (role) => role === 'vendor' ? '/vendor/dashboard' : role === 'driver' ? '/driver/dashboard' : role === 'admin' ? '/admin' : '/home'
 
   const handleLogin = async (e) => {
     e?.preventDefault()
@@ -26,8 +29,7 @@ export function Login() {
     setLoading(true)
     try {
       const user = await login(email, password)
-      const home = user.role === 'vendor' ? '/vendor/dashboard' : user.role === 'driver' ? '/driver/dashboard' : '/home'
-      navigate(home, { replace: true })
+      navigate(roleHome(user.role), { replace: true })
     } catch (err) {
       toast(err.message, 'error')
     } finally {
@@ -39,8 +41,7 @@ export function Login() {
     setEmail(acct.email)
     setPassword(acct.password)
     login(acct.email, acct.password).then(user => {
-      const home = user.role === 'vendor' ? '/vendor/dashboard' : user.role === 'driver' ? '/driver/dashboard' : '/home'
-      navigate(home, { replace: true })
+      navigate(roleHome(user.role), { replace: true })
     })
   }
 

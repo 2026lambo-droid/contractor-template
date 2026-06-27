@@ -345,4 +345,13 @@ export const MOCK_USERS = {
     avatar: null,
     isOnline: true,
   },
+  admin: {
+    id: 'admin-user-1',
+    email: 'admin@demo.com',
+    password: 'demo123',
+    name: 'Admin User',
+    role: 'admin',
+    phone: '(415) 555-0001',
+    avatar: null,
+  },
 }

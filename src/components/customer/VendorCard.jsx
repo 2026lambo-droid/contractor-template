@@ -1,8 +1,12 @@
 import { useNavigate } from 'react-router-dom'
-import { Star, Clock, MapPin } from 'lucide-react'
+import { Star, Clock, MapPin, Heart } from 'lucide-react'
+import { useFavorites } from '../../contexts/FavoritesContext'
 
 export function VendorCard({ vendor }) {
   const navigate = useNavigate()
+  const { isFavorite, toggle } = useFavorites()
+  const fav = isFavorite(vendor.id)
+
   return (
     <div className="card" onClick={() => navigate(`/vendors/${vendor.id}`)} style={{ cursor: 'pointer', marginBottom: 12 }}>
       <div style={{ position: 'relative', height: 160, overflow: 'hidden' }}>
@@ -13,7 +17,13 @@ export function VendorCard({ vendor }) {
             <span className="chip chip-muted" style={{ fontSize: 13 }}>Closed Now</span>
           </div>
         )}
-        <div style={{ position: 'absolute', top: 10, right: 10 }}>
+        <div style={{ position: 'absolute', top: 10, right: 10, display: 'flex', gap: 6 }}>
+          <button
+            onClick={e => { e.stopPropagation(); toggle(vendor.id) }}
+            style={{ width: 30, height: 30, borderRadius: '50%', background: 'rgba(15,10,8,0.7)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+          >
+            <Heart size={14} fill={fav ? '#ef4444' : 'transparent'} color={fav ? '#ef4444' : 'rgba(255,255,255,0.8)'} />
+          </button>
           <span className="chip chip-success" style={{ fontSize: 11 }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--success)', display: 'inline-block' }} />
             {vendor.isOpen ? 'Open' : 'Closed'}

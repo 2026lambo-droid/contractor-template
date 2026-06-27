@@ -130,8 +130,8 @@ export function VendorSettings() {
         <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 12 }}>Select cities/areas you can deliver to:</p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}>
           {DELIVERY_ZONES.map(zone => (
-            <button key={zone} onClick={() => toggleZone(zone)} className={`chip ${form.deliveryZones.includes(zone) ? 'chip-primary' : 'chip-muted'}`} style={{ cursor: 'pointer', border: 'none' }}>
-              {zone}
+            <button key={zone.id} onClick={() => toggleZone(zone.city)} className={`chip ${form.deliveryZones.includes(zone.city) ? 'chip-primary' : 'chip-muted'}`} style={{ cursor: 'pointer', border: 'none' }}>
+              {zone.city}
             </button>
           ))}
         </div>

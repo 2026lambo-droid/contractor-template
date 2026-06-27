@@ -1,20 +1,23 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Bell, MapPin, ChevronRight, Flame } from 'lucide-react'
+import { Bell, MapPin, ChevronRight, Flame, Heart } from 'lucide-react'
 import { AppHeader, IconBtn } from '../../components/common/AppHeader'
 import { VendorCard, VendorCardCompact } from '../../components/customer/VendorCard'
 import { useAuth } from '../../contexts/AuthContext'
+import { useFavorites } from '../../contexts/FavoritesContext'
 import { MOCK_VENDORS } from '../../utils/mockData'
 import { MEAT_CATEGORIES } from '../../utils/constants'
 
 export function CustomerHome() {
   const { user } = useAuth()
+  const { favorites } = useFavorites()
   const navigate = useNavigate()
   const [selectedCategory, setSelectedCategory] = useState(null)
 
   const openVendors = MOCK_VENDORS.filter(v => v.isOpen)
   const featured = openVendors.slice(0, 2)
   const nearby = MOCK_VENDORS.filter(v => v.city === 'San Jose' || v.city === 'Oakland')
+  const favVendors = MOCK_VENDORS.filter(v => favorites.includes(v.id)).slice(0, 3)
   const categoryVendors = selectedCategory
     ? MOCK_VENDORS.filter(v => v.specialties.some(s => s.toLowerCase().includes(selectedCategory.replace('-', ' '))))
     : []
@@ -83,6 +86,18 @@ export function CustomerHome() {
       {/* Featured vendors */}
       {!selectedCategory && (
         <>
+          {favVendors.length > 0 && (
+            <>
+              <div className="section-header">
+                <span className="section-title"><Heart size={14} style={{ display: 'inline', marginRight: 5, color: '#ef4444', verticalAlign: 'middle' }} />Favorites</span>
+                <button onClick={() => navigate('/favorites')} className="btn btn-ghost btn-sm text-muted" style={{ fontSize: 13, padding: '4px 0' }}>See all</button>
+              </div>
+              <div className="scroll-x" style={{ marginBottom: 24 }}>
+                {favVendors.map(v => <VendorCardCompact key={v.id} vendor={v} />)}
+              </div>
+            </>
+          )}
+
           <div className="section-header">
             <span className="section-title">🔥 Featured</span>
             <button onClick={() => navigate('/vendors')} className="btn btn-ghost btn-sm text-muted" style={{ fontSize: 13, padding: '4px 0' }}>See all</button>

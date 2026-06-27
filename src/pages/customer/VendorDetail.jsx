@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowLeft, Star, MapPin, Clock, Phone, ShoppingCart } from 'lucide-react'
+import { ArrowLeft, Star, MapPin, Clock, Phone, ShoppingCart, Heart } from 'lucide-react'
 import { ProductCard } from '../../components/customer/ProductCard'
 import { useCart } from '../../contexts/CartContext'
 import { useToast } from '../../contexts/ToastContext'
+import { useFavorites } from '../../contexts/FavoritesContext'
 import { MOCK_VENDORS, MOCK_PRODUCTS } from '../../utils/mockData'
 import { MEAT_CATEGORIES, CUSTOMIZATION_OPTIONS } from '../../utils/constants'
 import { formatPrice } from '../../utils/formatters'
@@ -14,8 +15,10 @@ export function VendorDetail() {
   const { addItem, itemCount, subtotal } = useCart()
   const { toast } = useToast()
 
+  const { isFavorite, toggle: toggleFav } = useFavorites()
   const vendor = MOCK_VENDORS.find(v => v.id === id)
   const products = MOCK_PRODUCTS[id] || []
+  const fav = vendor ? isFavorite(vendor.id) : false
 
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [addingProduct, setAddingProduct] = useState(null)
@@ -64,6 +67,13 @@ export function VendorDetail() {
           display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', cursor: 'pointer',
         }}>
           <ArrowLeft size={18} />
+        </button>
+        <button onClick={() => toggleFav(vendor.id)} style={{
+          position: 'absolute', top: 16, right: 16,
+          width: 38, height: 38, borderRadius: 10, background: 'rgba(15,10,8,0.7)', border: '1px solid rgba(255,255,255,0.1)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+        }}>
+          <Heart size={18} fill={fav ? '#ef4444' : 'transparent'} color={fav ? '#ef4444' : 'rgba(255,255,255,0.8)'} />
         </button>
         {!vendor.isOpen && (
           <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

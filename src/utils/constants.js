@@ -39,9 +39,18 @@ export const MEAT_CATEGORIES = [
 ]
 
 export const DELIVERY_ZONES = [
-  'San Jose', 'San Francisco', 'Oakland', 'Fremont',
-  'Los Angeles', 'San Diego', 'Riverside', 'Anaheim',
-  'Long Beach', 'Santa Ana', 'Stockton', 'Fresno',
+  { id: 'san-jose', city: 'San Jose', region: 'Bay Area' },
+  { id: 'san-francisco', city: 'San Francisco', region: 'Bay Area' },
+  { id: 'oakland', city: 'Oakland', region: 'Bay Area' },
+  { id: 'fremont', city: 'Fremont', region: 'Bay Area' },
+  { id: 'los-angeles', city: 'Los Angeles', region: 'SoCal' },
+  { id: 'san-diego', city: 'San Diego', region: 'SoCal' },
+  { id: 'riverside', city: 'Riverside', region: 'SoCal' },
+  { id: 'anaheim', city: 'Anaheim', region: 'SoCal' },
+  { id: 'long-beach', city: 'Long Beach', region: 'SoCal' },
+  { id: 'santa-ana', city: 'Santa Ana', region: 'SoCal' },
+  { id: 'stockton', city: 'Stockton', region: 'Central Valley' },
+  { id: 'fresno', city: 'Fresno', region: 'Central Valley' },
 ]
 
 export const CUSTOMIZATION_OPTIONS = {

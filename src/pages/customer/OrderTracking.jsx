@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { MapPin, Phone, MessageCircle, CheckCircle } from 'lucide-react'
 import { AppHeader } from '../../components/common/AppHeader'
 import { MOCK_ORDERS } from '../../utils/mockData'
 import { ORDER_STATUS, ORDER_STATUS_LABELS } from '../../utils/constants'
 import { formatPrice, formatDate } from '../../utils/formatters'
+import { subscribeToStatusUpdates } from '../../services/orderBus'
 
 const STEPS = ['pending', 'confirmed', 'preparing', 'ready', 'picked_up', 'delivered']
 
@@ -24,23 +25,40 @@ export function OrderTracking() {
     return { ...o, createdAt: new Date(o.createdAt) }
   })
 
-  // Simulate order progression for demo
+  const demoTimerRef = useRef(null)
+
+  const applyStatus = (newStatus) => {
+    setOrder(prev => {
+      if (!prev) return prev
+      const updated = { ...prev, status: newStatus }
+      const all = JSON.parse(localStorage.getItem('carnemx_orders') || '[]')
+      localStorage.setItem('carnemx_orders', JSON.stringify(all.map(o => o.id === updated.id ? updated : o)))
+      return updated
+    })
+  }
+
+  // Listen for real vendor status pushes via orderBus
+  useEffect(() => {
+    if (!order?.id) return
+    return subscribeToStatusUpdates(order.id, applyStatus)
+  }, [order?.id])
+
+  // Demo simulation: auto-advance every 8 s when no real vendor is driving this order
   useEffect(() => {
     if (!order || order.status === 'delivered' || order.status === 'cancelled') return
-    const interval = setInterval(() => {
+    demoTimerRef.current = setInterval(() => {
       setOrder(prev => {
         if (!prev) return prev
         const idx = getStatusIndex(prev.status)
-        if (idx >= STEPS.length - 1) { clearInterval(interval); return prev }
+        if (idx >= STEPS.length - 1) { clearInterval(demoTimerRef.current); return prev }
         const newStatus = STEPS[idx + 1]
         const updated = { ...prev, status: newStatus }
         const all = JSON.parse(localStorage.getItem('carnemx_orders') || '[]')
-        const newAll = all.map(o => o.id === updated.id ? updated : o)
-        localStorage.setItem('carnemx_orders', JSON.stringify(newAll))
+        localStorage.setItem('carnemx_orders', JSON.stringify(all.map(o => o.id === updated.id ? updated : o)))
         return updated
       })
     }, 8000)
-    return () => clearInterval(interval)
+    return () => clearInterval(demoTimerRef.current)
   }, [order?.id])
 
   if (!order) return (

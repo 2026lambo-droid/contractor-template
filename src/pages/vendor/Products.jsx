@@ -67,10 +67,17 @@ export function VendorProducts() {
     setProducts(prev => prev.map(p => p.id === id ? { ...p, inStock: !p.inStock } : p))
   }
 
+  const restockAll = () => {
+    setProducts(prev => prev.map(p => ({ ...p, inStock: true, stockLbs: Math.max(p.stockLbs, 50) })))
+    toast('All products restocked to 50 lbs minimum', 'success')
+  }
+
   const deleteProduct = (id) => {
     setProducts(prev => prev.filter(p => p.id !== id))
     toast('Product removed', 'info')
   }
+
+  const lowStockCount = products.filter(p => p.inStock && p.stockLbs < 10).length
 
   return (
     <div className="page animate-fadeIn">
@@ -79,6 +86,19 @@ export function VendorProducts() {
           <Plus size={14} /> Add
         </button>
       } />
+
+      {lowStockCount > 0 && (
+        <div style={{ margin: '8px 16px 0', padding: '10px 14px', background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.3)', borderRadius: 'var(--radius)', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span style={{ fontSize: 18 }}>⚠️</span>
+          <div style={{ flex: 1, fontSize: 13 }}>
+            <span style={{ fontWeight: 700, color: 'var(--warning)' }}>{lowStockCount} product{lowStockCount > 1 ? 's' : ''} low on stock</span>
+            <span style={{ color: 'var(--text-muted)' }}> — under 10 lbs remaining</span>
+          </div>
+          <button className="btn btn-sm" onClick={restockAll} style={{ fontSize: 11, padding: '6px 10px', background: 'rgba(245,158,11,0.15)', border: '1px solid rgba(245,158,11,0.4)', color: 'var(--warning)', fontWeight: 700, flexShrink: 0 }}>
+            Restock All
+          </button>
+        </div>
+      )}
 
       {/* Summary */}
       <div style={{ display: 'flex', gap: 10, padding: '12px 16px 16px' }}>
@@ -114,13 +134,13 @@ export function VendorProducts() {
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div className="row-between" style={{ marginBottom: 4 }}>
                   <div style={{ fontSize: 14, fontWeight: 700 }}>{product.name}</div>
-                  <span className={`chip ${product.inStock ? 'chip-success' : 'chip-error'}`} style={{ fontSize: 10, padding: '3px 8px' }}>
-                    {product.inStock ? 'In Stock' : 'Out of Stock'}
+                  <span className={`chip ${!product.inStock ? 'chip-error' : product.stockLbs < 10 ? 'chip-warning' : 'chip-success'}`} style={{ fontSize: 10, padding: '3px 8px' }}>
+                    {!product.inStock ? 'Out of Stock' : product.stockLbs < 10 ? `⚠ ${product.stockLbs} lbs left` : 'In Stock'}
                   </span>
                 </div>
                 <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 8 }}>
                   <span className="price">{formatPrice(product.pricePerLb)}/lb</span>
-                  {' · '}{product.stockLbs} lbs available
+                  {' · '}<span style={{ color: product.stockLbs < 10 ? 'var(--warning)' : 'inherit' }}>{product.stockLbs} lbs available</span>
                 </div>
                 <div style={{ display: 'flex', gap: 6 }}>
                   <button className="btn btn-secondary btn-sm" onClick={() => handleEdit(product)} style={{ fontSize: 12, padding: '6px 10px', gap: 4 }}>

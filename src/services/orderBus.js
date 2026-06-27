@@ -61,3 +61,16 @@ export function subscribeToOrders(vendorId, callback) {
   ch.addEventListener('message', handler)
   return () => ch.removeEventListener('message', handler)
 }
+
+export function subscribeToStatusUpdates(orderId, callback) {
+  const ch = getChannel()
+  if (!ch) return () => {}
+
+  const handler = ({ data }) => {
+    if (data?.type === 'STATUS_UPDATE' && data.orderId === orderId) {
+      callback(data.status)
+    }
+  }
+  ch.addEventListener('message', handler)
+  return () => ch.removeEventListener('message', handler)
+}

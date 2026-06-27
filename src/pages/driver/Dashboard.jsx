@@ -1,12 +1,23 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { MapPin, Clock, DollarSign, Truck, ChevronRight, Navigation } from 'lucide-react'
+import { MapPin, Clock, DollarSign, Truck, Navigation, ChevronRight } from 'lucide-react'
 import { AppHeader } from '../../components/common/AppHeader'
 import { StatsCard } from '../../components/vendor/StatsCard'
 import { useAuth } from '../../contexts/AuthContext'
 import { useToast } from '../../contexts/ToastContext'
 import { MOCK_DRIVER_DELIVERIES } from '../../utils/mockData'
 import { formatPrice } from '../../utils/formatters'
+
+const WEEK_CHART = [
+  { day: 'Mon', earned: 31.60 },
+  { day: 'Tue', earned: 58.40 },
+  { day: 'Wed', earned: 39.75 },
+  { day: 'Thu', earned: 63.20 },
+  { day: 'Fri', earned: 47.50 },
+  { day: 'Sat', earned: 72.40 },
+  { day: 'Sun', earned: 0 },
+]
+const weekMax = Math.max(...WEEK_CHART.map(d => d.earned))
 
 export function DriverDashboard() {
   const { user, updateUser } = useAuth()
@@ -85,6 +96,28 @@ export function DriverDashboard() {
       <div style={{ display: 'flex', gap: 10, padding: '0 16px 20px' }}>
         <StatsCard label="Miles Driven" value="38.2" icon={Navigation} color="var(--primary-light)" sub="today" />
         <StatsCard label="Rating" value="4.97 ⭐" icon={Truck} color="var(--warning)" />
+      </div>
+
+      {/* Weekly earnings chart */}
+      <div style={{ margin: '0 16px 20px', padding: '14px 14px 10px', background: 'var(--bg-card)', borderRadius: 'var(--radius)', border: '1px solid var(--border)' }}>
+        <div className="row-between" style={{ marginBottom: 12 }}>
+          <span style={{ fontSize: 13, fontWeight: 700 }}>This Week</span>
+          <span style={{ fontSize: 13, color: 'var(--success)', fontWeight: 700 }}>{formatPrice(WEEK_CHART.reduce((s, d) => s + d.earned, 0))}</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'flex-end', gap: 5, height: 56 }}>
+          {WEEK_CHART.map((d, i) => (
+            <div key={d.day} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+              <div style={{
+                width: '100%',
+                height: d.earned ? Math.max(4, Math.round((d.earned / weekMax) * 44)) : 4,
+                background: i === 4 ? 'var(--primary)' : d.earned ? 'rgba(232,93,4,0.35)' : 'var(--bg-surface)',
+                border: `1px solid ${i === 4 ? 'var(--primary)' : d.earned ? 'rgba(232,93,4,0.2)' : 'var(--border)'}`,
+                borderRadius: 3,
+              }} />
+              <span style={{ fontSize: 9, color: i === 4 ? 'var(--primary-light)' : 'var(--text-muted)', fontWeight: i === 4 ? 700 : 400 }}>{d.day}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Vehicle info */}

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Bell, MapPin, ChevronRight, Flame, Heart } from 'lucide-react'
+import { Bell, MapPin, Flame, Heart, X } from 'lucide-react'
 import { AppHeader, IconBtn } from '../../components/common/AppHeader'
 import { VendorCard, VendorCardCompact } from '../../components/customer/VendorCard'
 import { useAuth } from '../../contexts/AuthContext'
@@ -18,6 +18,19 @@ export function CustomerHome() {
   const featured = openVendors.slice(0, 2)
   const nearby = MOCK_VENDORS.filter(v => v.city === 'San Jose' || v.city === 'Oakland')
   const favVendors = MOCK_VENDORS.filter(v => favorites.includes(v.id)).slice(0, 3)
+
+  const notifDismissed = localStorage.getItem('carnemx_notif_dismissed')
+  const showNotifBanner = !notifDismissed && 'Notification' in window && Notification.permission === 'default'
+  const [notifBanner, setNotifBanner] = useState(showNotifBanner)
+
+  const enableNotifications = async () => {
+    const perm = await Notification.requestPermission()
+    if (perm === 'granted') {
+      new Notification('CarneMX', { body: '🔥 You\'ll get updates when your order is on the way!', icon: '/icons/icon-192.png' })
+    }
+    localStorage.setItem('carnemx_notif_dismissed', 'true')
+    setNotifBanner(false)
+  }
   const categoryVendors = selectedCategory
     ? MOCK_VENDORS.filter(v => v.specialties.some(s => s.toLowerCase().includes(selectedCategory.replace('-', ' '))))
     : []
@@ -27,6 +40,21 @@ export function CustomerHome() {
       <AppHeader actions={
         <IconBtn icon={Bell} onClick={() => navigate('/notifications')} badge={2} />
       } />
+
+      {/* Push notification banner */}
+      {notifBanner && (
+        <div style={{ margin: '12px 16px 0', padding: '12px 14px', background: 'rgba(232,93,4,0.08)', border: '1px solid rgba(232,93,4,0.2)', borderRadius: 'var(--radius)', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <Bell size={18} style={{ color: 'var(--primary)', flexShrink: 0 }} />
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 1 }}>Get order updates</div>
+            <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Enable notifications to track deliveries</div>
+          </div>
+          <button className="btn btn-primary btn-sm" onClick={enableNotifications} style={{ fontSize: 11, flexShrink: 0, padding: '6px 10px' }}>Enable</button>
+          <button onClick={() => { localStorage.setItem('carnemx_notif_dismissed', 'true'); setNotifBanner(false) }} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: 2, flexShrink: 0 }}>
+            <X size={14} />
+          </button>
+        </div>
+      )}
 
       {/* Greeting + location */}
       <div style={{ padding: '16px 16px 0' }}>

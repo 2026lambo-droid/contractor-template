@@ -16,6 +16,7 @@ export function VendorDashboard() {
   const { toast } = useToast()
   const navigate = useNavigate()
   const vendor = MOCK_VENDORS.find(v => v.id === user?.vendorId) || MOCK_VENDORS[0]
+  const isOnboarded = localStorage.getItem('carnemx_onboarded') || user?.onboarded
 
   const liveOrders = getVendorOrders(vendor?.id)
 
@@ -84,6 +85,20 @@ export function VendorDashboard() {
   return (
     <div className="page animate-fadeIn">
       <AppHeader actions={<IconBtn icon={Bell} badge={pendingCount} onClick={() => navigate('/notifications')} />} />
+
+      {/* Onboarding banner */}
+      {!isOnboarded && (
+        <div style={{ margin: '12px 16px 0', padding: '14px', background: 'rgba(232,93,4,0.08)', border: '1.5px solid rgba(232,93,4,0.3)', borderRadius: 'var(--radius)', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <span style={{ fontSize: 24 }}>🏪</span>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 2 }}>Complete your store setup</div>
+            <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>Add your hours, delivery zones & first product to start receiving orders</div>
+          </div>
+          <button className="btn btn-primary btn-sm" onClick={() => navigate('/vendor/onboarding')} style={{ flexShrink: 0, fontSize: 12 }}>
+            Setup →
+          </button>
+        </div>
+      )}
 
       {/* Vendor header */}
       <div style={{ padding: '0 16px 16px' }}>

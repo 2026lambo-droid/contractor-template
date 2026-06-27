@@ -294,6 +294,31 @@ export const MOCK_ORDERS = [
   },
 ]
 
+export const MOCK_REVIEWS = {
+  v1: [
+    { id: 'rv-1-1', vendorId: 'v1', rating: 5, text: 'Best carne asada in the Bay Area! The citrus marinade is incredible. Delivery was hot and fast. Will definitely order again.', reviewerName: 'Maria G.', createdAt: new Date(Date.now() - 2 * 24 * 3600000) },
+    { id: 'rv-1-2', vendorId: 'v1', rating: 5, text: 'My family has been getting carne asada from here for years. The quality never drops. Fresh, perfectly marinated, amazing on the grill.', reviewerName: 'Jose R.', createdAt: new Date(Date.now() - 5 * 24 * 3600000) },
+    { id: 'rv-1-3', vendorId: 'v1', rating: 4, text: 'Excellent carne asada. Chorizo rojo is my new obsession. Took a little longer than expected but worth the wait.', reviewerName: 'Ana L.', createdAt: new Date(Date.now() - 7 * 24 * 3600000) },
+    { id: 'rv-1-4', vendorId: 'v1', rating: 5, text: 'The tripas were absolutely perfect. Crispy outside, tender inside. This is the real deal, just like back home.', reviewerName: 'Carlos M.', createdAt: new Date(Date.now() - 10 * 24 * 3600000) },
+    { id: 'rv-1-5', vendorId: 'v1', rating: 5, text: 'Roberto and his family know their craft. 5 stars every single time. The secret citrus blend is unreal.', reviewerName: 'Sofia P.', createdAt: new Date(Date.now() - 14 * 24 * 3600000) },
+  ],
+  v2: [
+    { id: 'rv-2-1', vendorId: 'v2', rating: 5, text: 'Authentic Michoacán carnitas. Crispy ends and super tender inside. Nothing else compares in the East Bay.', reviewerName: 'Pedro M.', createdAt: new Date(Date.now() - 3 * 24 * 3600000) },
+    { id: 'rv-2-2', vendorId: 'v2', rating: 5, text: 'Al pastor is out of this world. You can taste the pineapple and the guajillo chiles. Fresh cut to order!', reviewerName: 'Carmen R.', createdAt: new Date(Date.now() - 6 * 24 * 3600000) },
+    { id: 'rv-2-3', vendorId: 'v2', rating: 4, text: 'Great carnitas. The short ribs were fantastic for Sunday carne en su jugo. Fast delivery too.', reviewerName: 'Luis F.', createdAt: new Date(Date.now() - 9 * 24 * 3600000) },
+    { id: 'rv-2-4', vendorId: 'v2', rating: 5, text: 'Ordered 5 lbs of carnitas for a quinceañera. Everyone raved about them. Will order again for every party!', reviewerName: 'Isabel G.', createdAt: new Date(Date.now() - 12 * 24 * 3600000) },
+  ],
+  v3: [
+    { id: 'rv-3-1', vendorId: 'v3', rating: 5, text: 'USDA Prime carne asada is absolutely worth the premium price. This is restaurant quality at home.', reviewerName: 'David K.', createdAt: new Date(Date.now() - 1 * 24 * 3600000) },
+    { id: 'rv-3-2', vendorId: 'v3', rating: 4, text: 'Short ribs were perfectly marinated and delivery was quick. The lengua was better than any taqueria.', reviewerName: 'Rosa M.', createdAt: new Date(Date.now() - 4 * 24 * 3600000) },
+    { id: 'rv-3-3', vendorId: 'v3', rating: 5, text: 'Dry-aged carne asada is next level. I\'ve tried every carnicería in LA and this is my #1.', reviewerName: 'Marco V.', createdAt: new Date(Date.now() - 8 * 24 * 3600000) },
+  ],
+  v4: [
+    { id: 'rv-4-1', vendorId: 'v4', rating: 5, text: 'Chorizo verde is so unique and delicious. I\'ve never tasted anything like it. Jalisco pride!', reviewerName: 'Elena S.', createdAt: new Date(Date.now() - 15 * 24 * 3600000) },
+    { id: 'rv-4-2', vendorId: 'v4', rating: 4, text: 'Authentic Jalisco style. The carnitas are made every morning and you can tell.', reviewerName: 'Hector B.', createdAt: new Date(Date.now() - 20 * 24 * 3600000) },
+  ],
+}
+
 export const MOCK_DRIVER_DELIVERIES = [
   {
     id: 'del-001',

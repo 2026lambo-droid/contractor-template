@@ -73,6 +73,29 @@ export function Profile() {
         </div>
       ) : (
         <>
+          {/* Lifetime stats */}
+          {user?.role === 'customer' && (() => {
+            const orders = JSON.parse(localStorage.getItem('carnemx_orders') || '[]')
+            const allOrders = [...orders, { total: 55.35 }, { total: 55.35 }]
+            const totalSpent = allOrders.reduce((s, o) => s + (o.total || 0), 0)
+            return (
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8, margin: '0 16px 16px' }}>
+                <div className="stat-card" style={{ textAlign: 'center', padding: '12px 8px' }}>
+                  <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--primary)' }}>{allOrders.length}</div>
+                  <div style={{ fontSize: 10, color: 'var(--text-muted)', marginTop: 2 }}>Orders</div>
+                </div>
+                <div className="stat-card" style={{ textAlign: 'center', padding: '12px 8px' }}>
+                  <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--success)' }}>${totalSpent.toFixed(0)}</div>
+                  <div style={{ fontSize: 10, color: 'var(--text-muted)', marginTop: 2 }}>Spent</div>
+                </div>
+                <div className="stat-card" style={{ textAlign: 'center', padding: '12px 8px' }}>
+                  <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--warning)' }}>{favorites.length}</div>
+                  <div style={{ fontSize: 10, color: 'var(--text-muted)', marginTop: 2 }}>Saved</div>
+                </div>
+              </div>
+            )
+          })()}
+
           {/* Info cards */}
           <div className="card" style={{ margin: '0 16px 16px' }}>
             <div className="list-item">

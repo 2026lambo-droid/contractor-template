@@ -19,6 +19,10 @@ export function CustomerHome() {
   const nearby = MOCK_VENDORS.filter(v => v.city === 'San Jose' || v.city === 'Oakland')
   const favVendors = MOCK_VENDORS.filter(v => favorites.includes(v.id)).slice(0, 3)
 
+  const recentOrders = JSON.parse(localStorage.getItem('carnemx_orders') || '[]')
+  const lastOrder = recentOrders[0]
+  const lastVendor = lastOrder ? MOCK_VENDORS.find(v => v.id === lastOrder.vendorId) : null
+
   const notifDismissed = localStorage.getItem('carnemx_notif_dismissed')
   const showNotifBanner = !notifDismissed && 'Notification' in window && Notification.permission === 'default'
   const [notifBanner, setNotifBanner] = useState(showNotifBanner)
@@ -91,6 +95,22 @@ export function CustomerHome() {
           </button>
         </div>
       </div>
+
+      {/* Order Again — last order quick re-order */}
+      {lastVendor && lastOrder?.status === 'delivered' && (
+        <div style={{ margin: '0 16px 20px', padding: '12px 14px', background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ width: 44, height: 44, borderRadius: 10, overflow: 'hidden', flexShrink: 0 }}>
+            <img src={lastVendor.image} alt={lastVendor.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 2 }}>Last order from</div>
+            <div style={{ fontSize: 14, fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{lastVendor.name}</div>
+          </div>
+          <button className="btn btn-primary btn-sm" onClick={() => navigate(`/vendors/${lastVendor.id}`)} style={{ fontSize: 12, flexShrink: 0 }}>
+            Order Again
+          </button>
+        </div>
+      )}
 
       {/* Categories */}
       <div className="section-header">

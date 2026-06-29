@@ -15,6 +15,19 @@ const SAVED_CARDS = [
   { id: 'c2', brand: 'Mastercard', last4: '5555', exp: '08/26' },
 ]
 
+const ADDRESS_SUGGESTIONS = [
+  '800 N 1st St, San Jose, CA 95112',
+  '500 El Camino Real, Santa Clara, CA 95050',
+  '445 Willow St, San Jose, CA 95110',
+  '1600 E 14th St, San Leandro, CA 94578',
+  '660 Story Rd, San Jose, CA 95122',
+  '220 Alum Rock Ave, San Jose, CA 95116',
+  '3401 E 12th St, Oakland, CA 94601',
+  '990 Oakland Rd, San Jose, CA 95112',
+  '1220 Alum Rock Ave, San Jose, CA 95116',
+  '780 Davis St, San Leandro, CA 94577',
+]
+
 export function Checkout() {
   const { items, subtotal, vendorId, clearCart } = useCart()
   const { user } = useAuth()
@@ -22,12 +35,17 @@ export function Checkout() {
   const navigate = useNavigate()
 
   const [address, setAddress] = useState(user?.address || '')
+  const [addrFocused, setAddrFocused] = useState(false)
   const [selectedCard, setSelectedCard] = useState('c1')
   const [tip, setTip] = useState(0)
-  const [note, setNote] = useState('')
+  const [note, setNote] = useState(() => localStorage.getItem('carnemx_order_note') || '')
   const [loading, setLoading] = useState(false)
   const [promoCode, setPromoCode] = useState('')
   const [promoApplied, setPromoApplied] = useState(null)
+
+  const addrSuggestions = addrFocused && address.length >= 1
+    ? ADDRESS_SUGGESTIONS.filter(s => s.toLowerCase().includes(address.toLowerCase())).slice(0, 4)
+    : []
 
   const PROMO_CODES = {
     WELCOME10: { type: 'percent', value: 0.10, label: '10% off your order' },
@@ -83,6 +101,7 @@ export function Checkout() {
       localStorage.setItem('carnemx_orders', JSON.stringify([order, ...existing]))
       publishOrder(vendorOrder)
       clearCart()
+      localStorage.removeItem('carnemx_order_note')
       toast('Order placed! 🎉', 'success')
       navigate(`/orders/${orderId}`, { replace: true })
     } catch (err) {
@@ -102,14 +121,26 @@ export function Checkout() {
           <MapPin size={15} style={{ display: 'inline', marginRight: 6, color: 'var(--primary)' }} />
           Delivery Address
         </h3>
-        <textarea
-          className="input"
-          rows={2}
-          placeholder="Enter your full delivery address..."
-          value={address}
-          onChange={e => setAddress(e.target.value)}
-          style={{ resize: 'none', lineHeight: 1.5 }}
-        />
+        <div style={{ position: 'relative' }}>
+          <input
+            className="input"
+            placeholder="Start typing your address..."
+            value={address}
+            onChange={e => setAddress(e.target.value)}
+            onFocus={() => setAddrFocused(true)}
+            onBlur={() => setTimeout(() => setAddrFocused(false), 150)}
+          />
+          {addrSuggestions.length > 0 && (
+            <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, marginTop: 2, background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 'var(--radius-sm)', boxShadow: 'var(--shadow)', zIndex: 30, overflow: 'hidden' }}>
+              {addrSuggestions.map(s => (
+                <button key={s} onMouseDown={() => { setAddress(s); setAddrFocused(false) }} style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%', padding: '10px 12px', background: 'none', border: 'none', borderBottom: '1px solid var(--border)', textAlign: 'left', fontSize: 13, color: 'var(--text)', cursor: 'pointer' }}>
+                  <MapPin size={13} style={{ color: 'var(--primary)', flexShrink: 0 }} />
+                  {s}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Payment */}
@@ -170,9 +201,10 @@ export function Checkout() {
           rows={2}
           placeholder="Any special requests? (optional)"
           value={note}
-          onChange={e => setNote(e.target.value)}
+          onChange={e => { setNote(e.target.value); localStorage.setItem('carnemx_order_note', e.target.value) }}
           style={{ resize: 'none', lineHeight: 1.5 }}
         />
+        {note && <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 5 }}>From your cart instructions</div>}
       </div>
 
       {/* Promo code */}

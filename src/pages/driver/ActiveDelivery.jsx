@@ -4,6 +4,9 @@ import { Phone, Navigation, CheckCircle, MapPin, Package } from 'lucide-react'
 import { AppHeader } from '../../components/common/AppHeader'
 import { useToast } from '../../contexts/ToastContext'
 import { MOCK_DRIVER_DELIVERIES } from '../../utils/mockData'
+import { updateOrderStatus } from '../../services/orderBus'
+
+const STEP_TO_ORDER_STATUS = ['confirmed', 'ready', 'picked_up', 'delivered']
 
 const DELIVERY_STEPS = [
   { id: 'heading_to_vendor', label: 'Heading to Vendor', desc: 'Navigate to the pickup location', icon: '🚗' },
@@ -23,10 +26,18 @@ export function ActiveDelivery() {
 
   const advance = () => {
     if (step < DELIVERY_STEPS.length - 1) {
-      setStep(s => s + 1)
-      toast(DELIVERY_STEPS[step + 1].label, 'success')
+      const nextStep = step + 1
+      setStep(nextStep)
+      toast(DELIVERY_STEPS[nextStep].label, 'success')
+      const orderStatus = STEP_TO_ORDER_STATUS[nextStep]
+      if (orderStatus && delivery?.orderId) {
+        updateOrderStatus(delivery.orderId, delivery.vendorId || 'v1', orderStatus)
+      }
     } else {
       setDelivered(true)
+      if (delivery?.orderId) {
+        updateOrderStatus(delivery.orderId, delivery.vendorId || 'v1', 'delivered')
+      }
       toast('Delivery completed! 🎉 +$' + (delivery?.earning || 9.50), 'success')
     }
   }

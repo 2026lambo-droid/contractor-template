@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ShoppingCart, Trash2 } from 'lucide-react'
+import { ShoppingCart, Trash2, MessageSquare } from 'lucide-react'
 import { AppHeader } from '../../components/common/AppHeader'
 import { CartItem } from '../../components/customer/CartItem'
 import { useCart } from '../../contexts/CartContext'
@@ -10,6 +11,7 @@ import { DELIVERY_FEE } from '../../utils/constants'
 export function Cart() {
   const { items, subtotal, clearCart, vendorId } = useCart()
   const navigate = useNavigate()
+  const [note, setNote] = useState(() => localStorage.getItem('carnemx_order_note') || '')
   const vendor = MOCK_VENDORS.find(v => v.id === vendorId)
 
   const serviceFee = calcServiceFee(subtotal)
@@ -73,6 +75,23 @@ export function Cart() {
           <span style={{ fontSize: 17, fontWeight: 800 }}>Total</span>
           <span className="price" style={{ fontSize: 20 }}>{formatPrice(total)}</span>
         </div>
+      </div>
+
+      {/* Delivery instructions */}
+      <div style={{ margin: '0 16px 12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+          <MessageSquare size={14} style={{ color: 'var(--text-muted)' }} />
+          <span style={{ fontSize: 13, fontWeight: 600 }}>Delivery instructions</span>
+          <span style={{ fontSize: 11, color: 'var(--text-muted)', marginLeft: 'auto' }}>Optional</span>
+        </div>
+        <textarea
+          className="input"
+          rows={2}
+          placeholder="e.g. Leave at door, call when arrived, gate code #1234..."
+          value={note}
+          onChange={e => { setNote(e.target.value); localStorage.setItem('carnemx_order_note', e.target.value) }}
+          style={{ resize: 'none', fontSize: 13, lineHeight: 1.5 }}
+        />
       </div>
 
       {/* Delivery note */}

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Store, Clock, MapPin, Phone, Image, Save, ToggleLeft, ToggleRight } from 'lucide-react'
+import { Store, Clock, MapPin, Phone, Save, ToggleLeft, ToggleRight } from 'lucide-react'
 import { AppHeader } from '../../components/common/AppHeader'
 import { useAuth } from '../../contexts/AuthContext'
 import { useToast } from '../../contexts/ToastContext'
@@ -12,19 +12,38 @@ const HOURS_OPTIONS = [
   '5:00 PM', '6:00 PM', '7:00 PM', '8:00 PM', '9:00 PM', '10:00 PM',
 ]
 
+const DAYS = [
+  { id: 'mon', label: 'Mon' },
+  { id: 'tue', label: 'Tue' },
+  { id: 'wed', label: 'Wed' },
+  { id: 'thu', label: 'Thu' },
+  { id: 'fri', label: 'Fri' },
+  { id: 'sat', label: 'Sat' },
+  { id: 'sun', label: 'Sun' },
+]
+
+const DEFAULT_HOURS = {
+  mon: { open: true, openTime: '7:00 AM', closeTime: '7:00 PM' },
+  tue: { open: true, openTime: '7:00 AM', closeTime: '7:00 PM' },
+  wed: { open: true, openTime: '7:00 AM', closeTime: '7:00 PM' },
+  thu: { open: true, openTime: '7:00 AM', closeTime: '7:00 PM' },
+  fri: { open: true, openTime: '7:00 AM', closeTime: '9:00 PM' },
+  sat: { open: true, openTime: '6:00 AM', closeTime: '9:00 PM' },
+  sun: { open: true, openTime: '8:00 AM', closeTime: '6:00 PM' },
+}
+
 export function VendorSettings() {
   const { user } = useAuth()
   const { toast } = useToast()
   const vendor = MOCK_VENDORS.find(v => v.id === user?.vendorId) || MOCK_VENDORS[0]
 
   const [isOpen, setIsOpen] = useState(vendor?.isOpen ?? true)
+  const [hours, setHours] = useState(DEFAULT_HOURS)
   const [form, setForm] = useState({
     name: vendor?.name || '',
     description: vendor?.description || '',
     address: vendor?.address || '',
     phone: vendor?.phone || '',
-    openTime: '7:00 AM',
-    closeTime: '7:00 PM',
     minOrder: vendor?.minOrder || 2,
     deliveryZones: vendor?.deliveryZones || [],
     specialties: vendor?.specialties || [],
@@ -32,6 +51,10 @@ export function VendorSettings() {
   const [saving, setSaving] = useState(false)
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }))
+
+  const setDayHour = (dayId, field, value) => {
+    setHours(prev => ({ ...prev, [dayId]: { ...prev[dayId], [field]: value } }))
+  }
 
   const toggleZone = (zone) => {
     set('deliveryZones', form.deliveryZones.includes(zone)
@@ -53,6 +76,8 @@ export function VendorSettings() {
     setSaving(false)
     toast('Store settings saved!', 'success')
   }
+
+  const openDaysCount = DAYS.filter(d => hours[d.id].open).length
 
   return (
     <div className="page animate-fadeIn">
@@ -95,26 +120,57 @@ export function VendorSettings() {
         </div>
       </div>
 
-      {/* Hours */}
+      {/* Per-day hours */}
       <div style={{ padding: '0 16px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
           <Clock size={16} color="var(--primary)" />
           <h3 style={{ fontSize: 15, fontWeight: 700 }}>Operating Hours</h3>
+          <span style={{ marginLeft: 'auto', fontSize: 12, color: 'var(--text-muted)' }}>{openDaysCount}/7 days open</span>
         </div>
-        <div style={{ display: 'flex', gap: 12, marginBottom: 12 }}>
-          <div style={{ flex: 1 }}>
-            <label className="label">Opens</label>
-            <select className="select" value={form.openTime} onChange={e => set('openTime', e.target.value)}>
-              {HOURS_OPTIONS.map(h => <option key={h} value={h}>{h}</option>)}
-            </select>
-          </div>
-          <div style={{ flex: 1 }}>
-            <label className="label">Closes</label>
-            <select className="select" value={form.closeTime} onChange={e => set('closeTime', e.target.value)}>
-              {HOURS_OPTIONS.map(h => <option key={h} value={h}>{h}</option>)}
-            </select>
-          </div>
+
+        <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', overflow: 'hidden', marginBottom: 16 }}>
+          {DAYS.map((day, i) => {
+            const h = hours[day.id]
+            return (
+              <div key={day.id} style={{
+                display: 'flex', alignItems: 'center', gap: 10,
+                padding: '10px 14px',
+                borderBottom: i < DAYS.length - 1 ? '1px solid var(--border)' : 'none',
+                background: h.open ? 'transparent' : 'rgba(0,0,0,0.04)',
+              }}>
+                <button
+                  onClick={() => setDayHour(day.id, 'open', !h.open)}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, color: h.open ? 'var(--success)' : 'var(--text-muted)', flexShrink: 0 }}
+                >
+                  {h.open ? <ToggleRight size={26} /> : <ToggleLeft size={26} />}
+                </button>
+                <span style={{ fontSize: 13, fontWeight: 700, width: 32, color: h.open ? 'var(--text)' : 'var(--text-muted)', flexShrink: 0 }}>{day.label}</span>
+                {h.open ? (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, flex: 1 }}>
+                    <select
+                      value={h.openTime}
+                      onChange={e => setDayHour(day.id, 'openTime', e.target.value)}
+                      style={{ flex: 1, fontSize: 12, padding: '5px 6px', background: 'var(--bg-surface)', border: '1px solid var(--border)', borderRadius: 6, color: 'var(--text)', cursor: 'pointer' }}
+                    >
+                      {HOURS_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
+                    </select>
+                    <span style={{ fontSize: 11, color: 'var(--text-muted)', flexShrink: 0 }}>to</span>
+                    <select
+                      value={h.closeTime}
+                      onChange={e => setDayHour(day.id, 'closeTime', e.target.value)}
+                      style={{ flex: 1, fontSize: 12, padding: '5px 6px', background: 'var(--bg-surface)', border: '1px solid var(--border)', borderRadius: 6, color: 'var(--text)', cursor: 'pointer' }}
+                    >
+                      {HOURS_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
+                    </select>
+                  </div>
+                ) : (
+                  <span style={{ fontSize: 12, color: 'var(--text-muted)', fontStyle: 'italic' }}>Closed</span>
+                )}
+              </div>
+            )
+          })}
         </div>
+
         <div className="field">
           <label className="label">Min. Order (lbs)</label>
           <input className="input" type="number" min={1} max={10} value={form.minOrder} onChange={e => set('minOrder', parseInt(e.target.value))} style={{ maxWidth: 120 }} />

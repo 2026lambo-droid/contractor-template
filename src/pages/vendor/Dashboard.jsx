@@ -154,7 +154,8 @@ export function VendorDashboard() {
       <div style={{ display: 'flex', gap: 10, padding: '0 16px 8px' }}>
         {[
           { label: 'Add Product', emoji: '➕', path: '/vendor/products' },
-          { label: 'View Earnings', emoji: '💰', path: '/vendor/earnings' },
+          { label: 'Earnings', emoji: '💰', path: '/vendor/earnings' },
+          { label: 'Analytics', emoji: '📊', path: '/vendor/analytics' },
           { label: 'All Orders', emoji: '📋', path: '/vendor/orders' },
         ].map(a => (
           <button key={a.label} onClick={() => navigate(a.path)} style={{

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowLeft, Star, MapPin, Clock, Phone, ShoppingCart, Heart, Share2, Search } from 'lucide-react'
+import { ArrowLeft, Star, MapPin, Clock, Phone, Heart, Share2, Search } from 'lucide-react'
 import { ProductCard } from '../../components/customer/ProductCard'
 import { useCart } from '../../contexts/CartContext'
 import { useToast } from '../../contexts/ToastContext'
@@ -12,7 +12,7 @@ import { formatPrice, formatRelativeTime } from '../../utils/formatters'
 export function VendorDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { addItem, itemCount, subtotal } = useCart()
+  const { addItem } = useCart()
   const { toast } = useToast()
 
   const { isFavorite, toggle: toggleFav } = useFavorites()
@@ -210,16 +210,6 @@ export function VendorDetail() {
 
             <button className="btn btn-secondary btn-full" onClick={() => setShowReviews(false)}>Close</button>
           </div>
-        </div>
-      )}
-
-      {/* Cart bar */}
-      {itemCount > 0 && (
-        <div style={{ position: 'fixed', bottom: 'calc(var(--bottom-nav-h) + var(--safe-bottom) + 12px)', left: '50%', transform: 'translateX(-50%)', width: 'calc(100% - 32px)', maxWidth: 400, zIndex: 100 }}>
-          <button className="btn btn-gradient btn-full" onClick={() => navigate('/cart')} style={{ boxShadow: 'var(--shadow-lg)', borderRadius: 16 }}>
-            <ShoppingCart size={18} />
-            View Cart ({itemCount} items) · {formatPrice(subtotal)}
-          </button>
         </div>
       )}
 

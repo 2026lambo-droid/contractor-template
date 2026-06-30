@@ -43,6 +43,12 @@ export function Checkout() {
   const [promoCode, setPromoCode] = useState('')
   const [promoApplied, setPromoApplied] = useState(null)
 
+  const savedAddresses = (() => {
+    const past = JSON.parse(localStorage.getItem('carnemx_orders') || '[]')
+    const seen = new Set()
+    return past.map(o => o.address).filter(a => a && seen.size < 3 && !seen.has(a) && seen.add(a))
+  })()
+
   const addrSuggestions = addrFocused && address.length >= 1
     ? ADDRESS_SUGGESTIONS.filter(s => s.toLowerCase().includes(address.toLowerCase())).slice(0, 4)
     : []
@@ -121,6 +127,25 @@ export function Checkout() {
           <MapPin size={15} style={{ display: 'inline', marginRight: 6, color: 'var(--primary)' }} />
           Delivery Address
         </h3>
+        {savedAddresses.length > 0 && (
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 10 }}>
+            {savedAddresses.map(a => (
+              <button
+                key={a}
+                onClick={() => setAddress(a)}
+                style={{
+                  padding: '5px 10px', borderRadius: 100, fontSize: 11, fontWeight: 600,
+                  background: address === a ? 'rgba(232,93,4,0.12)' : 'var(--bg-surface)',
+                  border: `1px solid ${address === a ? 'var(--primary)' : 'var(--border)'}`,
+                  color: address === a ? 'var(--primary-light)' : 'var(--text-secondary)',
+                  cursor: 'pointer', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%',
+                }}
+              >
+                📍 {a.split(',')[0]}
+              </button>
+            ))}
+          </div>
+        )}
         <div style={{ position: 'relative' }}>
           <input
             className="input"

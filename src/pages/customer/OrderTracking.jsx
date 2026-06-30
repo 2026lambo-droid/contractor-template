@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { MapPin, Phone, MessageCircle, CheckCircle } from 'lucide-react'
+import { MapPin, Phone, MessageCircle, CheckCircle, Star } from 'lucide-react'
 import { AppHeader } from '../../components/common/AppHeader'
+import { ReviewModal } from '../../components/customer/ReviewModal'
 import { MOCK_ORDERS } from '../../utils/mockData'
 import { ORDER_STATUS, ORDER_STATUS_LABELS } from '../../utils/constants'
 import { formatPrice, formatDate } from '../../utils/formatters'
 import { subscribeToStatusUpdates } from '../../services/orderBus'
+import { useToast } from '../../contexts/ToastContext'
 
 const STEPS = ['pending', 'confirmed', 'preparing', 'ready', 'picked_up', 'delivered']
 
@@ -14,6 +16,7 @@ function getStatusIndex(status) { return STEPS.indexOf(status) }
 export function OrderTracking() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { toast } = useToast()
 
   const stored = JSON.parse(localStorage.getItem('carnemx_orders') || '[]')
   const mockOrder = MOCK_ORDERS.find(o => o.id === id)
@@ -26,6 +29,8 @@ export function OrderTracking() {
   })
 
   const demoTimerRef = useRef(null)
+  const [showReview, setShowReview] = useState(false)
+  const reviewed = JSON.parse(localStorage.getItem('carnemx_reviews') || '[]').some(r => r.orderId === id)
 
   const applyStatus = (newStatus) => {
     setOrder(prev => {
@@ -183,6 +188,33 @@ export function OrderTracking() {
           <div style={{ marginTop: 4, fontSize: 12, color: 'var(--text-muted)' }}>Placed {formatDate(order.createdAt)}</div>
         </div>
       </div>
+
+      {/* Post-delivery review prompt */}
+      {isDelivered && !reviewed && (
+        <div style={{ margin: '0 16px 16px', padding: 16, background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.2)', borderRadius: 'var(--radius)', textAlign: 'center' }}>
+          <div style={{ fontSize: 28, marginBottom: 8 }}>🎉</div>
+          <div style={{ fontSize: 16, fontWeight: 800, marginBottom: 4 }}>How was your order?</div>
+          <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 14 }}>Your feedback helps vendors serve you better</div>
+          <button className="btn btn-primary btn-full" onClick={() => setShowReview(true)}>
+            <Star size={15} /> Leave a Review
+          </button>
+        </div>
+      )}
+
+      {isDelivered && !reviewed && (
+        <div style={{ padding: '0 16px 16px', display: 'flex', gap: 10 }}>
+          <button className="btn btn-secondary btn-full" onClick={() => navigate('/vendors')}>Order Again</button>
+          <button className="btn btn-secondary btn-full" onClick={() => navigate('/orders')}>View Orders</button>
+        </div>
+      )}
+
+      {showReview && (
+        <ReviewModal
+          order={order}
+          onClose={() => setShowReview(false)}
+          onSubmit={() => { toast('Thanks for your review! ⭐', 'success'); setShowReview(false) }}
+        />
+      )}
     </div>
   )
 }

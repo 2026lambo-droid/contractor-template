@@ -30,6 +30,22 @@
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
+[data-theme="light"] {
+  --bg: #FBF7F4;
+  --bg-card: #FFFFFF;
+  --bg-surface: #F3EDE8;
+  --bg-input: #FFFFFF;
+  --text: #1A0D05;
+  --text-muted: #8B6E5A;
+  --text-secondary: #5C3D28;
+  --border: #E8D9CF;
+  --border-light: #D4C0B2;
+  --success-bg: #ECFDF5;
+  --error-bg: #FEF2F2;
+  --shadow: 0 4px 20px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.15);
+}
+
 html, body {
   font-family: var(--font);
   background: var(--bg);

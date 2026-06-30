@@ -6,7 +6,7 @@ import { USER_ROLES } from '../../utils/constants'
 
 const CUSTOMER_TABS = [
   { path: '/home', icon: Home, label: 'Home' },
-  { path: '/vendors', icon: Search, label: 'Browse' },
+  { path: '/search', icon: Search, label: 'Search' },
   { path: '/cart', icon: ShoppingCart, label: 'Cart', badge: true },
   { path: '/orders', icon: Clock, label: 'Orders' },
   { path: '/profile', icon: User, label: 'Profile' },

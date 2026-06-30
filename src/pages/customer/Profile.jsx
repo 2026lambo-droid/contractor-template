@@ -1,17 +1,19 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { User, MapPin, Phone, LogOut, ChevronRight, Bell, Shield, HelpCircle, Heart, Globe } from 'lucide-react'
+import { User, MapPin, Phone, LogOut, ChevronRight, Bell, Shield, HelpCircle, Heart, Globe, Moon, Sun } from 'lucide-react'
 import { AppHeader } from '../../components/common/AppHeader'
 import { useAuth } from '../../contexts/AuthContext'
 import { useToast } from '../../contexts/ToastContext'
 import { useLang } from '../../contexts/LanguageContext'
 import { useFavorites } from '../../contexts/FavoritesContext'
+import { useTheme } from '../../contexts/ThemeContext'
 
 export function Profile() {
   const { user, logout, updateUser } = useAuth()
   const { toast } = useToast()
   const { lang, toggle: toggleLang } = useLang()
   const { favorites } = useFavorites()
+  const { theme, toggle: toggleTheme } = useTheme()
   const navigate = useNavigate()
   const [editing, setEditing] = useState(false)
   const [name, setName] = useState(user?.name || '')
@@ -127,6 +129,20 @@ export function Profile() {
                 <ChevronRight size={16} color="var(--text-muted)" />
               </div>
             ))}
+          </div>
+
+          {/* Appearance toggle */}
+          <div style={{ margin: '0 16px 8px', padding: '14px', background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              {theme === 'dark' ? <Moon size={18} color="var(--text-muted)" /> : <Sun size={18} color="var(--text-muted)" />}
+              <div>
+                <div style={{ fontSize: 15, fontWeight: 500 }}>Appearance</div>
+                <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{theme === 'dark' ? 'Dark mode' : 'Light mode'}</div>
+              </div>
+            </div>
+            <button onClick={toggleTheme} style={{ padding: '6px 14px', borderRadius: 'var(--radius-sm)', background: 'rgba(232,93,4,0.12)', border: '1.5px solid var(--primary)', color: 'var(--primary-light)', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
+              {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
+            </button>
           </div>
 
           {/* Language toggle */}

@@ -1,12 +1,17 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import { CartProvider } from './contexts/CartContext'
 import { ToastProvider } from './contexts/ToastContext'
 import { LanguageProvider } from './contexts/LanguageContext'
 import { FavoritesProvider } from './contexts/FavoritesContext'
+import { ThemeProvider } from './contexts/ThemeContext'
 import { ProtectedRoute } from './components/common/ProtectedRoute'
 import { BottomNav } from './components/common/BottomNav'
 import { ErrorBoundary } from './components/common/ErrorBoundary'
+import { useAuth } from './contexts/AuthContext'
+import { useCart } from './contexts/CartContext'
+import { ShoppingCart } from 'lucide-react'
+import { formatPrice } from './utils/formatters'
 
 // Auth
 import { Login } from './pages/auth/Login'
@@ -45,8 +50,56 @@ import { AdminOrders } from './pages/admin/Orders'
 
 // Shared
 import { Notifications } from './pages/Notifications'
+import { GlobalSearch } from './pages/customer/GlobalSearch'
+import { VendorAnalytics } from './pages/vendor/Analytics'
 
 import './styles/global.css'
+
+const CART_HIDDEN_PATHS = ['/cart', '/checkout']
+
+function MiniCartBar() {
+  const { user } = useAuth()
+  const { itemCount, subtotal } = useCart()
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  if (!user || user.role !== 'customer') return null
+  if (itemCount === 0) return null
+  if (CART_HIDDEN_PATHS.some(p => location.pathname.startsWith(p))) return null
+
+  return (
+    <div
+      onClick={() => navigate('/cart')}
+      style={{
+        position: 'fixed',
+        bottom: 'calc(var(--bottom-nav-h) + var(--safe-bottom) + 10px)',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: 'calc(100% - 32px)',
+        maxWidth: 398,
+        background: 'var(--primary)',
+        borderRadius: 14,
+        padding: '12px 16px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 12,
+        cursor: 'pointer',
+        zIndex: 45,
+        boxShadow: '0 4px 24px rgba(232,93,4,0.45)',
+        animation: 'slideUp 0.25s ease',
+      }}
+    >
+      <div style={{ background: 'rgba(255,255,255,0.2)', borderRadius: 8, padding: '5px 9px', fontSize: 13, fontWeight: 800, color: 'white' }}>
+        {itemCount}
+      </div>
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 6 }}>
+        <ShoppingCart size={16} color="white" />
+        <span style={{ fontSize: 14, fontWeight: 700, color: 'white' }}>View Cart</span>
+      </div>
+      <span style={{ fontSize: 14, fontWeight: 800, color: 'white' }}>{formatPrice(subtotal)}</span>
+    </div>
+  )
+}
 
 function AppLayout({ children, role }) {
   return (
@@ -54,6 +107,7 @@ function AppLayout({ children, role }) {
       <ErrorBoundary>
         {children}
       </ErrorBoundary>
+      <MiniCartBar />
       <BottomNav />
     </ProtectedRoute>
   )
@@ -63,6 +117,7 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
+        <ThemeProvider>
         <LanguageProvider>
           <FavoritesProvider>
             <CartProvider>
@@ -86,6 +141,7 @@ function App() {
                   <Route path="/orders/:id" element={<AppLayout><OrderTracking /></AppLayout>} />
                   <Route path="/profile" element={<AppLayout><Profile /></AppLayout>} />
                   <Route path="/favorites" element={<AppLayout><Favorites /></AppLayout>} />
+                  <Route path="/search" element={<AppLayout><GlobalSearch /></AppLayout>} />
 
                   {/* Vendor routes */}
                   <Route path="/vendor/onboarding" element={<ProtectedRoute role="vendor"><ErrorBoundary><VendorOnboarding /></ErrorBoundary></ProtectedRoute>} />
@@ -94,6 +150,7 @@ function App() {
                   <Route path="/vendor/orders" element={<AppLayout role="vendor"><VendorOrders /></AppLayout>} />
                   <Route path="/vendor/earnings" element={<AppLayout role="vendor"><VendorEarnings /></AppLayout>} />
                   <Route path="/vendor/settings" element={<AppLayout role="vendor"><VendorSettings /></AppLayout>} />
+                  <Route path="/vendor/analytics" element={<AppLayout role="vendor"><VendorAnalytics /></AppLayout>} />
 
                   {/* Driver routes */}
                   <Route path="/driver/dashboard" element={<AppLayout role="driver"><DriverDashboard /></AppLayout>} />
@@ -114,6 +171,7 @@ function App() {
             </CartProvider>
           </FavoritesProvider>
         </LanguageProvider>
+        </ThemeProvider>
       </AuthProvider>
     </BrowserRouter>
   )

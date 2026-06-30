@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Car, CreditCard, Star, Shield, LogOut, Save } from 'lucide-react'
+import { Car, CreditCard, Star, Shield, LogOut, Save, Zap, X, CheckCircle } from 'lucide-react'
 import { AppHeader } from '../../components/common/AppHeader'
 import { useAuth } from '../../contexts/AuthContext'
 import { useToast } from '../../contexts/ToastContext'
@@ -12,6 +12,8 @@ export function DriverProfile() {
   const navigate = useNavigate()
 
   const [editing, setEditing] = useState(false)
+  const [payoutModal, setPayoutModal] = useState(false)
+  const [payoutStep, setPayoutStep] = useState('confirm') // confirm | processing | done
   const [form, setForm] = useState({
     name: user?.name || '',
     phone: user?.phone || '',
@@ -29,6 +31,18 @@ export function DriverProfile() {
     setSaving(false)
     setEditing(false)
     toast('Profile updated', 'success')
+  }
+
+  const startInstantPayout = async () => {
+    setPayoutStep('processing')
+    await new Promise(r => setTimeout(r, 1800))
+    setPayoutStep('done')
+  }
+
+  const closePayoutModal = () => {
+    setPayoutModal(false)
+    setPayoutStep('confirm')
+    if (payoutStep === 'done') toast('$284.75 deposited to Chase ••••4521', 'success')
   }
 
   const STATS = [
@@ -129,8 +143,10 @@ export function DriverProfile() {
           <span className="chip chip-success" style={{ fontSize: 11 }}>Active</span>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
-          <button className="btn btn-secondary btn-sm" style={{ flex: 1, fontSize: 12 }}>Instant Payout</button>
-          <button className="btn btn-secondary btn-sm" style={{ flex: 1, fontSize: 12 }}>Change Bank</button>
+          <button className="btn btn-primary btn-sm" style={{ flex: 1, fontSize: 12 }} onClick={() => { setPayoutModal(true); setPayoutStep('confirm') }}>
+            <Zap size={12} /> Instant Payout
+          </button>
+          <button className="btn btn-secondary btn-sm" style={{ flex: 1, fontSize: 12 }} onClick={() => toast('Bank change coming soon', 'info')}>Change Bank</button>
         </div>
       </div>
 
@@ -148,6 +164,53 @@ export function DriverProfile() {
         </button>
       </div>
       <p style={{ textAlign: 'center', fontSize: 11, color: 'var(--text-muted)', padding: '14px 0' }}>CarneMX Driver App v1.0.0</p>
+
+      {/* Instant Payout Modal */}
+      {payoutModal && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', zIndex: 200, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }} onClick={payoutStep !== 'processing' ? closePayoutModal : undefined}>
+          <div style={{ background: 'var(--bg-card)', borderRadius: '20px 20px 0 0', padding: 24, width: '100%', maxWidth: 430, paddingBottom: 'calc(24px + var(--safe-bottom))' }} onClick={e => e.stopPropagation()}>
+            {payoutStep === 'confirm' && (
+              <>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+                  <h3 style={{ fontSize: 18, fontWeight: 800 }}>Instant Payout</h3>
+                  <button onClick={closePayoutModal} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: 4 }}><X size={20} /></button>
+                </div>
+                <div style={{ padding: '16px', background: 'var(--bg-surface)', borderRadius: 12, marginBottom: 16, textAlign: 'center' }}>
+                  <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 4 }}>Available Balance</div>
+                  <div style={{ fontSize: 36, fontWeight: 900, color: 'var(--success)' }}>{formatPrice(284.75)}</div>
+                </div>
+                <div style={{ padding: '12px 14px', background: 'var(--bg-surface)', borderRadius: 10, marginBottom: 20, display: 'flex', justifyContent: 'space-between', fontSize: 13 }}>
+                  <span style={{ color: 'var(--text-muted)' }}>Destination</span>
+                  <span style={{ fontWeight: 700 }}>Chase ••••4521</span>
+                </div>
+                <div style={{ padding: '10px 14px', background: 'rgba(232,93,4,0.08)', borderRadius: 10, marginBottom: 20, fontSize: 12, color: 'var(--text-muted)', lineHeight: 1.5 }}>
+                  Instant deposits arrive within 30 minutes. A $0.50 fee applies for same-day transfers.
+                </div>
+                <button className="btn btn-primary btn-full" onClick={startInstantPayout}>
+                  <Zap size={16} /> Confirm — Get {formatPrice(284.25)} Now
+                </button>
+              </>
+            )}
+
+            {payoutStep === 'processing' && (
+              <div style={{ textAlign: 'center', padding: '20px 0' }}>
+                <div className="spinner" style={{ width: 48, height: 48, borderWidth: 4, margin: '0 auto 16px', borderTopColor: 'var(--primary)' }} />
+                <div style={{ fontSize: 17, fontWeight: 700, marginBottom: 6 }}>Processing Transfer</div>
+                <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>Sending to Chase ••••4521...</div>
+              </div>
+            )}
+
+            {payoutStep === 'done' && (
+              <div style={{ textAlign: 'center', padding: '20px 0' }}>
+                <CheckCircle size={52} color="var(--success)" style={{ margin: '0 auto 16px', display: 'block' }} />
+                <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--success)', marginBottom: 6 }}>{formatPrice(284.25)} Sent!</div>
+                <div style={{ fontSize: 14, color: 'var(--text-muted)', marginBottom: 24 }}>Your funds are on the way to Chase ••••4521. Estimated arrival: 15–30 minutes.</div>
+                <button className="btn btn-primary btn-full" onClick={closePayoutModal}>Done</button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

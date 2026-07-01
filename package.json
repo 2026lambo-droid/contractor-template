@@ -6,10 +6,16 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:mobile": "BUILD_TARGET=mobile vite build",
+    "sync:ios": "npm run build:mobile && npx cap sync ios",
+    "open:ios": "npx cap open ios",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor/cli": "^8.4.1",
+    "@capacitor/core": "^8.4.1",
+    "@capacitor/ios": "^8.4.1",
     "date-fns": "^4.4.0",
     "firebase": "^12.15.0",
     "lucide-react": "^1.21.0",

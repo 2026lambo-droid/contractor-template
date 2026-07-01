@@ -166,8 +166,13 @@ export function Profile() {
             </button>
           </div>
 
-          <p style={{ textAlign: 'center', fontSize: 11, color: 'var(--text-muted)', padding: '16px 0' }}>
+          <p style={{ textAlign: 'center', fontSize: 11, color: 'var(--text-muted)', padding: '12px 0 4px' }}>
             CarneMX v1.0.0 · Tu Carnicería, Entregada
+          </p>
+          <p style={{ textAlign: 'center', padding: '0 0 32px' }}>
+            <button onClick={() => navigate('/privacy')} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 11, color: 'var(--primary)', textDecoration: 'underline' }}>
+              Privacy Policy
+            </button>
           </p>
         </>
       )}

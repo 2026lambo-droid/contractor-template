@@ -52,6 +52,7 @@ import { AdminOrders } from './pages/admin/Orders'
 import { Notifications } from './pages/Notifications'
 import { GlobalSearch } from './pages/customer/GlobalSearch'
 import { VendorAnalytics } from './pages/vendor/Analytics'
+import { PrivacyPolicy } from './pages/PrivacyPolicy'
 
 import './styles/global.css'
 
@@ -163,6 +164,9 @@ function App() {
                   <Route path="/admin/vendors" element={<AppLayout role="admin"><AdminVendors /></AppLayout>} />
                   <Route path="/admin/drivers" element={<AppLayout role="admin"><AdminDrivers /></AppLayout>} />
                   <Route path="/admin/orders" element={<AppLayout role="admin"><AdminOrders /></AppLayout>} />
+
+                  {/* Public legal */}
+                  <Route path="/privacy" element={<PrivacyPolicy />} />
 
                   {/* Catch-all */}
                   <Route path="*" element={<Navigate to="/login" replace />} />

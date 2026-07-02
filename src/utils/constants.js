@@ -28,14 +28,14 @@ export const ORDER_STATUS_LABELS = {
 }
 
 export const MEAT_CATEGORIES = [
+  { id: 'trays', label: 'Trays', emoji: '🫕' },
   { id: 'carne-asada', label: 'Carne Asada', emoji: '🥩' },
-  { id: 'chorizo', label: 'Chorizo', emoji: '🌭' },
   { id: 'short-ribs', label: 'Short Ribs', emoji: '🍖' },
   { id: 'al-pastor', label: 'Al Pastor', emoji: '🔥' },
   { id: 'carnitas', label: 'Carnitas', emoji: '🐷' },
+  { id: 'chorizo', label: 'Chorizo', emoji: '🌭' },
   { id: 'chicken', label: 'Pollo', emoji: '🍗' },
   { id: 'tripas', label: 'Tripas', emoji: '🥩' },
-  { id: 'lengua', label: 'Lengua', emoji: '🥩' },
 ]
 
 export const DELIVERY_ZONES = [

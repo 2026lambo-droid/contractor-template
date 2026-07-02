@@ -68,7 +68,7 @@ export function CustomerHome() {
         </div>
         <h2 style={{ fontSize: 22, fontWeight: 800, lineHeight: 1.2, marginBottom: 16 }}>
           Hola, {user?.name?.split(' ')[0]} 👋<br />
-          <span style={{ fontSize: 18, fontWeight: 500, color: 'var(--text-secondary)' }}>What's on the grill today?</span>
+          <span style={{ fontSize: 18, fontWeight: 500, color: 'var(--text-secondary)' }}>Party trays delivered fresh.</span>
         </h2>
 
         {/* Search bar */}
@@ -77,7 +77,7 @@ export function CustomerHome() {
           padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', marginBottom: 24,
         }}>
           <span style={{ fontSize: 16 }}>🔍</span>
-          <span style={{ color: 'var(--text-muted)', fontSize: 15 }}>Search carnicerías & meats...</span>
+          <span style={{ color: 'var(--text-muted)', fontSize: 15 }}>Search carnicerías & party trays...</span>
         </div>
       </div>
 
@@ -89,7 +89,7 @@ export function CustomerHome() {
             <Flame size={14} style={{ color: 'var(--primary)' }} />
             <span style={{ fontSize: 11, color: 'var(--primary-light)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Free delivery today</span>
           </div>
-          <div style={{ fontSize: 18, fontWeight: 800, lineHeight: 1.2, marginBottom: 8 }}>Fresh Carne Asada<br />Delivered in 30 min</div>
+          <div style={{ fontSize: 18, fontWeight: 800, lineHeight: 1.2, marginBottom: 8 }}>Party Trays, Ready<br />to Grill — Delivered</div>
           <button className="btn btn-primary btn-sm" onClick={() => navigate('/vendors')} style={{ width: 'fit-content', fontSize: 12 }}>
             Order Now →
           </button>

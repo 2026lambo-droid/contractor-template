@@ -71,7 +71,7 @@ export function VendorDetail() {
     if (addingProduct.options?.cut) custom.cut = cut
     const added = addItem(addingProduct, quantity, custom)
     if (added !== false) {
-      toast(`Added ${quantity} lb ${addingProduct.name} to cart`, 'success')
+      toast(`Added ${quantity} ${addingProduct.unit === 'tray' ? (quantity === 1 ? 'tray' : 'trays') : 'lb'} of ${addingProduct.name} to cart`, 'success')
     }
     setAddingProduct(null)
   }
@@ -224,17 +224,17 @@ export function VendorDetail() {
               </div>
               <div style={{ flex: 1 }}>
                 <h3 style={{ fontWeight: 700, fontSize: 17, marginBottom: 4 }}>{addingProduct.name}</h3>
-                <span className="price" style={{ fontSize: 15 }}>{formatPrice(addingProduct.pricePerLb)}/lb</span>
+                <span className="price" style={{ fontSize: 15 }}>{formatPrice(addingProduct.pricePerLb)}/{addingProduct.unit === 'tray' ? 'tray' : 'lb'}</span>
               </div>
             </div>
 
             {/* Quantity */}
             <div className="field">
-              <label className="label">Quantity (pounds)</label>
+              <label className="label">{addingProduct.unit === 'tray' ? 'Quantity (trays)' : 'Quantity (pounds)'}</label>
               <div className="qty-selector" style={{ width: 'fit-content' }}>
                 <button className="qty-btn" onClick={() => setQuantity(q => Math.max(1, q - 1))}>−</button>
                 <span className="qty-val">{quantity}</span>
-                <button className="qty-btn" onClick={() => setQuantity(q => Math.min(20, q + 1))}>+</button>
+                <button className="qty-btn" onClick={() => setQuantity(q => Math.min(addingProduct.unit === 'tray' ? 10 : 20, q + 1))}>+</button>
               </div>
               <div style={{ marginTop: 6, fontSize: 12, color: 'var(--text-muted)' }}>
                 Subtotal: {formatPrice(addingProduct.pricePerLb * quantity)}

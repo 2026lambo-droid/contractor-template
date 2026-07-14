@@ -9,6 +9,32 @@ import { MOCK_VENDORS, MOCK_PRODUCTS, MOCK_REVIEWS } from '../../utils/mockData'
 import { MEAT_CATEGORIES, CUSTOMIZATION_OPTIONS } from '../../utils/constants'
 import { formatPrice, formatRelativeTime } from '../../utils/formatters'
 
+function unitLabel(unit, qty) {
+  if (unit === 'tray') return qty === 1 ? 'tray' : 'trays'
+  if (unit === 'meal') return qty === 1 ? 'meal' : 'meals'
+  if (unit === 'each') return qty === 1 ? 'item' : 'items'
+  return `lb${qty !== 1 ? 's' : ''}`
+}
+
+function unitDisplay(unit) {
+  if (unit === 'tray') return 'tray'
+  if (unit === 'meal') return 'meal'
+  if (unit === 'each') return 'each'
+  return 'lb'
+}
+
+function qtyLabel(unit) {
+  if (unit === 'tray') return 'Quantity (trays)'
+  if (unit === 'lb') return 'Quantity (pounds)'
+  return 'Quantity'
+}
+
+function maxQty(unit) {
+  if (unit === 'tray') return 10
+  if (unit === 'lb') return 20
+  return 50
+}
+
 export function VendorDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -24,18 +50,17 @@ export function VendorDetail() {
   const [productSearch, setProductSearch] = useState('')
   const [addingProduct, setAddingProduct] = useState(null)
   const [quantity, setQuantity] = useState(1)
-  const [marinade, setMarinade] = useState('traditional')
-  const [cut, setCut] = useState('thin')
+  const [meatType, setMeatType] = useState('mixtas')
   const [showReviews, setShowReviews] = useState(false)
 
-  const storedReviews = JSON.parse(localStorage.getItem('carnemx_reviews') || '[]').filter(r => r.vendorId === id)
+  const storedReviews = JSON.parse(localStorage.getItem('elrincon_reviews') || '[]').filter(r => r.vendorId === id)
   const mockReviews = MOCK_REVIEWS[id] || []
   const allReviews = [...storedReviews.map(r => ({ ...r, reviewerName: 'You' })), ...mockReviews]
 
   const handleShare = async () => {
     if (navigator.share) {
       try {
-        await navigator.share({ title: vendor.name, text: `Check out ${vendor.name} on CarneMX — fresh meats delivered!`, url: window.location.href })
+        await navigator.share({ title: vendor.name, text: `Order from ${vendor.name} — Auténticas Carnitas, Entregadas!`, url: window.location.href })
       } catch {}
     } else {
       await navigator.clipboard.writeText(window.location.href)
@@ -45,8 +70,8 @@ export function VendorDetail() {
 
   if (!vendor) return (
     <div style={{ padding: 24, textAlign: 'center' }}>
-      <p style={{ color: 'var(--text-muted)' }}>Vendor not found</p>
-      <button className="btn btn-primary mt-16" onClick={() => navigate('/vendors')}>Back to Vendors</button>
+      <p style={{ color: 'var(--text-muted)' }}>Location not found</p>
+      <button className="btn btn-primary mt-16" onClick={() => navigate('/vendors')}>Back to Locations</button>
     </div>
   )
 
@@ -61,17 +86,15 @@ export function VendorDetail() {
     if (!product.inStock) return
     setAddingProduct(product)
     setQuantity(1)
-    setMarinade('traditional')
-    setCut('thin')
+    setMeatType('mixtas')
   }
 
   const confirmAdd = () => {
     const custom = {}
-    if (addingProduct.options?.marinade) custom.marinade = marinade
-    if (addingProduct.options?.cut) custom.cut = cut
+    if (addingProduct.options?.meatType) custom.meatType = meatType
     const added = addItem(addingProduct, quantity, custom)
     if (added !== false) {
-      toast(`Added ${quantity} ${addingProduct.unit === 'tray' ? (quantity === 1 ? 'tray' : 'trays') : 'lb'} of ${addingProduct.name} to cart`, 'success')
+      toast(`Added ${quantity} ${unitLabel(addingProduct.unit, quantity)} of ${addingProduct.name} to cart`, 'success')
     }
     setAddingProduct(null)
   }
@@ -104,7 +127,7 @@ export function VendorDetail() {
         )}
       </div>
 
-      {/* Vendor info */}
+      {/* Location info */}
       <div style={{ padding: '16px 16px 0' }}>
         <div className="row-between" style={{ marginBottom: 8 }}>
           <h1 style={{ fontSize: 20, fontWeight: 800, flex: 1, marginRight: 8 }}>{vendor.name}</h1>
@@ -137,7 +160,7 @@ export function VendorDetail() {
       <div style={{ padding: '10px 16px 0' }}>
         <div style={{ position: 'relative' }}>
           <Search size={14} style={{ position: 'absolute', left: 13, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', pointerEvents: 'none' }} />
-          <input className="input" placeholder="Search products..." value={productSearch} onChange={e => setProductSearch(e.target.value)} style={{ paddingLeft: 36, fontSize: 13 }} />
+          <input className="input" placeholder="Search menu..." value={productSearch} onChange={e => setProductSearch(e.target.value)} style={{ paddingLeft: 36, fontSize: 13 }} />
         </div>
       </div>
 
@@ -174,7 +197,6 @@ export function VendorDetail() {
               </div>
             </div>
 
-            {/* Star breakdown */}
             <div style={{ marginBottom: 20 }}>
               {[5,4,3,2,1].map(n => {
                 const count = allReviews.filter(r => r.rating === n).length
@@ -192,7 +214,6 @@ export function VendorDetail() {
               })}
             </div>
 
-            {/* Individual reviews */}
             {allReviews.map(r => (
               <div key={r.id} style={{ paddingBottom: 16, marginBottom: 16, borderBottom: '1px solid var(--border)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
@@ -224,56 +245,37 @@ export function VendorDetail() {
               </div>
               <div style={{ flex: 1 }}>
                 <h3 style={{ fontWeight: 700, fontSize: 17, marginBottom: 4 }}>{addingProduct.name}</h3>
-                <span className="price" style={{ fontSize: 15 }}>{formatPrice(addingProduct.pricePerLb)}/{addingProduct.unit === 'tray' ? 'tray' : 'lb'}</span>
+                <span className="price" style={{ fontSize: 15 }}>{formatPrice(addingProduct.pricePerLb)}/{unitDisplay(addingProduct.unit)}</span>
               </div>
             </div>
 
             {/* Quantity */}
             <div className="field">
-              <label className="label">{addingProduct.unit === 'tray' ? 'Quantity (trays)' : 'Quantity (pounds)'}</label>
+              <label className="label">{qtyLabel(addingProduct.unit)}</label>
               <div className="qty-selector" style={{ width: 'fit-content' }}>
                 <button className="qty-btn" onClick={() => setQuantity(q => Math.max(1, q - 1))}>−</button>
                 <span className="qty-val">{quantity}</span>
-                <button className="qty-btn" onClick={() => setQuantity(q => Math.min(addingProduct.unit === 'tray' ? 10 : 20, q + 1))}>+</button>
+                <button className="qty-btn" onClick={() => setQuantity(q => Math.min(maxQty(addingProduct.unit), q + 1))}>+</button>
               </div>
               <div style={{ marginTop: 6, fontSize: 12, color: 'var(--text-muted)' }}>
                 Subtotal: {formatPrice(addingProduct.pricePerLb * quantity)}
               </div>
             </div>
 
-            {/* Marinade option */}
-            {addingProduct.options?.marinade && (
+            {/* Meat type option */}
+            {addingProduct.options?.meatType && (
               <div className="field">
-                <label className="label">Marinade</label>
+                <label className="label">Meat Type</label>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  {CUSTOMIZATION_OPTIONS.marinade.map(opt => (
-                    <button key={opt.id} onClick={() => setMarinade(opt.id)} style={{
+                  {CUSTOMIZATION_OPTIONS.meatType.map(opt => (
+                    <button key={opt.id} onClick={() => setMeatType(opt.id)} style={{
                       padding: '10px 14px', borderRadius: 'var(--radius-sm)',
-                      background: marinade === opt.id ? 'rgba(232,93,4,0.12)' : 'var(--bg-surface)',
-                      border: `1.5px solid ${marinade === opt.id ? 'var(--primary)' : 'var(--border)'}`,
+                      background: meatType === opt.id ? 'rgba(249,156,76,0.12)' : 'var(--bg-surface)',
+                      border: `1.5px solid ${meatType === opt.id ? 'var(--primary)' : 'var(--border)'}`,
                       textAlign: 'left', cursor: 'pointer',
                     }}>
                       <div style={{ fontWeight: 600, fontSize: 14 }}>{opt.label}</div>
                       <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>{opt.description}</div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Cut option */}
-            {addingProduct.options?.cut && (
-              <div className="field">
-                <label className="label">Cut Style</label>
-                <div style={{ display: 'flex', gap: 8 }}>
-                  {CUSTOMIZATION_OPTIONS.cut.map(opt => (
-                    <button key={opt.id} onClick={() => setCut(opt.id)} style={{
-                      flex: 1, padding: '10px 8px', borderRadius: 'var(--radius-sm)', textAlign: 'center',
-                      background: cut === opt.id ? 'rgba(232,93,4,0.12)' : 'var(--bg-surface)',
-                      border: `1.5px solid ${cut === opt.id ? 'var(--primary)' : 'var(--border)'}`,
-                      cursor: 'pointer',
-                    }}>
-                      <div style={{ fontWeight: 600, fontSize: 12 }}>{opt.label}</div>
                     </button>
                   ))}
                 </div>

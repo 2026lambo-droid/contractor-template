@@ -62,7 +62,7 @@ export function AdminDashboard() {
         <ShieldCheck size={18} color="var(--primary)" />
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--primary-light)' }}>Platform Admin</div>
-          <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Full access · CarneMX Operations</div>
+          <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Full access · El Rincón Operations</div>
         </div>
         <div style={{ textAlign: 'right' }}>
           <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>GMV (7d)</div>

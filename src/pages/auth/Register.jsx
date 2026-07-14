@@ -7,7 +7,7 @@ import { USER_ROLES } from '../../utils/constants'
 
 const ROLES = [
   { id: USER_ROLES.CUSTOMER, label: 'Customer', desc: 'Order fresh meats delivered to my door', icon: '🛒' },
-  { id: USER_ROLES.VENDOR, label: 'Vendor', desc: 'List my carnicería and sell to customers', icon: '🏪' },
+  { id: USER_ROLES.VENDOR, label: 'Location Manager', desc: 'Manage my El Rincón location and orders', icon: '🏪' },
   { id: USER_ROLES.DRIVER, label: 'Driver', desc: 'Deliver orders and earn money', icon: '🚗' },
 ]
 
@@ -32,7 +32,7 @@ export function Register() {
       const user = await register({ ...form, role })
       const home = role === 'vendor' ? '/vendor/dashboard' : role === 'driver' ? '/driver/dashboard' : '/home'
       navigate(home, { replace: true })
-      toast('Welcome to CarneMX!', 'success')
+      toast('Welcome to El Rincón!', 'success')
     } catch (err) {
       toast(err.message, 'error')
     } finally {
@@ -47,7 +47,7 @@ export function Register() {
         <Link to="/login" style={{ color: 'var(--text-muted)', fontSize: 14 }}>← Back to Sign In</Link>
       </div>
       <h1 style={{ fontSize: 26, fontWeight: 800, marginBottom: 4 }}>Create Account</h1>
-      <p style={{ fontSize: 14, color: 'var(--text-muted)', marginBottom: 28 }}>Join the CarneMX community</p>
+      <p style={{ fontSize: 14, color: 'var(--text-muted)', marginBottom: 28 }}>Join the El Rincón family</p>
 
       {step === 1 ? (
         <>
@@ -57,7 +57,7 @@ export function Register() {
               <button key={r.id} onClick={() => setRole(r.id)} style={{
                 display: 'flex', alignItems: 'center', gap: 14,
                 padding: 16, borderRadius: 'var(--radius)',
-                background: role === r.id ? 'rgba(232,93,4,0.1)' : 'var(--bg-card)',
+                background: role === r.id ? 'rgba(249,156,76,0.1)' : 'var(--bg-card)',
                 border: `1.5px solid ${role === r.id ? 'var(--primary)' : 'var(--border)'}`,
                 cursor: 'pointer', transition: 'all 0.15s', textAlign: 'left',
               }}>

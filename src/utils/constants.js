@@ -1,5 +1,5 @@
-export const APP_NAME = 'CarneMX'
-export const APP_TAGLINE = 'Tu Carnicería, Entregada'
+export const APP_NAME = 'El Rincón'
+export const APP_TAGLINE = 'Auténticas Carnitas, Entregadas'
 
 export const USER_ROLES = {
   CUSTOMER: 'customer',
@@ -28,42 +28,39 @@ export const ORDER_STATUS_LABELS = {
 }
 
 export const MEAT_CATEGORIES = [
-  { id: 'trays', label: 'Trays', emoji: '🫕' },
-  { id: 'carne-asada', label: 'Carne Asada', emoji: '🥩' },
-  { id: 'short-ribs', label: 'Short Ribs', emoji: '🍖' },
-  { id: 'al-pastor', label: 'Al Pastor', emoji: '🔥' },
-  { id: 'carnitas', label: 'Carnitas', emoji: '🐷' },
-  { id: 'chorizo', label: 'Chorizo', emoji: '🌭' },
-  { id: 'chicken', label: 'Pollo', emoji: '🍗' },
-  { id: 'tripas', label: 'Tripas', emoji: '🥩' },
+  { id: 'trays', label: 'Party Trays', emoji: '🫕' },
+  { id: 'combos', label: 'Combos', emoji: '🍽️' },
+  { id: 'per-pound', label: 'Por Libra', emoji: '⚖️' },
+  { id: 'tacos', label: 'Tacos', emoji: '🌮' },
+  { id: 'burritos', label: 'Burritos', emoji: '🌯' },
+  { id: 'quesadillas', label: 'Quesadillas', emoji: '🫓' },
+  { id: 'plates', label: 'Platillos', emoji: '🍛' },
+  { id: 'weekend', label: 'Fin de Semana', emoji: '🐔' },
+  { id: 'beverages', label: 'Bebidas', emoji: '🥤' },
 ]
 
 export const DELIVERY_ZONES = [
   { id: 'san-jose', city: 'San Jose', region: 'Bay Area' },
+  { id: 'hayward', city: 'Hayward', region: 'Bay Area' },
+  { id: 'redwood-city', city: 'Redwood City', region: 'Bay Area' },
   { id: 'san-francisco', city: 'San Francisco', region: 'Bay Area' },
-  { id: 'oakland', city: 'Oakland', region: 'Bay Area' },
-  { id: 'fremont', city: 'Fremont', region: 'Bay Area' },
-  { id: 'los-angeles', city: 'Los Angeles', region: 'SoCal' },
-  { id: 'san-diego', city: 'San Diego', region: 'SoCal' },
-  { id: 'riverside', city: 'Riverside', region: 'SoCal' },
-  { id: 'anaheim', city: 'Anaheim', region: 'SoCal' },
-  { id: 'long-beach', city: 'Long Beach', region: 'SoCal' },
-  { id: 'santa-ana', city: 'Santa Ana', region: 'SoCal' },
-  { id: 'stockton', city: 'Stockton', region: 'Central Valley' },
-  { id: 'fresno', city: 'Fresno', region: 'Central Valley' },
+  { id: 'vallejo', city: 'Vallejo', region: 'Bay Area' },
+  { id: 'sacramento', city: 'Sacramento', region: 'Central Valley' },
+  { id: 'woodland', city: 'Woodland', region: 'Central Valley' },
+  { id: 'lodi', city: 'Lodi', region: 'Central Valley' },
+  { id: 'fairfield', city: 'Fairfield', region: 'NorCal' },
+  { id: 'yuba-city', city: 'Yuba City', region: 'Northern CA' },
+  { id: 'modesto', city: 'Modesto', region: 'Central Valley' },
+  { id: 'chico', city: 'Chico', region: 'Northern CA' },
 ]
 
 export const CUSTOMIZATION_OPTIONS = {
-  marinade: [
-    { id: 'fresh', label: 'Fresh / Sin Marinar', description: 'No marinade, natural flavor' },
-    { id: 'traditional', label: 'Traditional / Marinado', description: 'Classic citrus & spice marinade' },
-    { id: 'spicy', label: 'Spicy / Picante', description: 'Extra chile & jalapeño marinade' },
-    { id: 'achiote', label: 'Achiote', description: 'Smoky achiote paste rub' },
-  ],
-  cut: [
-    { id: 'thin', label: 'Thin Cut / Delgado', description: 'Classic thin for quick grilling' },
-    { id: 'thick', label: 'Thick Cut / Grueso', description: 'Thicker for juicy steaks' },
-    { id: 'diced', label: 'Diced / Picado', description: 'Cubed for tacos & stews' },
+  meatType: [
+    { id: 'mixtas', label: 'Mixtas', description: 'A flavorful mix of carnitas cuts — the most popular choice' },
+    { id: 'pura-carne', label: 'Pura Carne', description: 'Pure lean pork, no offal or skin' },
+    { id: 'buche', label: 'Buche', description: 'Pork stomach — rich, tender, and deeply flavorful' },
+    { id: 'cueritos', label: 'Cueritos', description: 'Pickled pork skin — tangy and chewy' },
+    { id: 'chicharron', label: 'Chicharron', description: 'Crispy fried pork rinds (+$1/lb)' },
   ],
 }
 

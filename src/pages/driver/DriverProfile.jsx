@@ -163,7 +163,7 @@ export function DriverProfile() {
           <LogOut size={16} /> Sign Out
         </button>
       </div>
-      <p style={{ textAlign: 'center', fontSize: 11, color: 'var(--text-muted)', padding: '14px 0' }}>CarneMX Driver App v1.0.0</p>
+      <p style={{ textAlign: 'center', fontSize: 11, color: 'var(--text-muted)', padding: '14px 0' }}>El Rincón Driver App v1.0.0</p>
 
       {/* Instant Payout Modal */}
       {payoutModal && (

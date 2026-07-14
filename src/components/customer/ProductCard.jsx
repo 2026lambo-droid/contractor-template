@@ -18,7 +18,9 @@ export function ProductCard({ product, onAdd }) {
         <div className="row-between">
           <div>
             <span className="price" style={{ fontSize: 15 }}>{formatPrice(product.pricePerLb)}</span>
-            <span style={{ fontSize: 11, color: 'var(--text-muted)' }}> / {product.unit === 'tray' ? 'tray' : 'lb'}</span>
+            <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>
+            {' / '}{product.unit === 'tray' ? 'tray' : product.unit === 'meal' ? 'meal' : product.unit === 'each' ? 'each' : 'lb'}
+          </span>
           </div>
           {!product.inStock ? (
             <span className="chip chip-error" style={{ fontSize: 11 }}>Out of Stock</span>

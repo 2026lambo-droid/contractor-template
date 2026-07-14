@@ -35,7 +35,7 @@ export function VendorOnboarding() {
     await new Promise(r => setTimeout(r, 1200))
     updateUser({ onboarded: true, storeName: profile.storeName })
     localStorage.setItem('carnemx_onboarded', 'true')
-    toast('Store set up! Welcome to CarneMX 🎉', 'success')
+    toast('Location set up! Welcome to El Rincón 🎉', 'success')
     navigate('/vendor/dashboard', { replace: true })
   }
 

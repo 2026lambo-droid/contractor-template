@@ -1,6 +1,6 @@
 {
-  "appId": "com.carnemx.app",
-  "appName": "CarneMX",
+  "appId": "com.elrincon.app",
+  "appName": "El Rincon",
   "webDir": "dist",
   "server": {
     "androidScheme": "https"
@@ -9,6 +9,7 @@
     "contentInset": "always",
     "preferredContentMode": "mobile",
     "backgroundColor": "#0F0A08"
+
   },
   "plugins": {
     "SplashScreen": {

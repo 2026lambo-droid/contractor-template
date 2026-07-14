@@ -77,7 +77,7 @@ export function Profile() {
         <>
           {/* Lifetime stats */}
           {user?.role === 'customer' && (() => {
-            const orders = JSON.parse(localStorage.getItem('carnemx_orders') || '[]')
+            const orders = JSON.parse(localStorage.getItem('elrincon_orders') || '[]')
             const allOrders = [...orders, { total: 55.35 }, { total: 55.35 }]
             const totalSpent = allOrders.reduce((s, o) => s + (o.total || 0), 0)
             return (
@@ -167,7 +167,7 @@ export function Profile() {
           </div>
 
           <p style={{ textAlign: 'center', fontSize: 11, color: 'var(--text-muted)', padding: '12px 0 4px' }}>
-            CarneMX v1.0.0 · Tu Carnicería, Entregada
+            El Rincón v1.0.0 · Auténticas Carnitas, Entregadas
           </p>
           <p style={{ textAlign: 'center', padding: '0 0 32px' }}>
             <button onClick={() => navigate('/privacy')} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 11, color: 'var(--primary)', textDecoration: 'underline' }}>

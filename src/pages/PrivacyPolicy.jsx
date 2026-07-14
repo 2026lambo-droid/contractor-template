@@ -18,7 +18,7 @@ export function PrivacyPolicy() {
 
         <section style={{ marginBottom: 24 }}>
           <h2 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text)', marginBottom: 8 }}>Overview</h2>
-          <p>CarneMX ("we", "our", "us") connects customers with local meat markets and delivery drivers. This policy explains what information we collect, how we use it, and your rights.</p>
+          <p>Carnitas El Rincón ("we", "our", "us") connects customers with our locations and delivery drivers. This policy explains what information we collect, how we use it, and your rights.</p>
         </section>
 
         <section style={{ marginBottom: 24 }}>
@@ -64,7 +64,7 @@ export function PrivacyPolicy() {
 
         <section style={{ marginBottom: 24 }}>
           <h2 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text)', marginBottom: 8 }}>Children's Privacy</h2>
-          <p>CarneMX is not intended for children under 13. We do not knowingly collect information from children under 13.</p>
+          <p>Carnitas El Rincón is not intended for children under 13. We do not knowingly collect information from children under 13.</p>
         </section>
 
         <section style={{ marginBottom: 24 }}>
@@ -74,7 +74,7 @@ export function PrivacyPolicy() {
 
         <section>
           <h2 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text)', marginBottom: 8 }}>Contact Us</h2>
-          <p>Questions about this policy? Email us at <span style={{ color: 'var(--primary)' }}>privacy@carnemx.com</span></p>
+          <p>Questions about this policy? Email us at <span style={{ color: 'var(--primary)' }}>privacy@elrincon.com</span></p>
         </section>
       </div>
     </div>

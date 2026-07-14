@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main, claude/meat-marketplace-app-jkp5rr]
+    branches: [main, claude/meat-marketplace-app-jkp5rr, claude/carnitas-el-rincon-app]
   workflow_dispatch:
 
 permissions:

@@ -5,7 +5,7 @@ import { AppHeader } from '../../components/common/AppHeader'
 import { MOCK_VENDORS, MOCK_PRODUCTS } from '../../utils/mockData'
 import { formatPrice } from '../../utils/formatters'
 
-const RECENT_KEY = 'carnemx_recent_searches'
+const RECENT_KEY = 'elrincon_recent_searches'
 
 function getRecent() {
   try { return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]') } catch { return [] }

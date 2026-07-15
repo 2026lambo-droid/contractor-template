@@ -19,8 +19,8 @@ export function ReviewModal({ order, onClose, onSubmit }) {
       text: text.trim(),
       createdAt: new Date().toISOString(),
     }
-    const existing = JSON.parse(localStorage.getItem('carnemx_reviews') || '[]')
-    localStorage.setItem('carnemx_reviews', JSON.stringify([review, ...existing]))
+    const existing = JSON.parse(localStorage.getItem('elrincon_reviews') || '[]')
+    localStorage.setItem('elrincon_reviews', JSON.stringify([review, ...existing]))
     onSubmit?.(review)
     onClose()
   }

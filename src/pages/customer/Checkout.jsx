@@ -38,13 +38,13 @@ export function Checkout() {
   const [addrFocused, setAddrFocused] = useState(false)
   const [selectedCard, setSelectedCard] = useState('c1')
   const [tip, setTip] = useState(0)
-  const [note, setNote] = useState(() => localStorage.getItem('carnemx_order_note') || '')
+  const [note, setNote] = useState(() => localStorage.getItem('elrincon_order_note') || '')
   const [loading, setLoading] = useState(false)
   const [promoCode, setPromoCode] = useState('')
   const [promoApplied, setPromoApplied] = useState(null)
 
   const savedAddresses = (() => {
-    const past = JSON.parse(localStorage.getItem('carnemx_orders') || '[]')
+    const past = JSON.parse(localStorage.getItem('elrincon_orders') || '[]')
     const seen = new Set()
     return past.map(o => o.address).filter(a => a && seen.size < 3 && !seen.has(a) && seen.add(a))
   })()
@@ -103,11 +103,11 @@ export function Checkout() {
       }
       const vendor = MOCK_VENDORS.find(v => v.id === vendorId)
       const vendorOrder = { ...order, vendorId, vendorName: vendor?.name, customerName: user.name }
-      const existing = JSON.parse(localStorage.getItem('carnemx_orders') || '[]')
-      localStorage.setItem('carnemx_orders', JSON.stringify([order, ...existing]))
+      const existing = JSON.parse(localStorage.getItem('elrincon_orders') || '[]')
+      localStorage.setItem('elrincon_orders', JSON.stringify([order, ...existing]))
       publishOrder(vendorOrder)
       clearCart()
-      localStorage.removeItem('carnemx_order_note')
+      localStorage.removeItem('elrincon_order_note')
       toast('Order placed! 🎉', 'success')
       navigate(`/orders/${orderId}`, { replace: true })
     } catch (err) {
@@ -135,7 +135,7 @@ export function Checkout() {
                 onClick={() => setAddress(a)}
                 style={{
                   padding: '5px 10px', borderRadius: 100, fontSize: 11, fontWeight: 600,
-                  background: address === a ? 'rgba(232,93,4,0.12)' : 'var(--bg-surface)',
+                  background: address === a ? 'rgba(249,156,76,0.12)' : 'var(--bg-surface)',
                   border: `1px solid ${address === a ? 'var(--primary)' : 'var(--border)'}`,
                   color: address === a ? 'var(--primary-light)' : 'var(--text-secondary)',
                   cursor: 'pointer', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%',
@@ -207,7 +207,7 @@ export function Checkout() {
           {tips.map(t => (
             <button key={t} onClick={() => setTip(t)} style={{
               flex: 1, padding: '10px 6px', borderRadius: 'var(--radius-sm)', textAlign: 'center',
-              background: tip === t ? 'rgba(232,93,4,0.12)' : 'var(--bg-surface)',
+              background: tip === t ? 'rgba(249,156,76,0.12)' : 'var(--bg-surface)',
               border: `1.5px solid ${tip === t ? 'var(--primary)' : 'var(--border)'}`,
               fontSize: 13, fontWeight: 600, color: tip === t ? 'var(--primary-light)' : 'var(--text-secondary)',
               cursor: 'pointer',
@@ -226,7 +226,7 @@ export function Checkout() {
           rows={2}
           placeholder="Any special requests? (optional)"
           value={note}
-          onChange={e => { setNote(e.target.value); localStorage.setItem('carnemx_order_note', e.target.value) }}
+          onChange={e => { setNote(e.target.value); localStorage.setItem('elrincon_order_note', e.target.value) }}
           style={{ resize: 'none', lineHeight: 1.5 }}
         />
         {note && <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 5 }}>From your cart instructions</div>}

@@ -18,7 +18,7 @@ export function OrderTracking() {
   const navigate = useNavigate()
   const { toast } = useToast()
 
-  const stored = JSON.parse(localStorage.getItem('carnemx_orders') || '[]')
+  const stored = JSON.parse(localStorage.getItem('elrincon_orders') || '[]')
   const mockOrder = MOCK_ORDERS.find(o => o.id === id)
   const storedOrder = stored.find(o => o.id === id)
 
@@ -30,14 +30,14 @@ export function OrderTracking() {
 
   const demoTimerRef = useRef(null)
   const [showReview, setShowReview] = useState(false)
-  const reviewed = JSON.parse(localStorage.getItem('carnemx_reviews') || '[]').some(r => r.orderId === id)
+  const reviewed = JSON.parse(localStorage.getItem('elrincon_reviews') || '[]').some(r => r.orderId === id)
 
   const applyStatus = (newStatus) => {
     setOrder(prev => {
       if (!prev) return prev
       const updated = { ...prev, status: newStatus }
-      const all = JSON.parse(localStorage.getItem('carnemx_orders') || '[]')
-      localStorage.setItem('carnemx_orders', JSON.stringify(all.map(o => o.id === updated.id ? updated : o)))
+      const all = JSON.parse(localStorage.getItem('elrincon_orders') || '[]')
+      localStorage.setItem('elrincon_orders', JSON.stringify(all.map(o => o.id === updated.id ? updated : o)))
       return updated
     })
   }
@@ -58,8 +58,8 @@ export function OrderTracking() {
         if (idx >= STEPS.length - 1) { clearInterval(demoTimerRef.current); return prev }
         const newStatus = STEPS[idx + 1]
         const updated = { ...prev, status: newStatus }
-        const all = JSON.parse(localStorage.getItem('carnemx_orders') || '[]')
-        localStorage.setItem('carnemx_orders', JSON.stringify(all.map(o => o.id === updated.id ? updated : o)))
+        const all = JSON.parse(localStorage.getItem('elrincon_orders') || '[]')
+        localStorage.setItem('elrincon_orders', JSON.stringify(all.map(o => o.id === updated.id ? updated : o)))
         return updated
       })
     }, 8000)
@@ -97,8 +97,8 @@ export function OrderTracking() {
       {/* Status header */}
       <div style={{
         margin: 16, padding: 20, borderRadius: 'var(--radius-lg)',
-        background: isDelivered ? 'rgba(34,197,94,0.1)' : isCancelled ? 'var(--error-bg)' : 'rgba(232,93,4,0.08)',
-        border: `1px solid ${isDelivered ? 'rgba(34,197,94,0.25)' : isCancelled ? 'rgba(239,68,68,0.3)' : 'rgba(232,93,4,0.2)'}`,
+        background: isDelivered ? 'rgba(34,197,94,0.1)' : isCancelled ? 'var(--error-bg)' : 'rgba(249,156,76,0.08)',
+        border: `1px solid ${isDelivered ? 'rgba(34,197,94,0.25)' : isCancelled ? 'rgba(239,68,68,0.3)' : 'rgba(249,156,76,0.2)'}`,
         textAlign: 'center',
       }}>
         <div style={{ fontSize: 40, marginBottom: 8 }}>{stepLabels[Math.max(0, currentStep)]?.icon || '📦'}</div>

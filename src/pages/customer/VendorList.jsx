@@ -74,7 +74,7 @@ export function VendorList() {
           {showSort && (
             <div style={{ position: 'absolute', right: 0, top: '100%', marginTop: 4, background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 'var(--radius-sm)', boxShadow: 'var(--shadow)', zIndex: 20, overflow: 'hidden', minWidth: 140 }}>
               {SORT_OPTIONS.map(opt => (
-                <button key={opt.id} onClick={() => { setSortBy(opt.id); setShowSort(false) }} style={{ display: 'block', width: '100%', padding: '10px 14px', background: sortBy === opt.id ? 'rgba(232,93,4,0.1)' : 'none', border: 'none', textAlign: 'left', fontSize: 13, fontWeight: sortBy === opt.id ? 700 : 400, color: sortBy === opt.id ? 'var(--primary-light)' : 'var(--text)', cursor: 'pointer' }}>
+                <button key={opt.id} onClick={() => { setSortBy(opt.id); setShowSort(false) }} style={{ display: 'block', width: '100%', padding: '10px 14px', background: sortBy === opt.id ? 'rgba(249,156,76,0.1)' : 'none', border: 'none', textAlign: 'left', fontSize: 13, fontWeight: sortBy === opt.id ? 700 : 400, color: sortBy === opt.id ? 'var(--primary-light)' : 'var(--text)', cursor: 'pointer' }}>
                   {opt.label}
                 </button>
               ))}

@@ -183,7 +183,7 @@ export function DriverProfile() {
                   <span style={{ color: 'var(--text-muted)' }}>Destination</span>
                   <span style={{ fontWeight: 700 }}>Chase ••••4521</span>
                 </div>
-                <div style={{ padding: '10px 14px', background: 'rgba(232,93,4,0.08)', borderRadius: 10, marginBottom: 20, fontSize: 12, color: 'var(--text-muted)', lineHeight: 1.5 }}>
+                <div style={{ padding: '10px 14px', background: 'rgba(249,156,76,0.08)', borderRadius: 10, marginBottom: 20, fontSize: 12, color: 'var(--text-muted)', lineHeight: 1.5 }}>
                   Instant deposits arrive within 30 minutes. A $0.50 fee applies for same-day transfers.
                 </div>
                 <button className="btn btn-primary btn-full" onClick={startInstantPayout}>

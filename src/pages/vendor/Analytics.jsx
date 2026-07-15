@@ -126,7 +126,7 @@ export function VendorAnalytics() {
               <div style={{
                 width: '100%',
                 height: Math.max(4, Math.round((week.sales[i] / salesMax) * 64)),
-                background: hoverDay === i ? 'var(--primary)' : i === 5 ? 'rgba(232,93,4,0.7)' : 'rgba(232,93,4,0.3)',
+                background: hoverDay === i ? 'var(--primary)' : i === 5 ? 'rgba(249,156,76,0.7)' : 'rgba(249,156,76,0.3)',
                 borderRadius: '3px 3px 0 0',
                 transition: 'all 0.15s',
               }} />
@@ -161,7 +161,7 @@ export function VendorAnalytics() {
               <div style={{
                 width: '100%',
                 height: Math.max(3, Math.round((d.v / hourMax) * 50)),
-                background: hoverHour === i ? 'var(--primary)' : d.v >= 15 ? 'rgba(232,93,4,0.65)' : 'rgba(232,93,4,0.25)',
+                background: hoverHour === i ? 'var(--primary)' : d.v >= 15 ? 'rgba(249,156,76,0.65)' : 'rgba(249,156,76,0.25)',
                 borderRadius: '2px 2px 0 0',
                 transition: 'all 0.15s',
               }} />

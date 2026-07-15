@@ -86,7 +86,7 @@ function MiniCartBar() {
         gap: 12,
         cursor: 'pointer',
         zIndex: 45,
-        boxShadow: '0 4px 24px rgba(232,93,4,0.45)',
+        boxShadow: '0 4px 24px rgba(249,156,76,0.45)',
         animation: 'slideUp 0.25s ease',
       }}
     >

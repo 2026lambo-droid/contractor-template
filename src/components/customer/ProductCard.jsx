@@ -12,8 +12,8 @@ export function ProductCard({ product, onAdd }) {
           <h4 style={{ fontSize: 14, fontWeight: 700 }}>{product.name}</h4>
           {product.popular && <span className="chip chip-primary" style={{ fontSize: 10, padding: '3px 7px' }}>Popular</span>}
         </div>
-        <p style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 8, lineHeight: 1.4 }}>
-          {product.description.slice(0, 70)}...
+        <p style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 8, lineHeight: 1.5 }}>
+          {product.description.length > 90 ? product.description.slice(0, 90) + '…' : product.description}
         </p>
         <div className="row-between">
           <div>

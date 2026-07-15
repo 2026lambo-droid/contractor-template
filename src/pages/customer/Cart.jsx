@@ -11,7 +11,7 @@ import { DELIVERY_FEE } from '../../utils/constants'
 export function Cart() {
   const { items, subtotal, clearCart, vendorId } = useCart()
   const navigate = useNavigate()
-  const [note, setNote] = useState(() => localStorage.getItem('carnemx_order_note') || '')
+  const [note, setNote] = useState(() => localStorage.getItem('elrincon_order_note') || '')
   const vendor = MOCK_VENDORS.find(v => v.id === vendorId)
 
   const serviceFee = calcServiceFee(subtotal)
@@ -89,13 +89,13 @@ export function Cart() {
           rows={2}
           placeholder="e.g. Leave at door, call when arrived, gate code #1234..."
           value={note}
-          onChange={e => { setNote(e.target.value); localStorage.setItem('carnemx_order_note', e.target.value) }}
+          onChange={e => { setNote(e.target.value); localStorage.setItem('elrincon_order_note', e.target.value) }}
           style={{ resize: 'none', fontSize: 13, lineHeight: 1.5 }}
         />
       </div>
 
       {/* Delivery note */}
-      <div style={{ margin: '0 16px 20px', padding: '10px 14px', background: 'rgba(232,93,4,0.08)', borderRadius: 10, border: '1px solid rgba(232,93,4,0.2)' }}>
+      <div style={{ margin: '0 16px 20px', padding: '10px 14px', background: 'rgba(249,156,76,0.08)', borderRadius: 10, border: '1px solid rgba(249,156,76,0.2)' }}>
         <p style={{ fontSize: 12, color: 'var(--primary-light)', lineHeight: 1.5 }}>
           🔥 Orders are delivered fresh by our own driver fleet. Estimated time: {vendor?.estimatedDelivery || '35–50 min'}
         </p>

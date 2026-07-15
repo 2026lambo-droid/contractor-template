@@ -110,8 +110,8 @@ export function DriverDashboard() {
               <div style={{
                 width: '100%',
                 height: d.earned ? Math.max(4, Math.round((d.earned / weekMax) * 44)) : 4,
-                background: i === 4 ? 'var(--primary)' : d.earned ? 'rgba(232,93,4,0.35)' : 'var(--bg-surface)',
-                border: `1px solid ${i === 4 ? 'var(--primary)' : d.earned ? 'rgba(232,93,4,0.2)' : 'var(--border)'}`,
+                background: i === 4 ? 'var(--primary)' : d.earned ? 'rgba(249,156,76,0.35)' : 'var(--bg-surface)',
+                border: `1px solid ${i === 4 ? 'var(--primary)' : d.earned ? 'rgba(249,156,76,0.2)' : 'var(--border)'}`,
                 borderRadius: 3,
               }} />
               <span style={{ fontSize: 9, color: i === 4 ? 'var(--primary-light)' : 'var(--text-muted)', fontWeight: i === 4 ? 700 : 400 }}>{d.day}</span>

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, Bell } from 'lucide-react'
-import { APP_NAME } from '../../utils/constants'
+import { ArrowLeft } from 'lucide-react'
+
+const LOGO_URL = 'https://carnitaselrincon.com/wp-content/uploads/2021/10/Logo.png'
 
 export function AppHeader({ title, back, actions, transparent }) {
   const navigate = useNavigate()
@@ -29,9 +30,7 @@ export function AppHeader({ title, back, actions, transparent }) {
             {title}
           </h1>
         ) : (
-          <span style={{ fontSize: 20, fontWeight: 800, fontFamily: 'var(--font-display)' }} className="fire-text">
-            {APP_NAME}
-          </span>
+          <img src={LOGO_URL} alt="Carnitas El Rincón" style={{ height: 36, objectFit: 'contain' }} />
         )}
       </div>
       {actions && <div style={{ display: 'flex', gap: 8 }}>{actions}</div>}

@@ -58,7 +58,7 @@ export function AdminDashboard() {
       />
 
       {/* Admin badge */}
-      <div style={{ margin: '0 16px 16px', padding: '12px 16px', background: 'rgba(232,93,4,0.08)', border: '1px solid rgba(232,93,4,0.2)', borderRadius: 'var(--radius)', display: 'flex', alignItems: 'center', gap: 10 }}>
+      <div style={{ margin: '0 16px 16px', padding: '12px 16px', background: 'rgba(249,156,76,0.08)', border: '1px solid rgba(249,156,76,0.2)', borderRadius: 'var(--radius)', display: 'flex', alignItems: 'center', gap: 10 }}>
         <ShieldCheck size={18} color="var(--primary)" />
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--primary-light)' }}>Platform Admin</div>
@@ -114,8 +114,8 @@ export function AdminDashboard() {
               <div style={{
                 width: '100%',
                 height: Math.max(4, Math.round((d.gmv / gmvMax) * 64)),
-                background: chartHover === i ? 'var(--primary)' : i === 5 ? 'rgba(232,93,4,0.7)' : 'rgba(232,93,4,0.3)',
-                border: `1px solid ${chartHover === i ? 'var(--primary)' : 'rgba(232,93,4,0.2)'}`,
+                background: chartHover === i ? 'var(--primary)' : i === 5 ? 'rgba(249,156,76,0.7)' : 'rgba(249,156,76,0.3)',
+                border: `1px solid ${chartHover === i ? 'var(--primary)' : 'rgba(249,156,76,0.2)'}`,
                 borderRadius: '3px 3px 0 0',
                 transition: 'all 0.15s',
               }} />
@@ -154,7 +154,7 @@ export function AdminDashboard() {
             { icon: Package, label: 'Orders', sub: `${GMV_DATA[6].orders} today · ${formatPrice(gmvTotal)} GMV`, path: '/admin/orders' },
           ].map(item => (
             <div key={item.path} className="list-item" onClick={() => navigate(item.path)} style={{ cursor: 'pointer' }}>
-              <div style={{ width: 36, height: 36, borderRadius: 10, background: 'rgba(232,93,4,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ width: 36, height: 36, borderRadius: 10, background: 'rgba(249,156,76,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <item.icon size={18} color="var(--primary)" />
               </div>
               <div style={{ flex: 1 }}>

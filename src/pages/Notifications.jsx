@@ -67,7 +67,7 @@ export function Notifications() {
               <div key={n.id} onClick={() => markRead(n.id)} style={{
                 display: 'flex', gap: 12, padding: '14px 16px',
                 borderBottom: '1px solid var(--border)',
-                background: n.read ? 'transparent' : 'rgba(232,93,4,0.04)',
+                background: n.read ? 'transparent' : 'rgba(249,156,76,0.04)',
                 cursor: 'pointer', transition: 'background 0.1s',
               }}>
                 <div style={{ width: 40, height: 40, borderRadius: 12, background: `${color}18`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>

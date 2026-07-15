@@ -38,8 +38,8 @@ export function VendorCard({ vendor }) {
             {vendor.rating} <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}>({vendor.reviewCount})</span>
           </div>
         </div>
-        <p style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 10, lineHeight: 1.4 }}>
-          {vendor.description.slice(0, 80)}...
+        <p style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 10, lineHeight: 1.5 }}>
+          {vendor.description.length > 100 ? vendor.description.slice(0, 100) + '…' : vendor.description}
         </p>
         <div className="row" style={{ gap: 12 }}>
           <div className="row gap-4 text-sm text-muted">

@@ -32,7 +32,7 @@ export function AdminOrders() {
   const [newStatus, setNewStatus] = useState('')
 
   const [orders, setOrders] = useState(() => {
-    const stored = JSON.parse(localStorage.getItem('carnemx_orders') || '[]').map(o => ({ ...o, createdAt: new Date(o.createdAt) }))
+    const stored = JSON.parse(localStorage.getItem('elrincon_orders') || '[]').map(o => ({ ...o, createdAt: new Date(o.createdAt) }))
     const all = [...stored, ...MOCK_ORDERS, ...extraOrders]
     return all.filter((o, i, arr) => arr.findIndex(x => x.id === o.id) === i)
   })
@@ -49,8 +49,8 @@ export function AdminOrders() {
   const confirmOverride = () => {
     if (!newStatus || newStatus === overrideOrder.status) { setOverrideOrder(null); return }
     setOrders(prev => prev.map(o => o.id === overrideOrder.id ? { ...o, status: newStatus } : o))
-    const stored = JSON.parse(localStorage.getItem('carnemx_orders') || '[]')
-    localStorage.setItem('carnemx_orders', JSON.stringify(stored.map(o => o.id === overrideOrder.id ? { ...o, status: newStatus } : o)))
+    const stored = JSON.parse(localStorage.getItem('elrincon_orders') || '[]')
+    localStorage.setItem('elrincon_orders', JSON.stringify(stored.map(o => o.id === overrideOrder.id ? { ...o, status: newStatus } : o)))
     toast(`Order #${overrideOrder.id.slice(-4).toUpperCase()} → ${ORDER_STATUS_LABELS[newStatus]}`, 'success')
     setOverrideOrder(null)
     setNewStatus('')

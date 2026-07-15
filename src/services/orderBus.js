@@ -1,8 +1,8 @@
 // Cross-role order communication via localStorage + BroadcastChannel
 // In production replace with Firestore onSnapshot listeners
 
-const CHANNEL_NAME = 'carnemx_orders'
-const STORAGE_KEY = 'carnemx_vendor_orders'
+const CHANNEL_NAME = 'elrincon_orders'
+const STORAGE_KEY = 'elrincon_vendor_orders'
 
 let channel = null
 
@@ -39,9 +39,9 @@ export function updateOrderStatus(orderId, vendorId, status) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(vendorOrders))
   }
 
-  const customerOrders = JSON.parse(localStorage.getItem('carnemx_orders') || '[]')
+  const customerOrders = JSON.parse(localStorage.getItem('elrincon_orders') || '[]')
   const updated = customerOrders.map(o => o.id === orderId ? { ...o, status } : o)
-  localStorage.setItem('carnemx_orders', JSON.stringify(updated))
+  localStorage.setItem('elrincon_orders', JSON.stringify(updated))
 
   try {
     const ch = getChannel()

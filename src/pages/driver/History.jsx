@@ -120,7 +120,7 @@ export function DriverHistory() {
                       borderBottom: i < deliveries.length - 1 ? '1px solid var(--border)' : 'none',
                       display: 'flex', alignItems: 'flex-start', gap: 10,
                     }}>
-                      <div style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(232,93,4,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 14 }}>
+                      <div style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(249,156,76,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 14 }}>
                         🛵
                       </div>
                       <div style={{ flex: 1, minWidth: 0 }}>

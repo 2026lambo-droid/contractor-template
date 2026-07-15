@@ -28,7 +28,7 @@ export function OrderHistory() {
   const [tab, setTab] = useState('active')
   const [reviewOrder, setReviewOrder] = useState(null)
 
-  const reviewed = JSON.parse(localStorage.getItem('carnemx_reviews') || '[]').map(r => r.orderId)
+  const reviewed = JSON.parse(localStorage.getItem('elrincon_reviews') || '[]').map(r => r.orderId)
 
   const orderAgain = (order) => {
     clearCart()
@@ -49,7 +49,7 @@ export function OrderHistory() {
     }
   }
 
-  const stored = JSON.parse(localStorage.getItem('carnemx_orders') || '[]').map(o => ({ ...o, createdAt: new Date(o.createdAt) }))
+  const stored = JSON.parse(localStorage.getItem('elrincon_orders') || '[]').map(o => ({ ...o, createdAt: new Date(o.createdAt) }))
   const all = [...stored, ...MOCK_ORDERS].filter((o, i, arr) => arr.findIndex(x => x.id === o.id) === i)
 
   const active = all.filter(o => !['delivered', 'cancelled'].includes(o.status))
@@ -104,7 +104,7 @@ export function OrderHistory() {
                 </div>
               </div>
               {tab === 'active' && order.status !== 'delivered' && (
-                <div style={{ padding: '10px 14px', background: 'rgba(232,93,4,0.06)', borderTop: '1px solid rgba(232,93,4,0.15)', fontSize: 13, color: 'var(--primary-light)', fontWeight: 600 }}>
+                <div style={{ padding: '10px 14px', background: 'rgba(249,156,76,0.06)', borderTop: '1px solid rgba(249,156,76,0.15)', fontSize: 13, color: 'var(--primary-light)', fontWeight: 600 }}>
                   🔴 Track your order →
                 </div>
               )}

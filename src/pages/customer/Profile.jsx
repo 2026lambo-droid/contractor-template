@@ -140,7 +140,7 @@ export function Profile() {
                 <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{theme === 'dark' ? 'Dark mode' : 'Light mode'}</div>
               </div>
             </div>
-            <button onClick={toggleTheme} style={{ padding: '6px 14px', borderRadius: 'var(--radius-sm)', background: 'rgba(232,93,4,0.12)', border: '1.5px solid var(--primary)', color: 'var(--primary-light)', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
+            <button onClick={toggleTheme} style={{ padding: '6px 14px', borderRadius: 'var(--radius-sm)', background: 'rgba(249,156,76,0.12)', border: '1.5px solid var(--primary)', color: 'var(--primary-light)', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
               {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
             </button>
           </div>
@@ -154,7 +154,7 @@ export function Profile() {
                 <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{lang === 'en' ? 'English' : 'Español'}</div>
               </div>
             </div>
-            <button onClick={toggleLang} style={{ padding: '6px 14px', borderRadius: 'var(--radius-sm)', background: 'rgba(232,93,4,0.12)', border: '1.5px solid var(--primary)', color: 'var(--primary-light)', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
+            <button onClick={toggleLang} style={{ padding: '6px 14px', borderRadius: 'var(--radius-sm)', background: 'rgba(249,156,76,0.12)', border: '1.5px solid var(--primary)', color: 'var(--primary-light)', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
               {lang === 'en' ? 'ES' : 'EN'}
             </button>
           </div>

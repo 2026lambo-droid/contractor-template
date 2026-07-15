@@ -61,7 +61,7 @@ export function ActiveDelivery() {
       <AppHeader title="Active Delivery" back />
 
       {/* Status banner */}
-      <div style={{ margin: 16, padding: '16px', background: 'rgba(232,93,4,0.08)', borderRadius: 'var(--radius)', border: '1px solid rgba(232,93,4,0.2)', textAlign: 'center' }}>
+      <div style={{ margin: 16, padding: '16px', background: 'rgba(249,156,76,0.08)', borderRadius: 'var(--radius)', border: '1px solid rgba(249,156,76,0.2)', textAlign: 'center' }}>
         <div style={{ fontSize: 32, marginBottom: 8 }}>{current.icon}</div>
         <div style={{ fontSize: 18, fontWeight: 800, marginBottom: 4 }}>{current.label}</div>
         <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>{current.desc}</div>
@@ -84,7 +84,7 @@ export function ActiveDelivery() {
         <div className="card">
           <div style={{ padding: '14px', borderBottom: '1px solid var(--border)' }}>
             <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-              <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'rgba(232,93,4,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'rgba(249,156,76,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                 <Package size={16} style={{ color: 'var(--primary)' }} />
               </div>
               <div>

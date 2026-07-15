@@ -1,15 +1,18 @@
 const RINCON = 'https://carnitaselrincon.com/wp-content/uploads'
+const R_FOOD = `${RINCON}/2021/10/Img01.png`
+const R_HERO = `${RINCON}/2022/11/maina-1600.jpg`
+const UNS = 'https://images.unsplash.com'
 const IMG = {
-  carnitasChunks: `${RINCON}/2021/10/Img01.png`,
-  carnitasClose: `${RINCON}/2021/10/Img01.png`,
-  meatCounter: `${RINCON}/2021/10/Img01.png`,
-  bbqGrill: `${RINCON}/2021/10/Img01.png`,
-  meatPlatter: `${RINCON}/2021/10/Img01.png`,
-  ribs: `${RINCON}/2021/10/Img01.png`,
-  coverDark: `${RINCON}/2022/11/maina-1600.jpg`,
-  coverGrill: `${RINCON}/2022/11/maina-1600.jpg`,
-  coverKitchen: `${RINCON}/2022/11/maina-1600.jpg`,
-  coverFood: `${RINCON}/2022/11/maina-1600.jpg`,
+  carnitasChunks: R_FOOD,
+  carnitasClose: R_FOOD,
+  meatCounter: `${UNS}/photo-1504544750208-dc0358e63f7f?w=800&auto=format&fit=crop`,
+  bbqGrill: `${UNS}/photo-1529692236671-f1f6cf9683ba?w=800&auto=format&fit=crop`,
+  meatPlatter: `${UNS}/photo-1544025162-d76694265947?w=800&auto=format&fit=crop`,
+  ribs: R_HERO,
+  coverDark: R_HERO,
+  coverGrill: R_HERO,
+  coverKitchen: R_HERO,
+  coverFood: R_HERO,
 }
 
 const VENDOR_IMGS = [IMG.carnitasChunks, IMG.carnitasClose, IMG.meatCounter, IMG.bbqGrill, IMG.meatPlatter, IMG.ribs]
@@ -219,14 +222,14 @@ export const MOCK_VENDORS = [
 ]
 
 const PROD_IMGS = {
-  tray: `${RINCON}/2021/10/Img01.png`,
-  carnitas: `${RINCON}/2021/10/Img01.png`,
-  combo: `${RINCON}/2021/10/Img01.png`,
-  taco: `${RINCON}/2021/10/Img01.png`,
-  burrito: `${RINCON}/2021/10/Img01.png`,
-  quesadilla: `${RINCON}/2021/10/Img01.png`,
-  chicken: `${RINCON}/2021/10/Img01.png`,
-  drinks: `${RINCON}/2021/10/Img01.png`,
+  tray: R_FOOD,
+  carnitas: R_FOOD,
+  combo: R_FOOD,
+  taco: `${UNS}/photo-1618449840665-9ed506d73a34?w=600&auto=format&fit=crop`,
+  burrito: `${UNS}/photo-1626700051175-6818013e1d4f?w=600&auto=format&fit=crop`,
+  quesadilla: `${UNS}/photo-1565299585323-38d6b0865b47?w=600&auto=format&fit=crop`,
+  chicken: `${UNS}/photo-1527477396000-e27163b481c2?w=600&auto=format&fit=crop`,
+  drinks: `${UNS}/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop`,
 }
 
 const BASE_PRODUCTS = [

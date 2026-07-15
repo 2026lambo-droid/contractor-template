@@ -8,9 +8,9 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const stored = localStorage.getItem('carnemx_user')
+    const stored = localStorage.getItem('elrincon_user')
     if (stored) {
-      try { setUser(JSON.parse(stored)) } catch { localStorage.removeItem('carnemx_user') }
+      try { setUser(JSON.parse(stored)) } catch { localStorage.removeItem('elrincon_user') }
     }
     setLoading(false)
   }, [])
@@ -22,7 +22,7 @@ export function AuthProvider({ children }) {
     )
     if (!mockUser) throw new Error('Invalid email or password')
     const { password: _, ...safeUser } = mockUser
-    localStorage.setItem('carnemx_user', JSON.stringify(safeUser))
+    localStorage.setItem('elrincon_user', JSON.stringify(safeUser))
     setUser(safeUser)
     return safeUser
   }
@@ -38,19 +38,19 @@ export function AuthProvider({ children }) {
       ...(role === 'vendor' && { vendorId: `v-new-${Date.now()}`, vendorName }),
       ...(role === 'driver' && { isOnline: false, vehicle: '' }),
     }
-    localStorage.setItem('carnemx_user', JSON.stringify(newUser))
+    localStorage.setItem('elrincon_user', JSON.stringify(newUser))
     setUser(newUser)
     return newUser
   }
 
   const logout = () => {
-    localStorage.removeItem('carnemx_user')
+    localStorage.removeItem('elrincon_user')
     setUser(null)
   }
 
   const updateUser = (updates) => {
     const updated = { ...user, ...updates }
-    localStorage.setItem('carnemx_user', JSON.stringify(updated))
+    localStorage.setItem('elrincon_user', JSON.stringify(updated))
     setUser(updated)
   }
 

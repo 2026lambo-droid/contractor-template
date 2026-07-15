@@ -131,7 +131,7 @@ export function VendorEarnings() {
               </div>
             </div>
             <div style={{ height: 4, background: 'var(--bg-surface)', borderRadius: 2, overflow: 'hidden' }}>
-              <div style={{ height: '100%', width: `${p.pct}%`, background: i === 0 ? 'var(--primary)' : 'var(--bg-surface-2, rgba(232,93,4,0.35))', borderRadius: 2, transition: 'width 0.4s ease' }} />
+              <div style={{ height: '100%', width: `${p.pct}%`, background: i === 0 ? 'var(--primary)' : 'var(--bg-surface-2, rgba(249,156,76,0.35))', borderRadius: 2, transition: 'width 0.4s ease' }} />
             </div>
           </div>
         ))}

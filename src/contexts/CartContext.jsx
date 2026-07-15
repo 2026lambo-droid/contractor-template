@@ -7,18 +7,18 @@ export function CartProvider({ children }) {
   const [vendorId, setVendorId] = useState(null)
 
   useEffect(() => {
-    const stored = localStorage.getItem('carnemx_cart')
+    const stored = localStorage.getItem('elrincon_cart')
     if (stored) {
       try {
         const { items: i, vendorId: v } = JSON.parse(stored)
         setItems(i || [])
         setVendorId(v || null)
-      } catch { localStorage.removeItem('carnemx_cart') }
+      } catch { localStorage.removeItem('elrincon_cart') }
     }
   }, [])
 
   const persist = (items, vid) => {
-    localStorage.setItem('carnemx_cart', JSON.stringify({ items, vendorId: vid }))
+    localStorage.setItem('elrincon_cart', JSON.stringify({ items, vendorId: vid }))
   }
 
   const addItem = (product, quantity, customizations = {}) => {
@@ -64,7 +64,7 @@ export function CartProvider({ children }) {
   const clearCart = () => {
     setItems([])
     setVendorId(null)
-    localStorage.removeItem('carnemx_cart')
+    localStorage.removeItem('elrincon_cart')
   }
 
   const itemCount = items.reduce((sum, i) => sum + i.quantity, 0)

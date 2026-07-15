@@ -52,7 +52,7 @@ export function VendorProducts() {
         id: `p-${Date.now()}`, vendorId,
         name: form.name, category: form.category, description: form.description,
         pricePerLb: parseFloat(form.pricePerLb), stockLbs: parseInt(form.stockLbs) || 20,
-        image: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=600&auto=format&fit=crop',
+        image: 'https://carnitaselrincon.com/wp-content/uploads/2021/10/Img01.png',
         inStock: true, popular: false,
         options: { marinade: form.marinade, cut: form.cut },
       }

@@ -82,12 +82,12 @@ const STRINGS = {
 }
 
 export function LanguageProvider({ children }) {
-  const [lang, setLang] = useState(() => localStorage.getItem('carnemx_lang') || 'en')
+  const [lang, setLang] = useState(() => localStorage.getItem('elrincon_lang') || 'en')
 
   const toggle = () => {
     const next = lang === 'en' ? 'es' : 'en'
     setLang(next)
-    localStorage.setItem('carnemx_lang', next)
+    localStorage.setItem('elrincon_lang', next)
   }
 
   const t = (key) => STRINGS[key]?.[lang] ?? STRINGS[key]?.en ?? key

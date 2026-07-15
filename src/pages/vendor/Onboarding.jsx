@@ -34,7 +34,7 @@ export function VendorOnboarding() {
     setSaving(true)
     await new Promise(r => setTimeout(r, 1200))
     updateUser({ onboarded: true, storeName: profile.storeName })
-    localStorage.setItem('carnemx_onboarded', 'true')
+    localStorage.setItem('elrincon_onboarded', 'true')
     toast('Location set up! Welcome to El Rincón 🎉', 'success')
     navigate('/vendor/dashboard', { replace: true })
   }
@@ -50,7 +50,7 @@ export function VendorOnboarding() {
   return (
     <div className="page-no-nav" style={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column' }}>
       {/* Header */}
-      <div style={{ padding: '48px 20px 24px', background: 'linear-gradient(180deg, rgba(232,93,4,0.08) 0%, transparent 100%)' }}>
+      <div style={{ padding: '48px 20px 24px', background: 'linear-gradient(180deg, rgba(249,156,76,0.08) 0%, transparent 100%)' }}>
         <div style={{ fontSize: 28, marginBottom: 8 }}>🥩</div>
         <h1 style={{ fontSize: 22, fontWeight: 800, marginBottom: 4 }}>Set Up Your Store</h1>
         <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>Step {step + 1} of {STEPS.length} — {STEPS[step].label}</p>
@@ -99,7 +99,7 @@ export function VendorOnboarding() {
               {DAY_ABBR.map(d => (
                 <button key={d} onClick={() => toggleDay(d)} style={{
                   padding: '10px 14px', borderRadius: 'var(--radius-sm)', fontSize: 13, fontWeight: 600, cursor: 'pointer',
-                  background: hours.days.includes(d) ? 'rgba(232,93,4,0.15)' : 'var(--bg-surface)',
+                  background: hours.days.includes(d) ? 'rgba(249,156,76,0.15)' : 'var(--bg-surface)',
                   border: `1.5px solid ${hours.days.includes(d) ? 'var(--primary)' : 'var(--border)'}`,
                   color: hours.days.includes(d) ? 'var(--primary-light)' : 'var(--text-secondary)',
                 }}>
@@ -125,7 +125,7 @@ export function VendorOnboarding() {
             <p style={{ fontSize: 14, color: 'var(--text-muted)', marginBottom: 16 }}>Choose the areas you can deliver to</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {DELIVERY_ZONES.map(zone => (
-                <div key={zone.id} onClick={() => toggleZone(zone.city)} className="list-item" style={{ cursor: 'pointer', background: zones.includes(zone.city) ? 'rgba(232,93,4,0.06)' : 'transparent', borderRadius: 'var(--radius-sm)' }}>
+                <div key={zone.id} onClick={() => toggleZone(zone.city)} className="list-item" style={{ cursor: 'pointer', background: zones.includes(zone.city) ? 'rgba(249,156,76,0.06)' : 'transparent', borderRadius: 'var(--radius-sm)' }}>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontSize: 14, fontWeight: 600 }}>{zone.city}</div>
                     <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{zone.region}</div>

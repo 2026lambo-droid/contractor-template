@@ -3,7 +3,7 @@ const R_FOOD = `${RINCON}/2021/10/Img01.png`
 const R_HERO = `${RINCON}/2022/11/maina-1600.jpg`
 const UNS = 'https://images.unsplash.com'
 
-// 19 unique thumbnail images (one per location)
+// 20 unique thumbnail images (one per location)
 const VENDOR_IMGS = [
   R_FOOD,                                                                                    // 0  real El Rincón carnitas
   `${UNS}/photo-1544025162-d76694265947?w=400&auto=format&fit=crop&q=80`,                  // 1  meat platter
@@ -24,6 +24,7 @@ const VENDOR_IMGS = [
   `${UNS}/photo-1484980972926-edee96e0960d?w=400&auto=format&fit=crop&q=80`,               // 16 dining scene
   `${UNS}/photo-1525755662778-989d0524087e?w=400&auto=format&fit=crop&q=80`,               // 17 open fire grill
   `${UNS}/photo-1604467715878-83e57e8bc129?w=400&auto=format&fit=crop&q=80`,               // 18 Mexican food spread
+  `${UNS}/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop&q=80`,               // 19 Stockton — restaurant exterior
 ]
 
 // 13 unique cover/hero images
@@ -138,7 +139,7 @@ export const MOCK_VENDORS = [
     description: 'Authentic carnitas in the heart of the Mission at 22nd St. SF locals have been driving here and calling in party tray orders for family gatherings across the Bay since 2015.',
     rating: 4.9, reviewCount: 312, image: vi(4), coverImage: ci(9),
     city: 'San Francisco', address: '3242 22nd St, San Francisco, CA 94110',
-    phone: '(415) 757-9327', hours: 'Wkdy 10AM–6PM, Wknd 9AM–6PM',
+    phone: '(415) 757-9327', hours: 'Wkdy 10AM–7PM, Wknd 9AM–7PM',
     deliveryZones: ['San Francisco', 'Daly City', 'South San Francisco'],
     minOrder: 15, estimatedDelivery: '30–50 min', isOpen: true,
     specialties: SPECIALTIES, ownerId: 'vendor-user-9',
@@ -204,6 +205,16 @@ export const MOCK_VENDORS = [
     deliveryZones: ['Lodi', 'Stockton', 'Galt'],
     minOrder: 15, estimatedDelivery: '35–50 min', isOpen: true,
     specialties: SPECIALTIES, ownerId: 'vendor-user-15',
+  },
+  {
+    id: 'loc-20', name: 'El Rincón — Stockton', slug: 'stockton',
+    description: 'San Joaquin County\'s home for authentic Michoacán-style carnitas. The Stockton crew on E Waterloo Rd brings the full El Rincón experience — party trays, combos, burritos, and everything by the pound.',
+    rating: 4.6, reviewCount: 84, image: vi(19), coverImage: ci(4),
+    city: 'Stockton', address: '4426 E Waterloo Rd, Stockton, CA 95215',
+    phone: '(209) 931-4755', hours: 'Wkdy 10AM–6PM, Wknd 9AM–6PM',
+    deliveryZones: ['Stockton', 'Lodi', 'Manteca'],
+    minOrder: 15, estimatedDelivery: '35–50 min', isOpen: true,
+    specialties: SPECIALTIES, ownerId: 'vendor-user-20',
   },
   {
     id: 'loc-16', name: 'El Rincón — Fairfield', slug: 'fairfield',
@@ -543,6 +554,10 @@ export const MOCK_REVIEWS = {
   'loc-18': [
     { id: 'rv-18-1', vendorId: 'loc-18', rating: 5, text: 'Modesto finally has a carnitas place worth talking about. El Rincón on Yosemite Blvd is the real deal — everything tastes exactly like it does at the Bay Area locations.', reviewerName: 'Elena S.', createdAt: new Date(Date.now() - 7 * 24 * 3600000) },
     { id: 'rv-18-2', vendorId: 'loc-18', rating: 4, text: 'Weekend specials here are fire. The whole chicken and barbacoa are unreal. El Rincón has been consistent for years and this location carries that tradition perfectly.', reviewerName: 'Hector B.', createdAt: new Date(Date.now() - 20 * 24 * 3600000) },
+  ],
+  'loc-20': [
+    { id: 'rv-20-1', vendorId: 'loc-20', rating: 5, text: 'Stockton finally has its own El Rincón! The carnitas are just as good as the San Jose locations. Party tray for my daughter\'s birthday was a huge hit — everyone kept asking where I got it.', reviewerName: 'Rosa V.', createdAt: new Date(Date.now() - 5 * 24 * 3600000) },
+    { id: 'rv-20-2', vendorId: 'loc-20', rating: 4, text: 'Great addition to the neighborhood. The mixtas are on point and the combos are filling. Prices are fair and the staff is super friendly.', reviewerName: 'Tomas G.', createdAt: new Date(Date.now() - 12 * 24 * 3600000) },
   ],
 }
 

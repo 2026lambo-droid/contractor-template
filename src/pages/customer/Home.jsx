@@ -140,7 +140,7 @@ export function CustomerHome() {
       <div style={{ marginBottom: 20 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', marginBottom: 10 }}>
           <span style={{ fontSize: 14, fontWeight: 800 }}>🟢 Open Now</span>
-          <button onClick={() => navigate('/vendors')} style={{ background: 'none', border: 'none', fontSize: 12, color: 'var(--primary-light)', fontWeight: 600, cursor: 'pointer' }}>All 19 →</button>
+          <button onClick={() => navigate('/vendors')} style={{ background: 'none', border: 'none', fontSize: 12, color: 'var(--primary-light)', fontWeight: 600, cursor: 'pointer' }}>All 20 →</button>
         </div>
         <div style={{ display: 'flex', gap: 12, paddingLeft: 16, overflowX: 'auto', paddingRight: 16, paddingBottom: 4 }}>
           {openVendors.map(v => <VendorCardCompact key={v.id} vendor={v} />)}

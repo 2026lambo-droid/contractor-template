@@ -4,6 +4,9 @@
   --primary: #F99C4C;
   --primary-dark: #D4761E;
   --primary-light: #FABD80;
+  --brand-gold: #E8AE5C;
+  --brand-yellow: #F9CC01;
+  --brand-green: #99AD27;
   --bg: #0F0A08;
   --bg-card: #1A120B;
   --bg-surface: #241811;
@@ -105,7 +108,7 @@ img { display: block; object-fit: cover; }
 .btn-ghost { background: transparent; color: var(--text); }
 .btn-danger { background: var(--error-bg); color: var(--error); border: 1px solid rgba(239,68,68,0.3); }
 .btn-success { background: var(--success); color: white; }
-.btn-gradient { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; box-shadow: 0 4px 20px rgba(249,156,76,0.35); }
+.btn-gradient { background: linear-gradient(135deg, var(--brand-yellow) 0%, var(--primary) 50%, var(--primary-dark) 100%); color: white; box-shadow: 0 4px 20px rgba(249,156,76,0.35); }
 .btn-full { width: 100%; }
 .btn-sm { padding: 10px 16px; font-size: 13px; border-radius: var(--radius-sm); }
 .btn-lg { padding: 18px 28px; font-size: 17px; border-radius: var(--radius-lg); }
@@ -226,7 +229,7 @@ img { display: block; object-fit: cover; }
 .list-item:active { background: rgba(255,255,255,0.03); }
 
 /* Fire text gradient */
-.fire-text { background: linear-gradient(135deg, #FABD80, #F99C4C, #D4761E); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.fire-text { background: linear-gradient(135deg, #F9CC01, #F99C4C, #E8AE5C); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 
 /* Stats */
 .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; flex: 1; }

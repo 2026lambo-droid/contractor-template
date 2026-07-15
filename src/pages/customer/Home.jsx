@@ -84,7 +84,7 @@ export function CustomerHome() {
 
       {/* Hero banner */}
       <div style={{ margin: '0 16px 24px', position: 'relative', height: 140, borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
-        <img src="https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?w=800&auto=format&fit=crop" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <img src="https://carnitaselrincon.com/wp-content/uploads/2022/11/maina-1600.jpg" alt="Carnitas El Rincón" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(15,10,8,0.88) 0%, rgba(15,10,8,0.3) 100%)', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 20px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
             <Flame size={14} style={{ color: 'var(--primary)' }} />

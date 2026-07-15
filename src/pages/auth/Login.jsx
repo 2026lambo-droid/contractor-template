@@ -48,18 +48,20 @@ export function Login() {
   return (
     <div className="page-no-nav" style={{ display: 'flex', flexDirection: 'column', minHeight: '100dvh' }}>
       {/* Hero */}
-      <div style={{ position: 'relative', height: 280, overflow: 'hidden', flexShrink: 0 }}>
+      <div style={{ position: 'relative', height: 300, overflow: 'hidden', flexShrink: 0 }}>
         <img
-          src="https://images.unsplash.com/photo-1558030006-450675393462?w=800&auto=format&fit=crop"
-          alt="Grilled meats"
+          src="https://carnitaselrincon.com/wp-content/uploads/2022/11/maina-1600.jpg"
+          alt="Carnitas El Rincón"
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(15,10,8,0.4) 0%, rgba(15,10,8,0.95) 100%)' }} />
-        <div style={{ position: 'absolute', bottom: 28, left: 24, right: 24 }}>
-          <h1 className="display" style={{ fontSize: 38, fontWeight: 800, lineHeight: 1.1, marginBottom: 6 }}>
-            <span className="fire-text">{APP_NAME}</span>
-          </h1>
-          <p style={{ fontSize: 15, color: 'var(--text-secondary)' }}>Tu Carnicería, Entregada</p>
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,8,5,0.3) 0%, rgba(10,8,5,0.92) 100%)' }} />
+        <div style={{ position: 'absolute', bottom: 28, left: 24, right: 24, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 10 }}>
+          <img
+            src="https://carnitaselrincon.com/wp-content/uploads/2021/10/Logo.png"
+            alt="Carnitas El Rincón"
+            style={{ height: 64, objectFit: 'contain', filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.6))' }}
+          />
+          <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.75)' }}>Auténticas Carnitas, Entregadas</p>
         </div>
       </div>
 

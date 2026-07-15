@@ -1,14 +1,15 @@
+const RINCON = 'https://carnitaselrincon.com/wp-content/uploads'
 const IMG = {
-  carnitasChunks: 'https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?w=800&auto=format&fit=crop',
-  carnitasClose: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=800&auto=format&fit=crop',
-  meatCounter: 'https://images.unsplash.com/photo-1558030006-450675393462?w=800&auto=format&fit=crop',
-  bbqGrill: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=800&auto=format&fit=crop',
-  meatPlatter: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=800&auto=format&fit=crop',
-  ribs: 'https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=800&auto=format&fit=crop',
-  coverDark: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=1200&auto=format&fit=crop',
-  coverGrill: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=1200&auto=format&fit=crop',
-  coverKitchen: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop',
-  coverFood: 'https://images.unsplash.com/photo-1618449840665-9ed506d73a34?w=1200&auto=format&fit=crop',
+  carnitasChunks: `${RINCON}/2021/10/Img01.png`,
+  carnitasClose: `${RINCON}/2021/10/Img01.png`,
+  meatCounter: `${RINCON}/2021/10/Img01.png`,
+  bbqGrill: `${RINCON}/2021/10/Img01.png`,
+  meatPlatter: `${RINCON}/2021/10/Img01.png`,
+  ribs: `${RINCON}/2021/10/Img01.png`,
+  coverDark: `${RINCON}/2022/11/maina-1600.jpg`,
+  coverGrill: `${RINCON}/2022/11/maina-1600.jpg`,
+  coverKitchen: `${RINCON}/2022/11/maina-1600.jpg`,
+  coverFood: `${RINCON}/2022/11/maina-1600.jpg`,
 }
 
 const VENDOR_IMGS = [IMG.carnitasChunks, IMG.carnitasClose, IMG.meatCounter, IMG.bbqGrill, IMG.meatPlatter, IMG.ribs]
@@ -218,14 +219,14 @@ export const MOCK_VENDORS = [
 ]
 
 const PROD_IMGS = {
-  tray: 'https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?w=600&auto=format&fit=crop',
-  carnitas: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=600&auto=format&fit=crop',
-  combo: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=600&auto=format&fit=crop',
-  taco: 'https://images.unsplash.com/photo-1618449840665-9ed506d73a34?w=600&auto=format&fit=crop',
-  burrito: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&auto=format&fit=crop',
-  quesadilla: 'https://images.unsplash.com/photo-1558030006-450675393462?w=600&auto=format&fit=crop',
-  chicken: 'https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=600&auto=format&fit=crop',
-  drinks: 'https://images.unsplash.com/photo-1592415499556-74fcb9f18667?w=600&auto=format&fit=crop',
+  tray: `${RINCON}/2021/10/Img01.png`,
+  carnitas: `${RINCON}/2021/10/Img01.png`,
+  combo: `${RINCON}/2021/10/Img01.png`,
+  taco: `${RINCON}/2021/10/Img01.png`,
+  burrito: `${RINCON}/2021/10/Img01.png`,
+  quesadilla: `${RINCON}/2021/10/Img01.png`,
+  chicken: `${RINCON}/2021/10/Img01.png`,
+  drinks: `${RINCON}/2021/10/Img01.png`,
 }
 
 const BASE_PRODUCTS = [

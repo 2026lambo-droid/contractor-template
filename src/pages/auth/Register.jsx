@@ -46,6 +46,11 @@ export function Register() {
       <div style={{ padding: '20px 0 16px' }}>
         <Link to="/login" style={{ color: 'var(--text-muted)', fontSize: 14 }}>← Back to Sign In</Link>
       </div>
+      <img
+        src="https://carnitaselrincon.com/wp-content/uploads/2021/10/Logo.png"
+        alt="Carnitas El Rincón"
+        style={{ height: 56, objectFit: 'contain', marginBottom: 12 }}
+      />
       <h1 style={{ fontSize: 26, fontWeight: 800, marginBottom: 4 }}>Create Account</h1>
       <p style={{ fontSize: 14, color: 'var(--text-muted)', marginBottom: 28 }}>Join the El Rincón family</p>
 

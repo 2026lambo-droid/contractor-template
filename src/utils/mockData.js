@@ -248,14 +248,18 @@ export const MOCK_VENDORS = [
 ]
 
 const PROD_IMGS = {
-  tray: R_FOOD,
-  carnitas: R_FOOD,
-  combo: R_FOOD,
-  taco: `${UNS}/photo-1618449840665-9ed506d73a34?w=600&auto=format&fit=crop`,
-  burrito: `${UNS}/photo-1626700051175-6818013e1d4f?w=600&auto=format&fit=crop`,
-  quesadilla: `${UNS}/photo-1565299585323-38d6b0865b47?w=600&auto=format&fit=crop`,
-  chicken: `${UNS}/photo-1527477396000-e27163b481c2?w=600&auto=format&fit=crop`,
-  drinks: `${UNS}/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop`,
+  tray:        `${UNS}/photo-1544025162-d76694265947?w=600&auto=format&fit=crop&q=80`,  // big meat platter / party tray
+  carnitas:    R_FOOD,                                                                    // real El Rincón carnitas pile
+  buche:       `${UNS}/photo-1585325701956-60dd9c8553bc?w=600&auto=format&fit=crop&q=80`, // pork cuts close-up
+  chicharron:  `${UNS}/photo-1600891964092-4316c288032e?w=600&auto=format&fit=crop&q=80`, // crispy grilled meat
+  cueritos:    `${UNS}/photo-1553163147-622ab57be1c7?w=600&auto=format&fit=crop&q=80`,    // taqueria display case
+  barbacoa:    `${UNS}/photo-1529692236671-f1f6cf9683ba?w=600&auto=format&fit=crop&q=80`, // slow-cooked meat on grill
+  combo:       `${UNS}/photo-1604467715878-83e57e8bc129?w=600&auto=format&fit=crop&q=80`, // Mexican plate spread
+  taco:        `${UNS}/photo-1618449840665-9ed506d73a34?w=600&auto=format&fit=crop&q=80`, // tacos on board
+  burrito:     `${UNS}/photo-1626700051175-6818013e1d4f?w=600&auto=format&fit=crop&q=80`, // burrito
+  quesadilla:  `${UNS}/photo-1565299585323-38d6b0865b47?w=600&auto=format&fit=crop&q=80`, // quesadilla
+  chicken:     `${UNS}/photo-1527477396000-e27163b481c2?w=600&auto=format&fit=crop&q=80`, // roasted chicken
+  drinks:      `${UNS}/photo-1498654896293-37aacf113fd9?w=600&auto=format&fit=crop&q=80`, // market drinks/beverages
 }
 
 const BASE_PRODUCTS = [
@@ -319,32 +323,32 @@ const BASE_PRODUCTS = [
   {
     id: 'lb-buche', name: 'Buche', category: 'per-pound', unit: 'lb',
     description: 'Pork stomach cooked carnitas-style. Rich, deeply flavorful, and uniquely tender. A beloved cut for those in the know.',
-    pricePerLb: 14, image: PROD_IMGS.carnitas, inStock: true, popular: false,
+    pricePerLb: 14, image: PROD_IMGS.buche, inStock: true, popular: false,
     options: {},
   },
   {
     id: 'lb-cueritos', name: 'Cueritos', category: 'per-pound', unit: 'lb',
     description: 'Pickled pork skin with a tangy, chewy bite. A traditional Mexican treat that adds amazing texture and flavor to tacos and tostadas.',
-    pricePerLb: 14, image: PROD_IMGS.carnitas, inStock: true, popular: false,
+    pricePerLb: 14, image: PROD_IMGS.cueritos, inStock: true, popular: false,
     options: {},
   },
   {
     id: 'lb-chicharron', name: 'Chicharron', category: 'per-pound', unit: 'lb',
     description: 'Crispy, golden fried pork rinds made fresh. Irresistibly crunchy and full of flavor — eat them as a snack or crumble them into tacos.',
-    pricePerLb: 15, image: PROD_IMGS.carnitas, inStock: true, popular: false,
+    pricePerLb: 15, image: PROD_IMGS.chicharron, inStock: true, popular: false,
     options: {},
   },
   // ── Per Piece ────────────────────────────────────────────────────────────────
   {
     id: 'piece-patas-carnitas', name: 'Patas en Carnitas', category: 'per-pound', unit: 'each',
     description: 'Pork feet cooked carnitas-style. Tender, gelatinous, and deeply savory — a traditional delicacy enjoyed by carnitas lovers everywhere.',
-    pricePerLb: 7, image: PROD_IMGS.carnitas, inStock: true, popular: false,
+    pricePerLb: 7, image: PROD_IMGS.buche, inStock: true, popular: false,
     options: {},
   },
   {
     id: 'piece-patas-vinagre', name: 'Patas en Vinagre', category: 'per-pound', unit: 'each',
     description: 'Pickled pork feet. Tangy, bold, and unforgettable. A specialty item that pairs perfectly with fresh tortillas and a cold drink.',
-    pricePerLb: 8, image: PROD_IMGS.carnitas, inStock: true, popular: false,
+    pricePerLb: 8, image: PROD_IMGS.cueritos, inStock: true, popular: false,
     options: {},
   },
   // ── Tacos ────────────────────────────────────────────────────────────────────
@@ -384,7 +388,7 @@ const BASE_PRODUCTS = [
   {
     id: 'platillo', name: 'Platillo de Carnitas', category: 'plates', unit: 'meal',
     description: 'A full plate with carnitas, rice, beans, tortillas, and fresh salsas. The complete El Rincón experience in a single serving — perfect for a sit-down meal.',
-    pricePerLb: 14, image: PROD_IMGS.combo, inStock: true, popular: false,
+    pricePerLb: 14, image: PROD_IMGS.combo, inStock: true, popular: true,
     options: { meatType: true },
   },
   // ── Weekend Specials ─────────────────────────────────────────────────────────
@@ -403,7 +407,7 @@ const BASE_PRODUCTS = [
   {
     id: 'wknd-barbacoa', name: 'Barbacoa', category: 'weekend', unit: 'lb',
     description: 'Weekend special: slow-cooked barbacoa beef, rich and tender. Available Saturday and Sunday only. Incredible in tacos, burritos, or on its own.',
-    pricePerLb: 16, image: PROD_IMGS.carnitas, inStock: true, popular: true,
+    pricePerLb: 16, image: PROD_IMGS.barbacoa, inStock: true, popular: true,
     options: {},
   },
   {

@@ -3,5 +3,5 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: process.env.BUILD_TARGET === 'mobile' ? './' : '/contractor-template/',
+  base: process.env.BUILD_TARGET === 'mobile' ? './' : process.env.VERCEL ? '/' : '/contractor-template/',
 })

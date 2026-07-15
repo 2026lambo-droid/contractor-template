@@ -23,7 +23,7 @@ export function Cart() {
       <div className="empty-state">
         <div className="empty-icon"><ShoppingCart size={56} color="var(--text-muted)" /></div>
         <div className="empty-title">Your cart is empty</div>
-        <div className="empty-desc">Browse vendors and add some delicious carne asada!</div>
+        <div className="empty-desc">Browse locations and add auténticas carnitas to your order!</div>
         <button className="btn btn-primary mt-16" onClick={() => navigate('/vendors')}>Browse Vendors</button>
       </div>
     </div>

@@ -2,23 +2,49 @@ const RINCON = 'https://carnitaselrincon.com/wp-content/uploads'
 const R_FOOD = `${RINCON}/2021/10/Img01.png`
 const R_HERO = `${RINCON}/2022/11/maina-1600.jpg`
 const UNS = 'https://images.unsplash.com'
-const IMG = {
-  carnitasChunks: R_FOOD,
-  carnitasClose: R_FOOD,
-  meatCounter: `${UNS}/photo-1504544750208-dc0358e63f7f?w=800&auto=format&fit=crop`,
-  bbqGrill: `${UNS}/photo-1529692236671-f1f6cf9683ba?w=800&auto=format&fit=crop`,
-  meatPlatter: `${UNS}/photo-1544025162-d76694265947?w=800&auto=format&fit=crop`,
-  ribs: R_HERO,
-  coverDark: R_HERO,
-  coverGrill: R_HERO,
-  coverKitchen: R_HERO,
-  coverFood: R_HERO,
-}
 
-const VENDOR_IMGS = [IMG.carnitasChunks, IMG.carnitasClose, IMG.meatCounter, IMG.bbqGrill, IMG.meatPlatter, IMG.ribs]
-const COVER_IMGS = [IMG.coverDark, IMG.coverGrill, IMG.coverKitchen, IMG.coverFood]
-const vi = (i) => VENDOR_IMGS[i % VENDOR_IMGS.length]
-const ci = (i) => COVER_IMGS[i % COVER_IMGS.length]
+// 19 unique thumbnail images (one per location)
+const VENDOR_IMGS = [
+  R_FOOD,                                                                                    // 0  real El Rincón carnitas
+  `${UNS}/photo-1544025162-d76694265947?w=400&auto=format&fit=crop&q=80`,                  // 1  meat platter
+  `${UNS}/photo-1504544750208-dc0358e63f7f?w=400&auto=format&fit=crop&q=80`,               // 2  meat counter
+  `${UNS}/photo-1529692236671-f1f6cf9683ba?w=400&auto=format&fit=crop&q=80`,               // 3  bbq grill
+  `${UNS}/photo-1618449840665-9ed506d73a34?w=400&auto=format&fit=crop&q=80`,               // 4  tacos
+  `${UNS}/photo-1626700051175-6818013e1d4f?w=400&auto=format&fit=crop&q=80`,               // 5  burrito spread
+  `${UNS}/photo-1565299585323-38d6b0865b47?w=400&auto=format&fit=crop&q=80`,               // 6  quesadilla
+  `${UNS}/photo-1568901346375-23c9450c58cd?w=400&auto=format&fit=crop&q=80`,               // 7  street food
+  `${UNS}/photo-1527477396000-e27163b481c2?w=400&auto=format&fit=crop&q=80`,               // 8  roasted chicken
+  `${UNS}/photo-1600891964092-4316c288032e?w=400&auto=format&fit=crop&q=80`,               // 9  grilled meat close-up
+  `${UNS}/photo-1551504734-5da7e163b5a5?w=400&auto=format&fit=crop&q=80`,                  // 10 food market stall
+  `${UNS}/photo-1414235077428-338989a2e8c0?w=400&auto=format&fit=crop&q=80`,               // 11 restaurant plating
+  `${UNS}/photo-1555396273-367ea4eb4db5?w=400&auto=format&fit=crop&q=80`,                  // 12 professional kitchen
+  `${UNS}/photo-1498654896293-37aacf113fd9?w=400&auto=format&fit=crop&q=80`,               // 13 street food night market
+  `${UNS}/photo-1585325701956-60dd9c8553bc?w=400&auto=format&fit=crop&q=80`,               // 14 pork cuts
+  `${UNS}/photo-1553163147-622ab57be1c7?w=400&auto=format&fit=crop&q=80`,                  // 15 taqueria counter
+  `${UNS}/photo-1484980972926-edee96e0960d?w=400&auto=format&fit=crop&q=80`,               // 16 dining scene
+  `${UNS}/photo-1525755662778-989d0524087e?w=400&auto=format&fit=crop&q=80`,               // 17 open fire grill
+  `${UNS}/photo-1604467715878-83e57e8bc129?w=400&auto=format&fit=crop&q=80`,               // 18 Mexican food spread
+]
+
+// 13 unique cover/hero images
+const COVER_IMGS = [
+  R_HERO,                                                                                    // 0  real El Rincón hero
+  `${UNS}/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop&q=80`,                  // 1  kitchen wide
+  `${UNS}/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80`,                  // 2  meat platter wide
+  `${UNS}/photo-1529692236671-f1f6cf9683ba?w=800&auto=format&fit=crop&q=80`,               // 3  bbq grill wide
+  `${UNS}/photo-1504544750208-dc0358e63f7f?w=800&auto=format&fit=crop&q=80`,               // 4  meat counter wide
+  `${UNS}/photo-1568901346375-23c9450c58cd?w=800&auto=format&fit=crop&q=80`,               // 5  street food wide
+  `${UNS}/photo-1600891964092-4316c288032e?w=800&auto=format&fit=crop&q=80`,               // 6  grilled meat wide
+  `${UNS}/photo-1484980972926-edee96e0960d?w=800&auto=format&fit=crop&q=80`,               // 7  dining scene wide
+  `${UNS}/photo-1414235077428-338989a2e8c0?w=800&auto=format&fit=crop&q=80`,               // 8  restaurant wide
+  `${UNS}/photo-1498654896293-37aacf113fd9?w=800&auto=format&fit=crop&q=80`,               // 9  street night wide
+  `${UNS}/photo-1525755662778-989d0524087e?w=800&auto=format&fit=crop&q=80`,               // 10 fire grill wide
+  `${UNS}/photo-1585325701956-60dd9c8553bc?w=800&auto=format&fit=crop&q=80`,               // 11 pork cuts wide
+  `${UNS}/photo-1626700051175-6818013e1d4f?w=800&auto=format&fit=crop&q=80`,               // 12 burrito spread wide
+]
+
+const vi = (i) => VENDOR_IMGS[i]
+const ci = (i) => COVER_IMGS[i]
 
 const SPECIALTIES = ['Party Trays', 'Carnitas', 'Tacos', 'Burritos', 'Quesadillas', 'Combos', 'Platillos']
 
@@ -27,7 +53,7 @@ export const MOCK_VENDORS = [
   {
     id: 'loc-1', name: 'El Rincón — Alum Rock', slug: 'alum-rock',
     description: 'Our flagship San Jose location on Alum Rock Ave. Auténticas carnitas cooked fresh daily since 2004. Party trays for any size gathering, delivered to your door.',
-    rating: 4.9, reviewCount: 287, image: vi(0), coverImage: ci(0),
+    rating: 4.9, reviewCount: 287, image: vi(0), coverImage: ci(0),  // Alum Rock — real El Rincón photos
     city: 'San Jose', address: '3141 Alum Rock Ave, San Jose, CA 95127',
     phone: '(408) 791-6422', hours: 'Everyday 10AM–6PM',
     deliveryZones: ['San Jose', 'Milpitas', 'Santa Clara'],
@@ -37,7 +63,7 @@ export const MOCK_VENDORS = [
   {
     id: 'loc-2', name: 'El Rincón — King Rd', slug: 'king-rd',
     description: 'East San Jose\'s home for authentic carnitas since 2007. Serving the neighborhood with party trays, combos, and everything from tacos to super burritos — all made fresh.',
-    rating: 4.8, reviewCount: 214, image: vi(1), coverImage: ci(1),
+    rating: 4.8, reviewCount: 214, image: vi(3), coverImage: ci(3),
     city: 'San Jose', address: '1199 S King Rd Ste 20, San Jose, CA 95122',
     phone: '(408) 708-4184', hours: 'Wkdy 9AM–6PM, Wknd 8AM–6PM',
     deliveryZones: ['San Jose', 'Evergreen', 'Milpitas'],
@@ -47,7 +73,7 @@ export const MOCK_VENDORS = [
   {
     id: 'loc-3', name: 'El Rincón — Keyes St', slug: 'keyes-st',
     description: 'Downtown San Jose\'s go-to carnitas spot. Our Keyes Street location is famous for weekday lunch crowds and has been feeding Silicon Valley workers for over a decade.',
-    rating: 4.7, reviewCount: 198, image: vi(2), coverImage: ci(2),
+    rating: 4.7, reviewCount: 198, image: vi(2), coverImage: ci(4),
     city: 'San Jose', address: '84 Keyes St, San Jose, CA 95112',
     phone: '(408) 947-9165', hours: 'Everyday 10AM–6PM',
     deliveryZones: ['San Jose', 'Santa Clara', 'Sunnyvale'],
@@ -57,7 +83,7 @@ export const MOCK_VENDORS = [
   {
     id: 'loc-4', name: 'El Rincón — Alma Ave', slug: 'alma-ave',
     description: 'South San Jose\'s carnitas destination. The Alma Ave team is known for the friendliest service in the Bay and the best mixtas in town. Try a combo — you won\'t regret it.',
-    rating: 4.8, reviewCount: 176, image: vi(3), coverImage: ci(3),
+    rating: 4.8, reviewCount: 176, image: vi(1), coverImage: ci(2),
     city: 'San Jose', address: '148 W Alma Ave, San Jose, CA 95110',
     phone: '(408) 297-1756', hours: 'Wkdy 10AM–6:30PM, Wknd 9AM–6:30PM',
     deliveryZones: ['San Jose', 'Campbell', 'Los Gatos'],
@@ -68,7 +94,7 @@ export const MOCK_VENDORS = [
   {
     id: 'loc-5', name: 'El Rincón — Gading Rd', slug: 'gading-rd',
     description: 'Serving Hayward with the same auténticas carnitas that made El Rincón famous. Our Gading Rd location handles party trays up to 100 people — call ahead for large orders.',
-    rating: 4.7, reviewCount: 156, image: vi(4), coverImage: ci(0),
+    rating: 4.7, reviewCount: 156, image: vi(9), coverImage: ci(6),
     city: 'Hayward', address: '26712 Gading Rd, Hayward, CA 94544',
     phone: '(510) 397-6904', hours: 'Wkdy 10AM–6PM, Wknd 9AM–6PM',
     deliveryZones: ['Hayward', 'Union City', 'Fremont'],
@@ -78,7 +104,7 @@ export const MOCK_VENDORS = [
   {
     id: 'loc-6', name: 'El Rincón — Tennyson Rd', slug: 'tennyson-rd',
     description: 'West Hayward\'s favorite carnitas spot since 2011. The Tennyson Road team serves everything from individual tacos to full 100-person party trays with the same love every time.',
-    rating: 4.6, reviewCount: 134, image: vi(5), coverImage: ci(1),
+    rating: 4.6, reviewCount: 134, image: vi(10), coverImage: ci(1),
     city: 'Hayward', address: '1108 W Tennyson Rd, Hayward, CA 94544',
     phone: '(510) 363-9291', hours: 'Wkdy 10AM–6PM, Wknd 9AM–6PM',
     deliveryZones: ['Hayward', 'San Leandro', 'Oakland'],
@@ -89,7 +115,7 @@ export const MOCK_VENDORS = [
   {
     id: 'loc-7', name: 'El Rincón — Middlefield Rd', slug: 'middlefield-rd',
     description: 'Peninsula carnitas lovers, this one\'s for you. Our Middlefield Rd location in Redwood City draws customers from across the Peninsula for weekend party trays and daily combos.',
-    rating: 4.9, reviewCount: 243, image: vi(0), coverImage: ci(2),
+    rating: 4.9, reviewCount: 243, image: vi(7), coverImage: ci(5),
     city: 'Redwood City', address: '2950 Middlefield Rd Spc #B, Redwood City, CA 94063',
     phone: '(650) 362-3223', hours: 'Everyday 10AM–6PM',
     deliveryZones: ['Redwood City', 'Menlo Park', 'East Palo Alto'],
@@ -99,7 +125,7 @@ export const MOCK_VENDORS = [
   {
     id: 'loc-8', name: 'El Rincón — El Camino Real', slug: 'el-camino-real',
     description: 'Right on El Camino Real for easy access from anywhere on the Peninsula. This location is a favorite for tech workers and families alike — party trays ready to go in 30 minutes.',
-    rating: 4.8, reviewCount: 189, image: vi(1), coverImage: ci(3),
+    rating: 4.8, reviewCount: 189, image: vi(14), coverImage: ci(11),
     city: 'Redwood City', address: '999 El Camino Real, Redwood City, CA 94063',
     phone: '(650) 362-3334', hours: 'Everyday 10AM–6PM',
     deliveryZones: ['Redwood City', 'San Carlos', 'Belmont'],
@@ -110,7 +136,7 @@ export const MOCK_VENDORS = [
   {
     id: 'loc-9', name: 'El Rincón — San Francisco', slug: 'san-francisco',
     description: 'Authentic carnitas in the heart of the Mission at 22nd St. SF locals have been driving here and calling in party tray orders for family gatherings across the Bay since 2015.',
-    rating: 4.9, reviewCount: 312, image: vi(2), coverImage: ci(0),
+    rating: 4.9, reviewCount: 312, image: vi(4), coverImage: ci(9),
     city: 'San Francisco', address: '3242 22nd St, San Francisco, CA 94110',
     phone: '(415) 757-9327', hours: 'Wkdy 10AM–6PM, Wknd 9AM–6PM',
     deliveryZones: ['San Francisco', 'Daly City', 'South San Francisco'],
@@ -121,7 +147,7 @@ export const MOCK_VENDORS = [
   {
     id: 'loc-10', name: 'El Rincón — Northgate Blvd', slug: 'northgate-sac',
     description: 'North Sacramento\'s carnitas headquarters. Our Northgate Blvd location serves the Sacramento community with the same El Rincón recipes perfected since 2004.',
-    rating: 4.7, reviewCount: 145, image: vi(3), coverImage: ci(1),
+    rating: 4.7, reviewCount: 145, image: vi(13), coverImage: ci(7),
     city: 'Sacramento', address: '2201 Northgate Blvd, Sacramento, CA 95833',
     phone: '(916) 274-4080', hours: 'Wkdy 10AM–6PM, Wknd 9AM–6PM',
     deliveryZones: ['Sacramento', 'Natomas', 'Rio Linda'],
@@ -131,7 +157,7 @@ export const MOCK_VENDORS = [
   {
     id: 'loc-11', name: 'El Rincón — Folsom Blvd', slug: 'folsom-blvd',
     description: 'East Sacramento\'s favorite carnitas. The Folsom Blvd team takes pride in every tray and every taco. Weekend specials include whole chicken and fresh barbacoa.',
-    rating: 4.6, reviewCount: 128, image: vi(4), coverImage: ci(2),
+    rating: 4.6, reviewCount: 128, image: vi(15), coverImage: ci(8),
     city: 'Sacramento', address: '9007 Folsom Blvd, Sacramento, CA 95826',
     phone: '(916) 469-9183', hours: 'Wkdy 10AM–6PM, Wknd 9AM–6PM',
     deliveryZones: ['Sacramento', 'Rancho Cordova', 'Elk Grove'],
@@ -141,7 +167,7 @@ export const MOCK_VENDORS = [
   {
     id: 'loc-12', name: 'El Rincón — Florin Rd', slug: 'florin-rd',
     description: 'South Sacramento knows carnitas, and El Rincón on Florin Rd is the gold standard. Family-sized party trays, combos that fill you up, and service that keeps you coming back.',
-    rating: 4.7, reviewCount: 162, image: vi(5), coverImage: ci(3),
+    rating: 4.7, reviewCount: 162, image: vi(16), coverImage: ci(0),
     city: 'Sacramento', address: '6530 Florin Rd, Sacramento, CA 95828',
     phone: '(916) 476-5410', hours: 'Wkdy 10AM–6PM, Wknd 9AM–6PM',
     deliveryZones: ['Sacramento', 'Elk Grove', 'Florin'],
@@ -152,7 +178,7 @@ export const MOCK_VENDORS = [
   {
     id: 'loc-13', name: 'El Rincón — Woodland', slug: 'woodland',
     description: 'Yolo County\'s destination for authentic Michoacán-style carnitas. Our Woodland location on E Main St brings the full El Rincón experience to the Sacramento Valley.',
-    rating: 4.8, reviewCount: 118, image: vi(0), coverImage: ci(0),
+    rating: 4.8, reviewCount: 118, image: vi(17), coverImage: ci(10),
     city: 'Woodland', address: '1780 E Main St, Woodland, CA 95776',
     phone: '(530) 665-6262', hours: 'Wkdy 10AM–6PM, Wknd 9AM–6PM',
     deliveryZones: ['Woodland', 'Davis', 'West Sacramento'],
@@ -162,7 +188,7 @@ export const MOCK_VENDORS = [
   {
     id: 'loc-14', name: 'El Rincón — Vallejo', slug: 'vallejo',
     description: 'Solano County\'s carnitas connection. The Vallejo crew on Tennessee St stays open until 7PM on weekends so you can place that last-minute party tray order for Sunday family dinners.',
-    rating: 4.6, reviewCount: 107, image: vi(1), coverImage: ci(1),
+    rating: 4.6, reviewCount: 107, image: vi(5), coverImage: ci(3),
     city: 'Vallejo', address: '818 Tennessee St, Vallejo, CA 94590',
     phone: '(707) 654-8280', hours: 'Wkdy 10AM–6PM, Wknd 9AM–7PM',
     deliveryZones: ['Vallejo', 'Benicia', 'American Canyon'],
@@ -172,7 +198,7 @@ export const MOCK_VENDORS = [
   {
     id: 'loc-15', name: 'El Rincón — Lodi', slug: 'lodi',
     description: 'San Joaquin Valley carnitas done right. Our Lodi location on Church St has become a staple for the whole region — from quinceañeras to backyard carne asadas, we\'ve got you covered.',
-    rating: 4.7, reviewCount: 93, image: vi(2), coverImage: ci(2),
+    rating: 4.7, reviewCount: 93, image: vi(6), coverImage: ci(2),
     city: 'Lodi', address: '1413 Church St, Lodi, CA 95240',
     phone: '(209) 263-7311', hours: 'Wkdy 10AM–6PM, Wknd 9AM–6PM',
     deliveryZones: ['Lodi', 'Stockton', 'Galt'],
@@ -182,7 +208,7 @@ export const MOCK_VENDORS = [
   {
     id: 'loc-16', name: 'El Rincón — Fairfield', slug: 'fairfield',
     description: 'Fairfield and the greater Solano County community can count on El Rincón on N Texas St for fresh daily carnitas. Open every day of the week — no day is a bad day for carnitas.',
-    rating: 4.6, reviewCount: 88, image: vi(3), coverImage: ci(3),
+    rating: 4.6, reviewCount: 88, image: vi(8), coverImage: ci(1),
     city: 'Fairfield', address: '1785 N Texas St, Fairfield, CA 94533',
     phone: '(707) 673-2633', hours: 'Everyday 10AM–6PM',
     deliveryZones: ['Fairfield', 'Vacaville', 'Suisun City'],
@@ -192,7 +218,7 @@ export const MOCK_VENDORS = [
   {
     id: 'loc-17', name: 'El Rincón — Yuba City', slug: 'yuba-city',
     description: 'Northern California\'s carnitas haven. Yuba City opens early on weekends at 8AM so you can get your party trays prepped and ready before the fiesta begins.',
-    rating: 4.7, reviewCount: 76, image: vi(4), coverImage: ci(0),
+    rating: 4.7, reviewCount: 76, image: vi(18), coverImage: ci(12),
     city: 'Yuba City', address: '511 2nd St, Yuba City, CA 95991',
     phone: '(530) 763-5753', hours: 'Wkdy 10AM–6PM, Wknd 8AM–6PM',
     deliveryZones: ['Yuba City', 'Marysville', 'Wheatland'],
@@ -202,7 +228,7 @@ export const MOCK_VENDORS = [
   {
     id: 'loc-18', name: 'El Rincón — Modesto', slug: 'modesto',
     description: 'The Central Valley\'s best carnitas are right here on Yosemite Blvd. Our Modesto location has been a community staple for years — party trays, combos, and weekend specials every week.',
-    rating: 4.8, reviewCount: 112, image: vi(5), coverImage: ci(1),
+    rating: 4.8, reviewCount: 112, image: vi(11), coverImage: ci(8),
     city: 'Modesto', address: '1524 Yosemite Blvd, Modesto, CA 95354',
     phone: '(209) 408-8628', hours: 'Wkdy 10AM–6PM, Wknd 9AM–6PM',
     deliveryZones: ['Modesto', 'Ceres', 'Turlock'],
@@ -212,7 +238,7 @@ export const MOCK_VENDORS = [
   {
     id: 'loc-19', name: 'El Rincón — Chico', slug: 'chico',
     description: 'Our newest location brings auténticas carnitas to Northern California\'s college town. El Rincón on Main St in Chico is already a favorite for students, families, and everyone in between.',
-    rating: 4.5, reviewCount: 61, image: vi(0), coverImage: ci(2),
+    rating: 4.5, reviewCount: 61, image: vi(12), coverImage: ci(7),
     city: 'Chico', address: '1020 Main St, Chico, CA 95928',
     phone: '(530) 570-3499', hours: 'Wkdy 10AM–6PM, Wknd 9AM–6PM',
     deliveryZones: ['Chico', 'Paradise', 'Oroville'],

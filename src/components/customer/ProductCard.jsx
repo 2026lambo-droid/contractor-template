@@ -35,12 +35,15 @@ export function ProductCard({ product, onAdd }) {
   )
 }
 
-export function QuantitySelector({ value, onChange, min = 1, max = 20 }) {
+export function QuantitySelector({ value, onChange, min = 1, max = 20, step = 1 }) {
+  const dec = () => onChange(+(Math.max(min, value - step)).toFixed(2))
+  const inc = () => onChange(+(Math.min(max, value + step)).toFixed(2))
+  const display = value % 1 === 0 ? value : value.toFixed(1)
   return (
     <div className="qty-selector">
-      <button className="qty-btn" onClick={() => onChange(Math.max(min, value - 1))}>−</button>
-      <span className="qty-val">{value}</span>
-      <button className="qty-btn" onClick={() => onChange(Math.min(max, value + 1))}>+</button>
+      <button className="qty-btn" onClick={dec}>−</button>
+      <span className="qty-val">{display}</span>
+      <button className="qty-btn" onClick={inc}>+</button>
     </div>
   )
 }

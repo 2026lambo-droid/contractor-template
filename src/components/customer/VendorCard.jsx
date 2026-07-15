@@ -1,62 +1,53 @@
 import { useNavigate } from 'react-router-dom'
-import { Star, Clock, MapPin, Heart } from 'lucide-react'
-import { useFavorites } from '../../contexts/FavoritesContext'
+import { Star, Clock, MapPin, ChevronRight } from 'lucide-react'
 
 export function VendorCard({ vendor }) {
   const navigate = useNavigate()
-  const { isFavorite, toggle } = useFavorites()
-  const fav = isFavorite(vendor.id)
 
   return (
-    <div className="card" onClick={() => navigate(`/vendors/${vendor.id}`)} style={{ cursor: 'pointer', marginBottom: 12 }}>
-      <div style={{ position: 'relative', height: 160, overflow: 'hidden' }}>
+    <div
+      onClick={() => navigate(`/vendors/${vendor.id}`)}
+      style={{
+        display: 'flex', alignItems: 'center', gap: 12,
+        padding: '14px 0', borderBottom: '1px solid var(--border)',
+        cursor: 'pointer',
+      }}
+    >
+      {/* Thumbnail */}
+      <div style={{ width: 52, height: 52, borderRadius: 10, overflow: 'hidden', flexShrink: 0, position: 'relative' }}>
         <img src={vendor.image} alt={vendor.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 40%, rgba(15,10,8,0.9) 100%)' }} />
         {!vendor.isOpen && (
-          <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <span className="chip chip-muted" style={{ fontSize: 13 }}>Closed Now</span>
+          <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ fontSize: 8, color: 'white', fontWeight: 700 }}>CLOSED</span>
           </div>
         )}
-        <div style={{ position: 'absolute', top: 10, right: 10, display: 'flex', gap: 6 }}>
-          <button
-            onClick={e => { e.stopPropagation(); toggle(vendor.id) }}
-            style={{ width: 30, height: 30, borderRadius: '50%', background: 'rgba(15,10,8,0.7)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
-          >
-            <Heart size={14} fill={fav ? '#ef4444' : 'transparent'} color={fav ? '#ef4444' : 'rgba(255,255,255,0.8)'} />
-          </button>
-          <span className="chip chip-success" style={{ fontSize: 11 }}>
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--success)', display: 'inline-block' }} />
-            {vendor.isOpen ? 'Open' : 'Closed'}
-          </span>
+      </div>
+
+      {/* Info */}
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+          <span style={{ fontSize: 14, fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{vendor.name}</span>
+          {vendor.isOpen
+            ? <span style={{ fontSize: 10, color: 'var(--success)', fontWeight: 700, flexShrink: 0 }}>● Open</span>
+            : <span style={{ fontSize: 10, color: 'var(--text-muted)', fontWeight: 600, flexShrink: 0 }}>Closed</span>}
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+            <Star size={10} fill="var(--warning)" color="var(--warning)" />
+            <span style={{ fontSize: 11, fontWeight: 600 }}>{vendor.rating}</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+            <Clock size={10} color="var(--text-muted)" />
+            <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>{vendor.estimatedDelivery}</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+            <MapPin size={10} color="var(--text-muted)" />
+            <span style={{ fontSize: 11, color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 100 }}>{vendor.city}</span>
+          </div>
         </div>
       </div>
-      <div style={{ padding: '12px 14px 14px' }}>
-        <div className="row-between" style={{ marginBottom: 6 }}>
-          <h3 style={{ fontSize: 15, fontWeight: 700, flex: 1, marginRight: 8 }}>{vendor.name}</h3>
-          <div className="rating">
-            <Star size={12} fill="currentColor" />
-            {vendor.rating} <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}>({vendor.reviewCount})</span>
-          </div>
-        </div>
-        <p style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 10, lineHeight: 1.5 }}>
-          {vendor.description.length > 100 ? vendor.description.slice(0, 100) + '…' : vendor.description}
-        </p>
-        <div className="row" style={{ gap: 12 }}>
-          <div className="row gap-4 text-sm text-muted">
-            <MapPin size={12} />
-            <span>{vendor.city}</span>
-          </div>
-          <div className="row gap-4 text-sm text-muted">
-            <Clock size={12} />
-            <span>{vendor.estimatedDelivery}</span>
-          </div>
-        </div>
-        <div className="row" style={{ gap: 6, marginTop: 10, flexWrap: 'wrap' }}>
-          {vendor.specialties.map(s => (
-            <span key={s} className="chip chip-primary" style={{ fontSize: 10, padding: '4px 8px' }}>{s}</span>
-          ))}
-        </div>
-      </div>
+
+      <ChevronRight size={16} color="var(--text-muted)" flexShrink={0} />
     </div>
   )
 }
@@ -64,8 +55,8 @@ export function VendorCard({ vendor }) {
 export function VendorCardCompact({ vendor }) {
   const navigate = useNavigate()
   return (
-    <div onClick={() => navigate(`/vendors/${vendor.id}`)} style={{ cursor: 'pointer', width: 200 }}>
-      <div style={{ width: 200, height: 130, borderRadius: 'var(--radius)', overflow: 'hidden', position: 'relative', marginBottom: 8 }}>
+    <div onClick={() => navigate(`/vendors/${vendor.id}`)} style={{ cursor: 'pointer', width: 160, flexShrink: 0 }}>
+      <div style={{ width: 160, height: 110, borderRadius: 'var(--radius)', overflow: 'hidden', position: 'relative', marginBottom: 8 }}>
         <img src={vendor.image} alt={vendor.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         {!vendor.isOpen && (
           <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.55)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -73,9 +64,12 @@ export function VendorCardCompact({ vendor }) {
           </div>
         )}
       </div>
-      <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 2 }}>{vendor.name}</div>
-      <div className="row gap-8">
-        <div className="rating" style={{ fontSize: 11 }}><Star size={10} fill="currentColor" />{vendor.rating}</div>
+      <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 3, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{vendor.name}</div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+          <Star size={10} fill="var(--warning)" color="var(--warning)" />
+          <span style={{ fontSize: 11, fontWeight: 600 }}>{vendor.rating}</span>
+        </div>
         <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>{vendor.estimatedDelivery}</span>
       </div>
     </div>

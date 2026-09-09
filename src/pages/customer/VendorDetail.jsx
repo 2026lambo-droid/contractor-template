@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowLeft, Star, MapPin, Clock, Phone, Heart, Share2, Search, Plus, ChevronRight } from 'lucide-react'
+import { ArrowLeft, Star, MapPin, Clock, Phone, Heart, Share2, Search, ShoppingCart, ChevronRight, X } from 'lucide-react'
 import { useCart } from '../../contexts/CartContext'
 import { useToast } from '../../contexts/ToastContext'
 import { useFavorites } from '../../contexts/FavoritesContext'
@@ -24,7 +24,7 @@ function maxQty(unit) {
 export function VendorDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { addItem } = useCart()
+  const { addItem, items: cartItems, subtotal: cartSubtotal } = useCart()
   const { toast } = useToast()
   const { isFavorite, toggle: toggleFav } = useFavorites()
 
@@ -40,6 +40,8 @@ export function VendorDetail() {
   const [showReviews, setShowReviews] = useState(false)
   const [showMixBuilder, setShowMixBuilder] = useState(false)
   const [mixQty, setMixQty] = useState({})
+
+  const cartCount = cartItems.reduce((s, i) => s + i.quantity, 0)
 
   const storedReviews = JSON.parse(localStorage.getItem('elrincon_reviews') || '[]').filter(r => r.vendorId === id)
   const allReviews = [...storedReviews.map(r => ({ ...r, reviewerName: 'You' })), ...(MOCK_REVIEWS[id] || [])]
@@ -93,6 +95,12 @@ export function VendorDetail() {
 
   const handleAdd = (product) => {
     if (!product.inStock) return
+    // Simple items (no meat choice, not by lb) → instant add, no sheet
+    if (!product.options?.meatType && product.unit !== 'lb') {
+      addItem(product, 1, {})
+      toast(`${product.name} added!`, 'success')
+      return
+    }
     setAddingProduct(product)
     setQuantity(product.unit === 'lb' ? 0.5 : 1)
     setMeatType('mixtas')
@@ -148,6 +156,16 @@ export function VendorDetail() {
           <button onClick={() => toggleFav(vendor.id)} style={{ width: 36, height: 36, borderRadius: 10, background: 'var(--bg-surface)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
             <Heart size={15} fill={fav ? '#ef4444' : 'transparent'} color={fav ? '#ef4444' : 'currentColor'} />
           </button>
+          <div style={{ position: 'relative' }}>
+            <button onClick={() => navigate('/cart')} style={{ width: 36, height: 36, borderRadius: 10, background: cartCount > 0 ? 'var(--primary)' : 'var(--bg-surface)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+              <ShoppingCart size={15} color={cartCount > 0 ? 'white' : 'currentColor'} />
+            </button>
+            {cartCount > 0 && (
+              <div style={{ position: 'absolute', top: -5, right: -5, background: '#ef4444', color: 'white', fontSize: 9, fontWeight: 800, minWidth: 16, height: 16, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 3px' }}>
+                {cartCount}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Info strip */}
@@ -268,13 +286,20 @@ export function VendorDetail() {
                       <span className="price" style={{ fontSize: 14 }}>{formatPrice(p.pricePerLb)}</span>
                       <span style={{ fontSize: 10, color: 'var(--text-muted)' }}>/{unitDisplay(p.unit)}</span>
                     </div>
-                    {p.inStock && (
-                      <button
-                        onClick={e => { e.stopPropagation(); handleAdd(p) }}
-                        style={{ width: 30, height: 30, borderRadius: '50%', background: 'var(--primary)', border: 'none', color: 'white', fontSize: 20, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flexShrink: 0, lineHeight: 1 }}>
-                        +
-                      </button>
-                    )}
+                    {p.inStock && (() => {
+                      const needsSheet = p.options?.meatType || p.unit === 'lb'
+                      return (
+                        <button
+                          onClick={e => { e.stopPropagation(); handleAdd(p) }}
+                          style={{ width: 30, height: 30, borderRadius: '50%', fontSize: 20, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flexShrink: 0, lineHeight: 1,
+                            background: needsSheet ? 'var(--bg-surface)' : 'var(--primary)',
+                            border: needsSheet ? '1.5px solid var(--primary)' : 'none',
+                            color: needsSheet ? 'var(--primary-light)' : 'white',
+                          }}>
+                          +
+                        </button>
+                      )
+                    })()}
                   </div>
                 </div>
               </div>
@@ -369,6 +394,22 @@ export function VendorDetail() {
               Add to Cart · {formatPrice(addingProduct.pricePerLb * quantity)}
             </button>
           </div>
+        </div>
+      )}
+
+      {/* ── Persistent cart bar ── */}
+      {cartCount > 0 && (
+        <div style={{
+          position: 'fixed', bottom: 0, left: '50%', transform: 'translateX(-50%)',
+          width: '100%', maxWidth: 430, padding: '10px 16px 24px',
+          background: 'linear-gradient(to top, var(--bg-page,var(--bg)) 65%, transparent)',
+          zIndex: 25, pointerEvents: 'none',
+        }}>
+          <button onClick={() => navigate('/cart')} className="btn btn-gradient btn-full"
+            style={{ height: 52, fontSize: 15, fontWeight: 800, pointerEvents: 'auto', boxShadow: '0 6px 24px rgba(249,156,76,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+            <ShoppingCart size={17} />
+            View Cart · {cartCount} item{cartCount !== 1 ? 's' : ''} · {formatPrice(cartSubtotal)}
+          </button>
         </div>
       )}
 
